@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Account extends Model
 {
@@ -27,5 +28,20 @@ class Account extends Model
      */
     public function user() : BelongsTo {
         return $this->belongsTo(User::class);
+    }
+
+
+    /**
+     * Relacion a Transactions.
+     * 
+     * Es importante especificar que retorna un HasMany porque 
+     * la librería Lighthouse (la librería que construye nuestro 
+     * GraphQL server) usa los return para Optimizar las 
+     * Consultas que hace a la Base de Datos.
+     *
+     * @return HasMany
+     */
+    public function transactions() : HasMany {
+        return $this->hasMany(Transaction::class);
     }
 }

@@ -1,4 +1,6 @@
 
+#import transaction.graphql
+
 "A datetime string with format `Y-m-d H:i:s`, e.g. `2018-01-01 13:00:00`."
 scalar DateTime @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\DateTime")
 
@@ -46,6 +48,7 @@ input CreateAccountInput{
     description: String
 }
 
+
 # Los Mutations en graphql sirven para modificar algo en nuestro backend (update, create, etc.)
 extend type Mutation {
     # Mutation para crear una cuenta. CreateAccountInput define los parametros que espera
@@ -53,4 +56,6 @@ extend type Mutation {
     # @inject para inyectar el usuario que esta autenticado a mi API, y no pedir el user_id como tal.
     # @guard verifica que el usuario esté autenticado."
     createAccount(input: CreateAccountInput! @spread): Account @create @inject(context: "user.id", name: "user_id") @guard(with: ["api"])
+
+    createTransaction(input: CreateTransactionInput! @spread): Transaction @create @guard(with: ["api"])
 }
