@@ -1,13 +1,11 @@
-## Aplicación web para controlar gastos e ingresos | Laravel | GraphQL  
+<h2 align="center">WebApp control de gastos e ingresos | Laravel | GraphQL</h2>
 
+Uso de **Lighthouse PHP** para crear GraphQL API's en Laravel.
+Artículo crear un servidor de Autenticacion con Passport y Lighthouse para API GraphQL; https://dev.to/joselfonseca/graphql-auth-with-passport-and-lighthouse-php-14g5.
 
-#### Lighthouse
-Librería para crear GraphQL API's en Laravel.
-Artículo crear un servidor de Autenticacion con Passport y Lighthouse para mi API GraphQL; https://dev.to/joselfonseca/graphql-auth-with-passport-and-lighthouse-php-14g5.
+La instalación y configuracion de Laravel Passport desde la documentación oficial de laravel: https://laravel.com/docs/7.x/passport. 
 
-La instalación y configuracion de Laravel Passport se puede seguir desde la documentación oficial de laravel: https://laravel.com/docs/7.x/passport. 
-
-Crear servidor de autenticacion para la API GraphQL (siguiendo la documentacion de laravel o el artículo, es igual):
+Crear servidor de autenticacion para la API GraphQL:
 - `composer require nuwave/lighthouse laravel/passport joselfonseca/lighthouse-graphql-passport-auth`. Instala lighthouse, laravel passport y el paquete de Jose Fonseca.
 - `php artisan migrate`
 - `php artisan passport:install`. Crear dos clientes para utilizar con Laravel Passport.
@@ -16,4 +14,4 @@ Crear servidor de autenticacion para la API GraphQL (siguiendo la documentacion 
 - Cambiar el driver `api` a `passport` (por defecto está en `tokens`) dentro de config/app.php
 - `php artisan vendor:publish --provider="Nuwave\Lighthouse\LighthouseServiceProvider" --tag=schema` para publicar el schema del API.
 
-<small>16:09</small>
+<small>1. 16:09</small>

@@ -11,10 +11,45 @@ type Query {
     users: [User!]! @paginate(type: "paginator" model: "App\\User")
     user(id: ID @eq): User @find(model: "App\\User")
 }
+
 type User {
     id: ID!
     name: String!
     email: String!
+    accounts: [Account] @hasMany
     created_at: DateTime!
     updated_at: DateTime!
+}
+
+# Defino una cuenta y sus campos (el modelo).
+# Con ! establece que es requerido (sin ! sería nullable).
+type Account {
+    id: ID!
+    name: String!
+    balance: Float
+    color: String
+    # en lugar de especificar el user_id se establece una relación para 
+    # que este modelo devuelva el usuario completo con sus campos.
+    # con @ se especifica el tipo de relación.
+    user: User! @belongsTo 
+    description: String
+    created_at: DateTime!
+    updated_at: DateTime!
+}
+
+# Agrupo los campos para crear una nueva Account.
+input CreateAccountInput{
+    name: String!
+    balance: Float
+    color: String
+    description: String
+}
+
+# Los Mutations en graphql sirven para modificar algo en nuestro backend (update, create, etc.)
+extend type Mutation {
+    # Mutation para crear una cuenta. CreateAccountInput define los parametros que espera
+    # @create para generar un nuevo modelo eloquent de laravel con los parametros dados.
+    # @inject para inyectar el usuario que esta autenticado a mi API, y no pedir el user_id como tal.
+    # @guard verifica que el usuario esté autenticado."
+    createAccount(input: CreateAccountInput! @spread): Account @create @inject(context: "user.id", name: "user_id") @guard(with: ["api"])
 }
