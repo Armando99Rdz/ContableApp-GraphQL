@@ -10,6 +10,7 @@ type Mutation
 type Query {
     users: [User!]! @paginate(type: "paginator" model: "App\\User")
     user(id: ID @eq): User @find(model: "App\\User")
+    me: User! @auth
 }
 
 type User {
@@ -26,7 +27,7 @@ type User {
 type Account {
     id: ID!
     name: String!
-    balance: Float
+    balance: Float 
     color: String
     # en lugar de especificar el user_id se establece una relación para 
     # que este modelo devuelva el usuario completo con sus campos.
@@ -40,7 +41,7 @@ type Account {
 # Agrupo los campos para crear una nueva Account.
 input CreateAccountInput{
     name: String!
-    balance: Float
+    balance: Float @rules(apply: ["gte:0"]) # balance debe ser mayor o igual a 0
     color: String
     description: String
 }
