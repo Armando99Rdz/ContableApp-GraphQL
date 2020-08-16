@@ -28,9 +28,11 @@ Correr un test en específico `vendor/bin/phpunit --filter [test_name]` (en la c
 #### Factory Generator
 https://github.com/mpociot/laravel-test-factory-helper
 
-
 #### Mis observers (app/observers/)
 create a new observer: `php artisan make:observer [name]`.
 - `TransactionObserver`.
+
+#### Mis policies (app/plicies/)
+- `AccountPolicy`
 
 <p align="right">1. 16:09</p>

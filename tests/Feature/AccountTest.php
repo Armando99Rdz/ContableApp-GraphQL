@@ -3,6 +3,8 @@
 namespace Tests\Feature;
 
 use App\User;
+use App\Account;
+use GraphQL\GraphQL;
 use Tests\TestCase;
 use Laravel\Passport\Passport;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -163,6 +165,123 @@ class AccountTest extends TestCase
         $this->assertDatabaseMissing('accounts', [
             'name' => 'Cuenta Error',
             'user_id' => $user->id
+        ]);
+    }
+
+
+
+    /**
+     * Validar que se pueda actualizar una cuenta
+     *
+     * @return void
+     */
+    function test_it_can_update_an_account(){
+
+        // Preparación
+        $user =  factory(User::class)->create();
+        $account = factory(Account::class)->create([
+            'name' => 'Wallet',
+            'color' => '#fff',
+            'description' => 'Principal',
+            'user_id' => $user->id,
+            'balance' => 100,
+        ]); # crea un Account en 0 para el usuario de prueba
+        Passport::actingAs($user); # actingAs para establecer este usuario como autenticado.
+
+        // execute
+        $response = $this->graphQL('
+            mutation {
+                updateAccount(id:'.$account->id.', input: {
+                    name: "Savings"
+                    color: "white"
+                    description: "Ahorros"
+                }){
+                    id
+                    name
+                    color
+                    description
+                    balance
+                }
+            }
+        ');
+
+        // assert
+        $response->assertJson([
+            'data' => [
+                'updateAccount' => [
+                    'id' => $account->id,
+                    'name' => 'Savings',
+                    'color' => 'white',
+                    'description' => 'Ahorros',
+                    'balance' => $account->balance
+                ]
+            ]
+        ]);
+                
+        $this->assertDatabaseHas('accounts', [
+            'id' => $account->id,
+            'name' => 'Savings',
+            'color' => 'white',
+            'description' => 'Ahorros',
+            'user_id' => $user->id,
+        ]);
+    }
+
+
+    /**
+     * Verificar que no se pueda actualizar una cuenta
+     * por otro usuario distinto al dueño.
+     *
+     * @return void
+     */
+    function test_it_cant_update_an_account_when_not_owner(){
+
+        // Preparación
+        $user =  factory(User::class)->create();
+        $user2 =  factory(User::class)->create();
+        $account = factory(Account::class)->create([
+            'name' => 'Wallet',
+            'color' => '#fff',
+            'description' => 'Principal',
+            'user_id' => $user->id,
+            'balance' => 100,
+        ]); # crea un Account en 0 para el usuario de prueba
+
+        # hacer el request con otro usuario.
+        Passport::actingAs($user2); 
+
+        // execute
+        $response = $this->graphQL('
+            mutation {
+                updateAccount(id:'.$account->id.', input: {
+                    name: "Savings"
+                    color: "white"
+                    description: "Ahorros"
+                }){
+                    id
+                    name
+                    color
+                    description
+                    balance
+                }
+            }
+        ');
+
+        // assert
+        $response->assertJson([
+            'errors' => [
+                [
+                    'message' => 'You are not authorized to access updateAccount'
+                ]
+            ]
+        ]);
+                
+        $this->assertDatabaseMissing('accounts', [
+            'id' => $account->id,
+            'name' => 'Savings',
+            'color' => 'white',
+            'description' => 'Ahorros',
+            'user_id' => $user2->id,
         ]);
     }
 }

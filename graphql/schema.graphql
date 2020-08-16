@@ -48,14 +48,24 @@ input CreateAccountInput{
     description: String
 }
 
+input UpdateAccountInput{
+    name: String
+    color: String
+    description: String
+}
+
 
 # Los Mutations en graphql sirven para modificar algo en nuestro backend (update, create, etc.)
 extend type Mutation {
+
     # Mutation para crear una cuenta. CreateAccountInput define los parametros que espera
     # @create para generar un nuevo modelo eloquent de laravel con los parametros dados.
     # @inject para inyectar el usuario que esta autenticado a mi API, y no pedir el user_id como tal.
     # @guard verifica que el usuario esté autenticado."
     createAccount(input: CreateAccountInput! @spread): Account @create @inject(context: "user.id", name: "user_id") @guard(with: ["api"])
 
+    updateAccount(id: ID!, input: UpdateAccountInput! @spread): Account @update @can(ability:"update", find: "id") @guard(with: ["api"])
+
     createTransaction(input: CreateTransactionInput! @spread): Transaction @create @guard(with: ["api"])
+
 }

@@ -17,6 +17,16 @@ class Account extends Model
     ];
 
     /**
+     * Hacer cast user_id a Integer
+     *
+     * @var array
+     */
+    #protected $casts = [
+    #    'user_id' => 'Int'
+    #];
+
+
+    /**
      * Relacion a usuario.
      * 
      * Es importante especificar que retorna un BelongsTo porque 

@@ -15,10 +15,10 @@ class TransactionObserver
     public function created(Transaction $transaction){
         $account = $transaction->account;
         if($transaction->type === 'INCOME'){
-            $account->balance = $transaction->balance + $transaction->amount;
+            $account->balance = $account->balance + $transaction->amount;
             return $account->save();
         }else{
-            $account->balance = $transaction->balance - $transaction->amount;
+            $account->balance = $account->balance - $transaction->amount;
             return $account->save();
         }
     }
