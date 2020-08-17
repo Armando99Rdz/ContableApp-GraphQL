@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\User;
 use App\Account;
+use App\Transaction;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -124,6 +125,262 @@ class TransactionsTest extends TestCase
                 ]
             ]
         ]);
+    }
+
+
+    /**
+     * Verificar update cuando se modifique el type de la transaccion
+     * de INCOME a EXPENSE.
+     *
+     * @return void
+     */
+    function test_it_can_update_a_transaction(){
+
+        $user = factory(User::class)->create();
+        $account = factory(Account::class)->create([
+            'user_id' => $user->id,
+            'balance' => 100,
+        ]); 
+        $transaction = factory(Transaction::class)->state('income')->create([
+            'account_id' => $account->id,
+            'amount' => 50 # entran 50 a la cuenta 
+        ]);
+        # verificar que la cuanta ahora tenga 150 en balance.
+        $this->assertEquals(150, $account->fresh()->balance);
+        Passport::actingAs($user);
+
+        // Execute
+        $response = $this->graphQL('
+            mutation {
+                updateTransaction(id: '.$transaction->id.', input: {
+                    amount: 20
+                }) {
+                    type
+                    amount
+                    description
+                    account {
+                        id
+                        name
+                        balance
+                    }
+                }
+            }
+        ');
+
+        $response->assertJson([
+            'data' => [
+                'updateTransaction' => [
+                    'type' => 'INCOME',
+                    'amount' => 20.00,
+                    'description' => $transaction->description,
+                    'account' => [
+                        'balance' => 120.00
+                    ]
+                ]
+            ]
+        ]);
+
+    }
+
+
+    /**
+     * Verificar update cuando se modifique el type de la transaccion
+     * de EXPENSE a INCOME.
+     *
+     * @return void
+     */
+    function test_it_can_update_a_transaction_case_2(){
+
+        $user = factory(User::class)->create();
+        $account = factory(Account::class)->create([
+            'user_id' => $user->id,
+            'balance' => 100,
+        ]); 
+        $transaction = factory(Transaction::class)->state('expense')->create([
+            'account_id' => $account->id,
+            'amount' => 50 # entran 50 a la cuenta 
+        ]);
+        # verificar que la cuanta ahora tenga 150 en balance.
+        $this->assertEquals(50, $account->fresh()->balance);
+        Passport::actingAs($user);
+
+        // Execute
+        $response = $this->graphQL('
+            mutation {
+                updateTransaction(id: '.$transaction->id.', input: {
+                    amount: 20
+                }) {
+                    type
+                    amount
+                    description
+                    account {
+                        id
+                        name
+                        balance
+                    }
+                }
+            }
+        ');
+
+        $response->assertJson([
+            'data' => [
+                'updateTransaction' => [
+                    'type' => 'EXPENSE',
+                    'amount' => 20.00,
+                    'description' => $transaction->description,
+                    'account' => [
+                        'balance' => 80.00
+                    ]
+                ]
+            ]
+        ]);
+
+    }
+
+
+    /**
+     * Verificar update de Transaction cuando NO sea dueño de la cuenta.
+     *
+     * @return void
+     */
+    function test_it_can_update_a_transaction_when_not_owner(){
+
+        $user = factory(User::class)->create();
+        $user2 =  factory(User::class)->create();
+        $account = factory(Account::class)->create([
+            'user_id' => $user->id,
+            'balance' => 100,
+        ]); 
+        $transaction = factory(Transaction::class)->state('expense')->create([
+            'account_id' => $account->id,
+            'amount' => 50 # entran 50 a la cuenta 
+        ]);
+        # verificar que la cuanta ahora tenga 150 en balance.
+        $this->assertEquals(50, $account->fresh()->balance);
+        Passport::actingAs($user2);
+
+        // Execute
+        $response = $this->graphQL('
+            mutation {
+                updateTransaction(id: '.$transaction->id.', input: {
+                    amount: 20
+                }) {
+                    type
+                    amount
+                    description
+                    account {
+                        id
+                        name
+                        balance
+                    }
+                }
+            }
+        ');
+
+        $response->assertJson([
+            'errors' => [
+                [
+                    'message' => 'You are not authorized to access updateTransaction'
+                ]
+            ]
+        ]);
+
+    }
+
+
+    /**
+     * Verificar delete a un transacción.
+     *
+     * @return void
+     */
+    function test_it_can_delete_a_transaction(){
+
+        $user = factory(User::class)->create();
+        $account = factory(Account::class)->create([
+            'user_id' => $user->id,
+            'balance' => 100,
+        ]); 
+        $transaction = factory(Transaction::class)->state('expense')->create([
+            'account_id' => $account->id,
+            'amount' => 50 # entran 50 a la cuenta 
+        ]);
+        $this->assertEquals(50, $account->fresh()->balance);
+        Passport::actingAs($user);
+
+        // Execute
+        $response = $this->graphQL('
+            mutation {
+                deleteTransaction(id: '.$transaction->id.') {
+                    type
+                    amount
+                    description
+                    account {
+                        id
+                        name
+                        balance
+                    }
+                }
+            }
+        ');
+
+        $response->assertJson([
+            'data' => [
+                'deleteTransaction' => [
+                    'account' => [
+                        'balance' => 100.00
+                    ]
+                ]
+            ]
+        ]);
+
+    }
+
+
+    /**
+     * Verificar delete a un transacción de tipo income.
+     *
+     * @return void
+     */
+    function test_it_can_delete_a_transaction_case_2(){
+
+        $user = factory(User::class)->create();
+        $account = factory(Account::class)->create([
+            'user_id' => $user->id,
+            'balance' => 100,
+        ]); 
+        $transaction = factory(Transaction::class)->state('income')->create([
+            'account_id' => $account->id,
+            'amount' => 50 # entran 50 a la cuenta 
+        ]);
+        $this->assertEquals(150, $account->fresh()->balance);
+        Passport::actingAs($user);
+
+        // Execute
+        $response = $this->graphQL('
+            mutation {
+                deleteTransaction(id: '.$transaction->id.') {
+                    type
+                    amount
+                    description
+                    account {
+                        id
+                        name
+                        balance
+                    }
+                }
+            }
+        ');
+
+        $response->assertJson([
+            'data' => [
+                'deleteTransaction' => [
+                    'account' => [
+                        'balance' => 100.00
+                    ]
+                ]
+            ]
+        ]);
+
     }
 
 }

@@ -4,7 +4,6 @@ namespace Tests\Feature;
 
 use App\User;
 use App\Account;
-use GraphQL\GraphQL;
 use Tests\TestCase;
 use Laravel\Passport\Passport;
 use Illuminate\Foundation\Testing\WithFaker;

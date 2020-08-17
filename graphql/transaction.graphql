@@ -1,4 +1,6 @@
 
+# Defino una cuenta y sus campos (el modelo).
+# Con ! establece que es requerido (sin ! sería nullable).
 type Transaction {
     id: ID!
     amount: Float!
@@ -11,9 +13,17 @@ type Transaction {
 
 input CreateTransactionInput {
     account_id: ID!
-    amount: Float!
+    amount: Float! @rules(apply: ["gt:0"]) # balance debe ser mayor a 0
     type: TransactionType!
     description: String!
+}
+
+
+input UpdateTransactionInput{
+    account_id: ID
+    description: String
+    amount: Float @rules(apply: ["gt:0"]) # balance debe ser mayor a 0
+    type: TransactionType
 }
 
 # Crear un tipo de dato enum que puede alojar

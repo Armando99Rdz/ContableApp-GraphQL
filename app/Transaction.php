@@ -12,6 +12,17 @@ class Transaction extends Model
     ];
 
     /**
+     * Castar los valores de un o varios campos
+     *
+     * @var array
+     */
+    protected $casts = [
+        'account_id' => 'Int',
+        'amount' => 'Float'
+    ];
+
+
+    /**
      * Relación a Account
      * 
      * Es importante especificar que retorna un BelongsTo porque 

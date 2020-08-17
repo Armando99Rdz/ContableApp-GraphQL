@@ -64,6 +64,7 @@ input RegisterInput {
     email: String! @rules(apply: ["required", "email", "unique:users,email"])
     password: String! @rules(apply: ["required", "confirmed", "min:8"])
     password_confirmation: String!
+    avatar: String
 }
 
 input SocialLoginInput {

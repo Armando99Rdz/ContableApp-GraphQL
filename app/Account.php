@@ -17,13 +17,14 @@ class Account extends Model
     ];
 
     /**
-     * Hacer cast user_id a Integer
+     * Castear valores de uno o varios campos.
      *
      * @var array
      */
-    #protected $casts = [
-    #    'user_id' => 'Int'
-    #];
+    protected $casts = [
+        'user_id' => 'Int',
+        'balance' => 'Float'
+    ];
 
 
     /**

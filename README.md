@@ -1,6 +1,6 @@
 <h2 align="center">WebApp control de gastos e ingresos | Laravel | GraphQL</h2>
 
-Uso de **Lighthouse PHP** para crear servidor GraphQL (API) en Laravel.
+Uso de **Lighthouse PHP** para crear servidor GraphQL (API). <br>
 Artículo crear un servidor de Autenticacion con Passport y Lighthouse para API GraphQL; https://dev.to/joselfonseca/graphql-auth-with-passport-and-lighthouse-php-14g5.
 
 https://github.com/joselfonseca/lighthouse-graphql-passport-auth
@@ -17,13 +17,17 @@ Crear servidor de autenticacion para la API GraphQL:
 - `php artisan vendor:publish --provider="Nuwave\Lighthouse\LighthouseServiceProvider" --tag=schema` para publicar el schema del API.
 
 #### Test unitarios
-Correr un test en específico `vendor/bin/phpunit --filter [test_name]` (en la consola)
+Correr un test en específico `vendor/bin/phpunit --filter [test_name]`
 ###### Account Tests
-- `vendor/bin/phpunit --filter test_it_creates_an_account`.
-- `vendor/bin/phpunit --filter test_it_validates_input`.
-- `vendor/bin/phpunit --filter test_it_validates_balance_no_less_than_0`.
+- `test_it_creates_an_account`
+- `test_it_validates_input`
+- `test_it_validates_balance_no_less_than_0`
 ###### Transactions Tests
-- `test_it_creates_transaction_and_updates_balance`. 
+- `test_it_creates_transaction_and_updates_balance`.
+- `test_it_creates_transaction_and_updates_balance_with_expense`
+- `test_it_can_update_a_transaction`
+- `test_it_can_update_a_transaction_case_2`
+- `test_it_can_update_a_transaction_when_not_owner`
 
 #### Factory Generator
 https://github.com/mpociot/laravel-test-factory-helper
@@ -34,5 +38,6 @@ create a new observer: `php artisan make:observer [name]`.
 
 #### Mis policies (app/plicies/)
 - `AccountPolicy`
+- `TransactionPolicy`
 
 <p align="right">1. 16:09</p>
