@@ -1,6 +1,8 @@
 
 #import Account.graphql
 #import Transaction.graphql
+#import Category.graphql
+#import User.graphql
 
 
 "A datetime string with format `Y-m-d H:i:s`, e.g. `2018-01-01 13:00:00`."
@@ -9,27 +11,22 @@ scalar DateTime @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date
 "A date string with format `Y-m-d`, e.g. `2011-05-23`."
 scalar Date @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date")
 
-type Mutation
 
 type Query {
     users: [User!]! @paginate(type: "paginator" model: "App\\User")
     user(id: ID @eq): User @find(model: "App\\User")
     me: User! @auth
-}
-
-type User {
-    id: ID!
-    name: String!
-    email: String!
-    accounts: [Account] @hasMany
-    avatar: String
-    created_at: DateTime!
-    updated_at: DateTime!
+    accounts: [Account]! @paginate(scopes: ["byLoggedInUser"]) @guard(with: ["api"])
+    account(id: ID! @eq): Account! @find @can(ability:"view", find: "id") @guard(with: ["api"])
+    transactions(where: _ @whereConditions(columns: ["account_id","category_id","type","created_at"])): [Transaction!] @paginate(scopes: ["byLoggedInUser"]) @guard(with: ["api"])
+    transaction(id: ID! @eq): Transaction! @find @can(ability:"view", find: "id") @guard(with: ["api"])
+    categories: [Category]! @paginate(scopes: ["byLoggedInUser"]) @guard(with: ["api"])
+    category(id: ID! @eq): Category! @find @can(ability:"view", find: "id") @guard(with: ["api"])
 }
 
 
 # Los Mutations en graphql sirven para modificar algo en nuestro backend (update, create, etc.)
-extend type Mutation {
+type Mutation {
 
     # Mutation para crear una cuenta. CreateAccountInput define los parametros que espera
     # @create para generar un nuevo modelo eloquent de laravel con los parametros dados.
@@ -43,4 +40,7 @@ extend type Mutation {
     updateTransaction(id: ID!, input: UpdateTransactionInput! @spread): Transaction @update @can(ability:"update", find: "id") @guard(with: ["api"])
     deleteTransaction(id: ID!): Transaction @delete @can(ability:"delete", find: "id") @guard(with: ["api"])
 
+    createCategory(input: CreateCategoryInput! @spread): Category @create @inject(context: "user.id", name: "user_id") @guard(with: ["api"])
+    updateCategory(id: ID!, input: UpdateCategoryInput! @spread): Category @update @can(ability:"update", find: "id") @guard(with: ["api"])
+    deleteCategory(id: ID!): Category @delete @can(ability:"delete", find: "id") @guard(with: ["api"])
 }

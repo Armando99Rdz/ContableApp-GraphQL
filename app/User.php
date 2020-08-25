@@ -39,18 +39,27 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    
+
     /**
      * Relacion a las Cuentas.
-     * 
-     * Es importante especificar que retorna un HasMeny porque 
-     * la librería Lighthouse (la librería que construye nuestro 
-     * GraphQL server) usa los return para Optimizar las 
+     *
+     * Es importante especificar que retorna un HasMeny porque
+     * la librería Lighthouse (la librería que construye nuestro
+     * GraphQL server) usa los return para Optimizar las
      * Consultas que hace a la Base de Datos.
      *
      * @return HasMany
      */
     public function accounts() : HasMany {
         return $this->hasMany(Account::class);
+    }
+
+    /**
+     * Relacion a las categorias de transacciones.
+     *
+     * @return HasMany
+     */
+    public function categories() : HasMany {
+        return $this->hasMany(Category::class);
     }
 }

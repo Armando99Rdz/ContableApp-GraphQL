@@ -10,6 +10,7 @@ $factory->define(App\Transaction::class, function (Faker $faker) {
         'type' => $faker->randomElement(['INCOME', 'EXPENSE']),
         'description' => $faker->text,
         'account_id' => factory(App\Account::class),
+        'category_id' => factory(App\Category::class),
     ];
 });
 

@@ -1,0 +1,14 @@
+
+type Category {
+    id: ID!
+    name: String!
+    user: User! @belongsTo
+}
+
+input CreateCategoryInput {
+    name: String!
+}
+
+input UpdateCategoryInput {
+    name: String!
+}

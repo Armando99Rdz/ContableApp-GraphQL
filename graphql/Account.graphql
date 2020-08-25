@@ -5,15 +5,16 @@
 type Account {
     id: ID!
     name: String!
-    balance: Float 
+    balance: Float
     color: String
-    # en lugar de especificar el user_id se establece una relación para 
+    # en lugar de especificar el user_id se establece una relación para
     # que este modelo devuelva el usuario completo con sus campos.
     # con @ se especifica el tipo de relación.
-    user: User! @belongsTo 
+    user: User! @belongsTo
     description: String
     created_at: DateTime!
     updated_at: DateTime!
+    transactions: [Transaction!] @hasMany
 }
 
 # Agrupo los campos para crear una nueva Account.

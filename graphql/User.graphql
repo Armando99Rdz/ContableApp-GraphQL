@@ -1,0 +1,12 @@
+
+
+
+type User {
+    id: ID!
+    name: String!
+    email: String!
+    accounts: [Account] @hasMany
+    avatar: String
+    created_at: DateTime!
+    updated_at: DateTime!
+}

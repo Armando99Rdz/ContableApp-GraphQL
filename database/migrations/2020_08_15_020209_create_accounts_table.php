@@ -16,10 +16,11 @@ class CreateAccountsTable extends Migration
         Schema::create('accounts', function (Blueprint $table) {
             $table->id();
             $table->string('name'); # e.g. Cartera para fiestas.
-            $table->decimal('balance', 10, 2)->default(0); # Cuanto tiene $ la cuenta
+            $table->float('balance', 15, 2)->default(0); # Cuanto tiene $ la cuenta
             $table->string('color')->default('#457b9d'); # color azul oscuro
             $table->string('description')->nullable();
             $table->timestamps();
+            $table->softDeletes();
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });

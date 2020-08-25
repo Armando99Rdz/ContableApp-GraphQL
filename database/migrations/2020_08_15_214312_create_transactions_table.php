@@ -15,10 +15,11 @@ class CreateTransactionsTable extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
-            $table->decimal('amount', 10, 2);
+            $table->float('amount', 15, 2);
             $table->enum('type', ['INCOME', 'EXPENSE']);
             $table->string('description');
             $table->timestamps();
+            $table->softDeletes();
             $table->unsignedBigInteger('account_id');
             $table->foreign('account_id')->references('id')->on('accounts')->onDelete('cascade');
         });
