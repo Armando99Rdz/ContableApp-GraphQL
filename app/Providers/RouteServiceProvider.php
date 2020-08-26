@@ -18,10 +18,11 @@ class RouteServiceProvider extends ServiceProvider
 
     /**
      * The path to the "home" route for your application.
-     *
+     * Retorna a la ruta de transacciones.
+     * 
      * @var string
      */
-    public const HOME = '/home';
+    public const HOME = '/transactions';
 
     /**
      * Define your route model bindings, pattern filters, etc.
