@@ -134,6 +134,7 @@
       <path value="$PROJECT_DIR$/vendor/mll-lab/graphql-php-scalars" />
       <path value="$PROJECT_DIR$/vendor/spatie/regex" />
       <path value="$PROJECT_DIR$/vendor/laravel-frontend-presets/tailwindcss" />
+      <path value="$PROJECT_DIR$/vendor/laraveles/spanish" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.2" />

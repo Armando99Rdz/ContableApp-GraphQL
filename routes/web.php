@@ -11,5 +11,5 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
-Route::get('/{view}', 'SPAController@index')->name('home');
+Route::get('/{view}', 'SPAController@index')->where('view', '.*')->name('home');
 

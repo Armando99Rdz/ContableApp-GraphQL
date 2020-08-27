@@ -19,7 +19,11 @@ type Account {
 
 # Agrupo los campos para crear una nueva Account.
 input CreateAccountInput{
-    name: String!
+    name: String @rules(apply: ["required", "min:3", "max:20"], messages: {
+        required: "El nombre de la cuenta es requerido",
+        min: "El nombre de la cuenta es muy corto",
+        max: "El nombre de la cuenta es muy largo"
+    })
     balance: Float @rules(apply: ["gte:0"]) # balance debe ser mayor o igual a 0
     color: String
     description: String

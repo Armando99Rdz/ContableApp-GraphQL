@@ -1,6 +1,7 @@
 import VueRouter from 'vue-router';
 import Transactions from './views/transactions/index';
 import Accounts from './views/accounts/index';
+import CreateAccount from './views/accounts/create';
 
 const routes = [
     {
@@ -10,6 +11,10 @@ const routes = [
     {
         path: '/accounts',
         component: Accounts,
+    },
+    {
+        path: '/accounts/create',
+        component: CreateAccount,
     }
 ];
 

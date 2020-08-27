@@ -4,6 +4,7 @@
  */
 
 import ApolloClient from 'apollo-boost';
+import ErrorHandler from "./error-handler";
 
 const apolloClient = new ApolloClient({
     // URL donde está el GraphQL API, para este caso esta en el mismo servidor, por tanto:
@@ -13,7 +14,8 @@ const apolloClient = new ApolloClient({
         'X-CSRF-TOKEN': document.head.querySelector('meta[name="csrf-token"]').content,
         // para que mi apollo client actúe como un http client.
         'X-Requested-With': 'XMLHttpRequest',
-    }
+    },
+    onError: ErrorHandler
 });
 
 export default apolloClient;

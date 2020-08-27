@@ -7,7 +7,7 @@
             <div class="w-1/4 p-4">
                 Menú
             </div>
-            <div class="w-3/4 p-5 bg-white rounded-md">
+            <div class="w-3/4 p-5">
                 <router-view></router-view>
             </div>
         </div>

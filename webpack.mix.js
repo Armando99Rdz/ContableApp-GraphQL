@@ -1,5 +1,7 @@
 const mix = require('laravel-mix');
 
+require("@pp-spaces/laravel-mix-graphql");
+
 /*
  |--------------------------------------------------------------------------
  | Mix Asset Management
@@ -18,7 +20,8 @@ mix
     require('tailwindcss'),
     require('postcss-nested'),
     require('autoprefixer'),
-  ]);
+  ])
+    .graphql();;
 
 if (mix.inProduction()) {
   mix

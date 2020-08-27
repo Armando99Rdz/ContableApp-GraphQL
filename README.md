@@ -84,8 +84,9 @@ Tailwindcss Laravel Preset: https://github.com/laravel-frontend-presets/tailwind
 #### Installation & Setup: Vue Vue-Router Vue-Apollo 
 - `npm i vue vue-router vue-apollo graphql apollo-boost --save` 
 
-
-
+#### Error archivos .graphql en Laravel Mix
+Por defecto laravel mix no compila archivos .graphql, solución: https://github.com/pp-spaces/laravel-mix-graphql. 
+Con este paquete ya se podrá importar archivos .graphql desde js (ej: `import ACCOUNTS from '../../graphql/accounts.graphql';`) 
 
 ## Deploy
 #### Laravel forge

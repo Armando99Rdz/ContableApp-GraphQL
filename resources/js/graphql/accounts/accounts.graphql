@@ -1,0 +1,20 @@
+#
+
+query accounts($first: Int!, $page: Int) {
+    accounts(first: $first, page: $page) {
+        data {
+            id
+            color
+            name
+            balance
+            description
+            created_at
+            user{
+                id
+                name
+                email
+                avatar
+            }
+        }
+    }
+}
