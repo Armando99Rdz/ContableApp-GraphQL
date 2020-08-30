@@ -2,7 +2,7 @@
 <template>
     <div>
         <h1>Transactions</h1>
-        <pre>{{categories}}</pre>
+        <pre>{{data.categories}}</pre>
     </div>
 </template>
 

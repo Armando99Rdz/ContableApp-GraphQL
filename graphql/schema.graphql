@@ -3,6 +3,7 @@
 #import Transaction.graphql
 #import Category.graphql
 #import User.graphql
+#import ExchangeRates.graphql
 
 
 "A datetime string with format `Y-m-d H:i:s`, e.g. `2018-01-01 13:00:00`."
@@ -22,6 +23,7 @@ type Query {
     transaction(id: ID! @eq): Transaction! @find @can(ability:"view", find: "id") @guard(with: ["api", "web"])
     categories: [Category]! @paginate(scopes: ["byLoggedInUser"]) @guard(with: ["api", "web"])
     category(id: ID! @eq): Category! @find @can(ability:"view", find: "id") @guard(with: ["api", "web"])
+    exchangeConversion(input: ExchangeConversionInput! @spread): ExchangeConversion @guard(with: ["api", "web"])
 }
 
 
@@ -34,7 +36,7 @@ type Mutation {
     # @guard verifica que el usuario esté autenticado."
     createAccount(input: CreateAccountInput! @spread): Account @create @inject(context: "user.id", name: "user_id") @guard(with: ["api", "web"])
     updateAccount(id: ID!, input: UpdateAccountInput! @spread): Account @update @can(ability:"update", find: "id") @guard(with: ["api", "web"])
-    # TODO: delete account
+    deleteAccount(id: ID!): Account @delete @can(ability:"delete", find: "id") @guard(with: ["api", "web"])
 
     createTransaction(input: CreateTransactionInput! @spread): Transaction @create @guard(with: ["api", "web"])
     updateTransaction(id: ID!, input: UpdateTransactionInput! @spread): Transaction @update @can(ability:"update", find: "id") @guard(with: ["api", "web"])

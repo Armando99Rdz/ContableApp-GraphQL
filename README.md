@@ -73,6 +73,16 @@ Complex Where Conditions - Lighthouse PHP Documentation.
 - hasta este punto puede usar la directiva @whereConditions en graphql queries, ejemplo:  
     - `transactions(where: _ @whereConditions(columns: ["type","created_at"]))`
 
+#### crear resolver con lighthouse 
+- `php artisan lighthouse:query [resolver_name]`. Los resolvers/queries se crean en `app/GraphQL/Queries/`. 
+- Se creó resolver de ejemplo `DateResolver` para el campo `date` del type `ExchangeRates`.
+
+
+### Integrando una API de divisas
+https://exchangeratesapi.io/ posee un wrapper para laravel: 
+https://github.com/ash-jc-allen/laravel-exchange-rates
+- `composer require ashallendesign/laravel-exchange-rates`  
+
 ## Frontend
 
 #### tailwindcss
@@ -87,6 +97,10 @@ Tailwindcss Laravel Preset: https://github.com/laravel-frontend-presets/tailwind
 #### Error archivos .graphql en Laravel Mix
 Por defecto laravel mix no compila archivos .graphql, solución: https://github.com/pp-spaces/laravel-mix-graphql. 
 Con este paquete ya se podrá importar archivos .graphql desde js (ej: `import ACCOUNTS from '../../graphql/accounts.graphql';`) 
+
+#### loading spinners
+https://github.com/Saeris/vue-spinners
+- `npm install --save @saeris/vue-spinners`
 
 ## Deploy
 #### Laravel forge

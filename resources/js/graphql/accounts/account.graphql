@@ -1,0 +1,11 @@
+# obtener una cuenta en base al id
+
+query account($id: ID!) {
+    account(id: $id) {
+        id
+        color
+        name
+        balance
+        description
+    }
+}

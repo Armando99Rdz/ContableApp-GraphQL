@@ -30,7 +30,11 @@ input CreateAccountInput{
 }
 
 input UpdateAccountInput{
-    name: String
+    name: String @rules(apply: ["required", "min:3", "max:20"], messages: {
+        required: "El nombre de la cuenta es requerido",
+        min: "El nombre de la cuenta es muy corto",
+        max: "El nombre de la cuenta es muy largo"
+    })
     color: String
     description: String
 }

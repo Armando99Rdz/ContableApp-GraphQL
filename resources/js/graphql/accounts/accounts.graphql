@@ -1,4 +1,4 @@
-#
+# obtner las cuentas
 
 query accounts($first: Int!, $page: Int) {
     accounts(first: $first, page: $page) {

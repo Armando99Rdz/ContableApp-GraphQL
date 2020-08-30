@@ -283,4 +283,37 @@ class AccountMutationsTest extends TestCase
             'user_id' => $user2->id,
         ]);
     }
+
+    function test_it_can_delete_an_account(){
+
+        // Preparación
+        $user =  factory(User::class)->create();
+        $account = factory(Account::class)->create([
+            'user_id' => $user->id,
+        ]);
+        Passport::actingAs($user); # actingAs para establecer este usuario como autenticado.
+
+        // execute
+        $response = $this->graphQL('
+            mutation {
+                deleteAccount(id:'.$account->id.'){
+                    id
+                }
+            }
+        ');
+
+        // assert
+        $response->assertJson([
+            'data' => [
+                'deleteAccount' => [
+                    'id' => $account->id,
+                ]
+            ]
+        ]);
+        # al ser soft delete se agregará la fecha de eliminación (deleted_at)
+        # al registro en la base de datos. Con fresh() se recupera el modelo y
+        # se verifica que tenga una fecha de eliminación.
+        $deletedAccount = $account->fresh();
+        $this->assertNotNull($deletedAccount->deleted_at);
+    }
 }

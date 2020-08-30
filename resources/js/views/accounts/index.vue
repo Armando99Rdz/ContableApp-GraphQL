@@ -9,10 +9,13 @@
                 Nueva cuenta
             </button>
         </div>
+        <div v-if="loading" class="mt-20">
+            <loading :loading="loading" color="gray"></loading>
+        </div>
         <!--<simple-table :headings="headings" :data="accounts"></simple-table>-->
         <div class="w-full h-full flex flex-wrap">
             <div v-for="account in accounts" class="sm:w-2/2 w-1/2">
-                <account-card :data="account" class="py-5 pr-5"></account-card>
+                <account-card :data="account" class="py-5 pr-5" @editAccount="editAccount" @deleteAccount="deleteAccount"></account-card>
             </div>
         </div>
     </div>
@@ -23,17 +26,21 @@
     import AccountCard from '../../components/cards/account-card';
     //import gql from 'graphql-tag'
     import ACCOUNTS from '../../graphql/accounts/accounts.graphql';
+    import DELETE_ACCOUNT from '../../graphql/accounts/delete.graphql';
+    import Loading from '../../components/common/loading';
 
     export default {
         data(){
             return {
                 headings: ['ID', 'Color', 'Nombre', 'Descripción'],
                 accounts: [],
+                loading: true,
             }
         },
         components: {
             AccountCard,
-            SimpleTable
+            SimpleTable,
+            Loading
         },
         mounted() {
             this.getAccounts();
@@ -58,9 +65,38 @@
                         user: item.user
                     }
                 });
+                this.loading = this.$apollo.loading;
             },
             goToCrateAccount(){
                 this.$router.push('/accounts/create');
+            },
+            editAccount(account){
+                this.$router.push(`/accounts/${account.id}/edit`);
+            },
+            deleteAccount(account){
+                console.log(account);
+                swal({
+                    title: "¿Estas seguro?",
+                    text: `Quieres eliminar la cuenta ${account.name}, los cambios son irreversibles.`,
+                    icon: "warning",
+                    dangerMode: true,
+                    buttons: ["Cancelar", "Eliminar"],
+                }).then( async (willDelete) => {
+                    if (willDelete) {
+                        const response = await this.$apollo.mutate({
+                            mutation: DELETE_ACCOUNT,
+                            variables: {
+                                id: account.id
+                            }
+                        });
+                        this.getAccounts();
+                        swal({
+                            title: "Cuenta eliminada",
+                            text: "La cuenta ha sido eliminada satisfactoriamente.",
+                            icon: "success",
+                        });
+                    }
+                });
             }
 
         }
