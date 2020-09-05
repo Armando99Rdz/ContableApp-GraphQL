@@ -1,22 +1,25 @@
 <template>
-    <div class="w-full bg-white p-12 rounded-md overflow-hidden shadow-lg">
+    <div class="w-full bg-white rounded-md overflow-hidden border-t border-b sm:border-l sm:border-r sm:rounded shadow">
 
         <graphql-error-toast v-if="this.errors" :errors="this.errors"></graphql-error-toast>
-
-        <div class="flex flex-wrap mb-4">
-            <div class="rounded-full h-8 w-8 flex items-center mr-2"
-                 v-bind:class="{
-                    'bg-green-400' : form.color == 1,
-                    'bg-blue-500' : form.color == 2,
-                    'bg-red-500' : form.color == 3,
-                    'bg-yellow-300' : form.color == 4,
-                    'bg-orange-400' : form.color == 5,
-                  }"
-            ></div>
-            <h2 class="font-semibold text-gray-800 mb-8">Editar Cuenta</h2>
+        <div class="border-b p-6">
+            <div class="flex justify-between px-6 -mb-px">
+                <div class="flex flex-wrap">
+                    <div class="rounded-full h-8 w-8 flex items-center mr-2"
+                        v-bind:class="{
+                            'bg-green-400' : form.color == 1,
+                            'bg-blue-500' : form.color == 2,
+                            'bg-red-500' : form.color == 3,
+                            'bg-yellow-200' : form.color == 4,
+                            'bg-orange-400' : form.color == 5,
+                        }"
+                    ></div>
+                    <h2 class="font-semibold text-gray-600 pt-1">Editar Cuenta</h2>
+                </div>
+            </div>
         </div>
 
-        <div class="flex flex-wrap -mx-3">
+        <div class="flex flex-wrap -mx-3 p-6">
             <div class="w-full md:w-1/2 px-3 mb-6">
                 <label class="block text-gray-600 text-sm font-bold mb-2" for="name">
                     Nombre de la cuenta
@@ -65,9 +68,9 @@
                 <loading :loading="loading" :size="10"></loading>
             </div>
             <div v-else class="w-full text-center">
-                <button type="reset" class="bg-transparent hover:bg-gray-400 bg-gray-300 font-semibold text-gray-800
-                    py-2 px-4 rounded mt-4">Cancelar</button>
-                <button class="bg-transparent hover:bg-blue-800 bg-blue-700 font-semibold text-white py-2 px-4
+                <a href="/accounts" type="reset" class="bg-transparent hover:bg-gray-400 bg-gray-300 font-semibold text-gray-800
+                    py-2 px-4 rounded mt-4 cursor-pointer">Cancelar</a>
+                <button class="bg-transparent hover:bg-indigo-800 bg-indigo-700 font-semibold text-white py-2 px-4
                     rounded mt-4" @click="submit">Editar cuenta</button>
             </div>
         </div>

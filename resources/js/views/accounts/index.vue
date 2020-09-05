@@ -1,9 +1,9 @@
 <template>
     <div class="w-full">
         <div class="flex justify-between">
-            <h2 class="font-semibold text-gray-800 mb-4">Mis Cuentas</h2>
-            <button class="bg-transparent hover:bg-blue-700 text-blue-700 font-semibold hover:text-white py-1 px-2
-                border border-blue-700 hover:border-transparent rounded"
+            <h2 class="font-semibold text-gray-700 mb-4">Mis Cuentas</h2>
+            <button class="bg-transparent hover:bg-indigo-700 text-indigo-700 font-semibold hover:text-white py-1 px-2
+                border border-indigo-700 hover:border-transparent rounded"
                 @click="goToCrateAccount"
             >
                 Nueva cuenta
@@ -14,7 +14,7 @@
         </div>
         <!--<simple-table :headings="headings" :data="accounts"></simple-table>-->
         <div class="w-full h-full flex flex-wrap">
-            <div v-for="account in accounts" class="sm:w-2/2 w-1/2">
+            <div v-for="account in accounts" :key="account.id" class="sm:w-2/2 w-1/2">
                 <account-card :data="account" class="py-5 pr-5" @editAccount="editAccount" @deleteAccount="deleteAccount"></account-card>
             </div>
         </div>
@@ -24,7 +24,6 @@
 <script>
     import SimpleTable from '../../components/tables/simple-table';
     import AccountCard from '../../components/cards/account-card';
-    //import gql from 'graphql-tag'
     import ACCOUNTS from '../../graphql/accounts/accounts.graphql';
     import DELETE_ACCOUNT from '../../graphql/accounts/delete.graphql';
     import Loading from '../../components/common/loading';

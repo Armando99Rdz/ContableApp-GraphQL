@@ -1,0 +1,19 @@
+# consultar los datos necesarios para crear una transaccion
+# en este caso: son necesarias las cuentas y categorias.
+
+query transactionInitalData{
+    accounts(first: 20){
+        data {
+            id
+            name
+            balance
+            color
+        }
+    }
+    categories(first: 50){
+        data{
+            id
+            name
+        }
+    }
+}

@@ -4,3 +4,10 @@ h2 {
     @apply text-2xl;
 }
 
+.text-grey-dark{
+    @apply text-gray-500
+}
+
+.bg-orange {
+    background-color: #f6993f;
+}

@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.dashboard')
 
 @section('content')
     <div class="container mx-auto">
@@ -13,8 +13,8 @@
 
                 <div class="flex flex-col break-words bg-white border-2 rounded shadow-md">
 
-                    <div class="font-semibold bg-gray-200 text-gray-700 py-3 px-6 mb-0">
-                        {{ __('Reset Password') }}
+                    <div class="font-semibold bg-gray-200 text-gray-700 py-10 break-words text-3xl px-8 mb-0">
+                        Restaurar Contraseña
                     </div>
 
                     <form class="w-full p-6" method="POST" action="{{ route('password.email') }}">
@@ -22,7 +22,7 @@
 
                         <div class="flex flex-wrap mb-6">
                             <label for="email" class="block text-gray-700 text-sm font-bold mb-2">
-                                {{ __('E-Mail Address') }}:
+                                Correo electrónico
                             </label>
 
                             <input id="email" type="email" class="form-input w-full @error('email') border-red-500 @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
@@ -35,13 +35,13 @@
                         </div>
 
                         <div class="flex flex-wrap">
-                            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-gray-100 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-                                {{ __('Send Password Reset Link') }}
+                            <button type="submit" class="bg-indigo-600 hover:bg-indigo-700 text-gray-100 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                                Enivar contraseña al correo
                             </button>
 
-                            <p class="w-full text-xs text-center text-gray-700 mt-8 -mb-4">
-                                <a class="text-blue-500 hover:text-blue-700 no-underline" href="{{ route('login') }}">
-                                    {{ __('Back to login') }}
+                            <p class="w-full text-sm text-center text-gray-700 mt-8 mb-3">
+                                <a class="text-indigo-600 hover:text-indigo-700 no-underline" href="{{ route('login') }}">
+                                    Regresar a Ingresar
                                 </a>
                             </p>
                         </div>

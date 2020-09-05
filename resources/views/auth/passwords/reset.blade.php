@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.dashboard')
 
 @section('content')
     <div class="container mx-auto">
@@ -6,7 +6,7 @@
             <div class="w-full max-w-sm">
                 <div class="flex flex-col break-words bg-white border-2 rounded shadow-md">
 
-                    <div class="font-semibold bg-gray-200 text-gray-700 py-3 px-6 mb-0">
+                    <div class="font-semibold bg-gray-200 text-gray-700 py-6 px-8 mb-0">
                         {{ __('Reset Password') }}
                     </div>
 
@@ -52,7 +52,7 @@
                         </div>
 
                         <div class="flex flex-wrap">
-                            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-gray-100 font-bold  py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                            <button type="submit" class="bg-indigo-600 hover:bg-indigo-700 text-gray-100 font-bold  py-2 px-4 rounded focus:outline-none focus:shadow-outline">
                                 {{ __('Reset Password') }}
                             </button>
                         </div>

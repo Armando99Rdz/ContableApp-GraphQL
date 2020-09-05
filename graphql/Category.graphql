@@ -6,9 +6,17 @@ type Category {
 }
 
 input CreateCategoryInput {
-    name: String!
+    name: String! @rules(apply: ["required", "min:4", "max:20"], messages: {
+        required: "El nombre de la categoría es requerido",
+        min: "El nombre de la categoría es muy corto",
+        max: "El nombre de la categoría es muy largo"
+    })
 }
 
 input UpdateCategoryInput {
-    name: String!
+    name: String! @rules(apply: ["required", "min:4", "max:20"], messages: {
+        required: "El nombre de la categoría es requerido",
+        min: "El nombre de la categoría es muy corto",
+        max: "El nombre de la categoría es muy largo"
+    })
 }

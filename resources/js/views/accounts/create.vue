@@ -1,22 +1,25 @@
 <template>
-    <div class="w-full bg-white p-12 rounded-md overflow-hidden shadow-lg">
+    <div class="w-full bg-white rounded-md overflow-hidden border-t border-b sm:border-l sm:border-r sm:rounded shadow">
 
         <graphql-error-toast v-if="this.errors" :errors="this.errors"></graphql-error-toast>
-
-        <div class="flex flex-wrap mb-4">
-            <div class="rounded-full h-8 w-8 flex items-center mr-2"
-                 v-bind:class="{
-                    'bg-green-400' : form.color === 1,
-                    'bg-blue-500' : form.color === 2,
-                    'bg-red-500' : form.color === 3,
-                    'bg-yellow-200' : form.color === 4,
-                    'bg-orange-400' : form.color === 5,
-                  }"
-            ></div>
-            <h2 class="font-semibold text-gray-800 mb-8">Nueva Cuenta</h2>
+        <div class="border-b p-6">
+            <div class="flex justify-between px-6 -mb-px">
+                <div class="flex flex-wrap">
+                    <div class="rounded-full h-8 w-8 flex items-center mr-2"
+                        v-bind:class="{
+                            'bg-green-400' : form.color === 1,
+                            'bg-blue-500' : form.color === 2,
+                            'bg-red-500' : form.color === 3,
+                            'bg-yellow-200' : form.color === 4,
+                            'bg-orange-400' : form.color === 5,
+                        }"
+                    ></div>
+                    <h2 class="font-semibold text-gray-600 pt-1">Nueva Cuenta</h2>
+                </div>
+            </div>
         </div>
 
-        <div class="flex flex-wrap -mx-3">
+        <div class="flex flex-wrap -mx-3 p-12">
             <div class="w-full md:w-1/2 px-3 mb-6">
                 <label class="block text-gray-600 text-sm font-bold mb-2" for="name">
                     Nombre de la cuenta
@@ -45,19 +48,19 @@
                 </label>
                 <div class="inline-flex">
                     <span class="inline-block bg-gray-200 rounded-full px-3 py-2 text-sm font-semibold text-gray-700
-                        mr-2 mb-2 hover:bg-green-500 hover:text-gray-200 cursor-pointer"
+                        mr-2 mb-2 hover:bg-green-500 hover:text-gray-100 cursor-pointer"
                           v-bind:class="{'bg-green-500' : form.color === 1}" @click="setColor(1)">Verde</span>
                     <span class="inline-block bg-gray-200 rounded-full px-3 py-2 text-sm font-semibold text-gray-700
-                        mr-2 mb-2 hover:bg-blue-500 hover:text-gray-200 cursor-pointer"
+                        mr-2 mb-2 hover:bg-blue-500 hover:text-gray-100 cursor-pointer"
                           v-bind:class="{'bg-blue-500' : form.color === 2}" @click="setColor(2)">Azul</span>
                     <span class="inline-block bg-gray-200 rounded-full px-3 py-2 text-sm font-semibold text-gray-700
-                        mr-2 mb-2 hover:bg-red-500 hover:text-gray-200 cursor-pointer"
+                        mr-2 mb-2 hover:bg-red-500 hover:text-gray-100 cursor-pointer"
                           v-bind:class="{'bg-red-500' : form.color === 3}" @click="setColor(3)">Rojo</span>
                     <span class="inline-block bg-gray-200 rounded-full px-3 py-2 text-sm font-semibold text-gray-700
-                        mr-2 mb-2 hover:bg-yellow-200 hover:text-gray-600 cursor-pointer"
+                        mr-2 mb-2 hover:bg-yellow-200 hover:text-gray-700 cursor-pointer"
                           v-bind:class="{'bg-yellow-200' : form.color === 4}" @click="setColor(4)">Amarillo</span>
                     <span class="inline-block bg-gray-200 rounded-full px-3 py-2 text-sm font-semibold text-gray-700
-                        mr-2 mb-2 hover:bg-orange-400 hover:text-gray-200 cursor-pointer"
+                        mr-2 mb-2 hover:bg-orange-400 hover:text-gray-100 cursor-pointer"
                           v-bind:class="{'bg-orange-400' : form.color === 5}" @click="setColor(5)">Naranja</span>
                 </div>
             </div>
@@ -65,9 +68,9 @@
                 <loading :loading="loading" :size="10"></loading>
             </div>
             <div v-else class="w-full text-center">
-                <button type="reset" class="bg-transparent hover:bg-gray-400 bg-gray-300 font-semibold text-gray-800
-                    py-2 px-4 rounded mt-4">Cancelar</button>
-                <button class="bg-transparent hover:bg-blue-800 bg-blue-700 font-semibold text-white py-2 px-4
+                <a href="/accounts" type="reset" class="bg-transparent hover:bg-gray-400 bg-gray-300 font-semibold text-gray-800
+                    py-2 px-4 rounded mt-4 cursor-pointer">Cancelar</a>
+                <button class="bg-transparent hover:bg-indigo-800 bg-indigo-700 font-semibold text-white py-2 px-4
                     rounded mt-4" @click="submit">Crear cuenta</button>
             </div>
         </div>

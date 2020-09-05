@@ -1,17 +1,9 @@
-@extends('layouts.app')
+@extends('layouts.dashboard')
 
 @section('content')
 
-    <div class="lg:container lg:mx-auto">
-        <div class="w-full flex flex-row">
-            <div class="w-1/4 p-4">
-                Menú
-            </div>
-            <div class="w-3/4 p-5">
-                <router-view></router-view>
-            </div>
-        </div>
+    <div class="flex-grow container mx-auto sm:px-4 pt-6 pb-8">
+        <router-view></router-view>
     </div>
-
 
 @endsection

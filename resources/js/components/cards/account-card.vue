@@ -2,9 +2,9 @@
     <div>
         <div class="max-w-sm rounded overflow-hidden shadow-lg transform motion-reduce:transform-none
                 hover:-translate-y-1 hover:scale-110 transition ease-in-out duration-300">
-            <div class="bg-white rounded lg:rounded-none lg:rounded p-5 flex flex-col justify-between leading-normal">
+            <div class="bg-white rounded lg:rounded p-5 flex flex-col justify-between leading-normal">
                 <div class="inline-flex justify-center">
-                    <button class="bg-gray-100 text-gray-500 hover:bg-blue-700 hover:text-gray-200 font-bold py-2 px-4 rounded-l"
+                    <button class="bg-gray-100 text-gray-500 hover:bg-indigo-700 hover:text-gray-200 font-bold py-2 px-4 rounded-l"
                     @click="editAccount(data)">
                         Editar
                     </button>
@@ -23,8 +23,8 @@
                 </div>
                 <div class="max-w-sm md:flex">
                     <div class="text-sm">
-                        <p class="text-gray-900 leading-none">por {{data.user.name}}</p>
-                        <p class="text-gray-600">{{data.created_at}}</p>
+                        <p class="text-gray-900 leading-none">{{ getFirstWord(data.user.name) }}</p>
+                        <p class="text-gray-600">{{ formateDate(data.created_at) }}</p>
                     </div>
                     <div class="rounded-full h-8 w-8 flex items-center md:ml-auto"
                          v-bind:class="{
@@ -42,6 +42,8 @@
 </template>
 
 <script>
+    import moment from 'moment';
+
     export default {
         name: "account-card",
         props: ['data'],
@@ -51,8 +53,16 @@
             },
             deleteAccount(account){
                 this.$emit('deleteAccount', account);
+            },
+            formateDate(date){
+                return moment(date).locale('es').format('DD [de] MMMM [del] YYYY');
+            },
+            getFirstWord(string){
+                if (string.indexOf(' ') === -1)
+                    return string;
+                return string.substr(0, string.indexOf(' '));
             }
-        }
+        },
     }
 </script>
 
