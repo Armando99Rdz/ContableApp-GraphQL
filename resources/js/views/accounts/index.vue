@@ -60,7 +60,8 @@
                         balance: item.balance,
                         description: item.description,
                         created_at: item.created_at,
-                        user: item.user
+                        user: item.user,
+                        showActions: true
                     }
                 });
                 this.loading = this.$apollo.loading;

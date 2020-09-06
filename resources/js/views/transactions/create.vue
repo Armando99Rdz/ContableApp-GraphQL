@@ -16,66 +16,7 @@
                 <div class="mx-auto p-10 md:px-64 bg-gray-200">
 
                     <!-- Accounts Carousel -->
-                    <div class="relative rounded-lg block md:flex items-center bg-gray-100 shadow-xl" style="min-height: 15rem;">
-                        <div class="relative w-full md:w-2/5 h-full overflow-hidden rounded-t-lg md:rounded-t-none md:rounded-l-lg"
-                             style="min-height: 15rem;">
-                            <div class="absolute inset-0 w-full h-full opacity-75 transition duration-500 ease-in-out"
-                                v-bind:class="{
-                                'bg-green-700' : accounts[currentAccountIndex].color == 1,
-                                'bg-blue-800' : accounts[currentAccountIndex].color == 2,
-                                'bg-red-600' : accounts[currentAccountIndex].color == 3,
-                                'bg-yellow-300' : accounts[currentAccountIndex].color == 4,
-                                'bg-orange-500' : accounts[currentAccountIndex].color == 5,
-                              }"
-                            ></div>
-                            <div class="absolute inset-0 w-full h-full flex items-center justify-center fill-current text-white px-10">
-                                <h4 v-text="accounts[currentAccountIndex].name" class="text-3xl font-semibold"></h4>
-                            </div>
-                        </div>
-                        <div class="w-full md:w-3/5 h-full flex items-center bg-gray-100 rounded-lg">
-                            <div class="p-12 md:pr-24 md:pl-16 md:py-12">
-                                <div v-text="'$'+accounts[currentAccountIndex].balance" class="text-gray-600 font-bold text-4xl text-center mb-1 transition duration-500 ease-in-out">$200</div>
-                                <p v-text="accounts[currentAccountIndex].description" class="text-gray-600 break-words transition duration-500 ease-in-out"></p>
-                                <a class="flex items-baseline mt-3 transition duration-500 ease-in-out" href="/accounts"
-                                    v-bind:class="{
-                                    'text-green-600 hover:text-green-800' : accounts[currentAccountIndex].color == 1,
-                                    'text-blue-600 hover:text-blue-800' : accounts[currentAccountIndex].color == 2,
-                                    'text-red-600 hover:text-red-800' : accounts[currentAccountIndex].color == 3,
-                                    'text-yellow-500 hover:text-yellow-600' : accounts[currentAccountIndex].color == 4,
-                                    'text-orange-500 hover:text-orange-600' : accounts[currentAccountIndex].color == 5,
-                                    }"
-                                >
-                                    <span>Ver cuenta</span>
-                                    <span class="text-xs ml-1">&#x279c;</span>
-                                </a>
-                            </div>
-                            <svg class="hidden md:block absolute inset-y-0 h-full w-24 fill-current text-gray-100 -ml-12" viewBox="0 0 100 100" preserveAspectRatio="none">
-                                <polygon points="50,0 100,0 50,100 0,100" />
-                            </svg>
-                        </div>
-                        <button @click="changeAccount(-1)" class="absolute top-0 mt-32 left-0 bg-white rounded-full shadow-md h-12 w-12 text-2xl -ml-6 focus:outline-none focus:shadow-outline transition duration-500 ease-in-out"
-                        v-bind:class="{
-                            'text-green-600 hover:text-green-700' : accounts[currentAccountIndex].color == 1,
-                            'text-blue-600 hover:text-blue-700' : accounts[currentAccountIndex].color == 2,
-                            'text-red-600 hover:text-red-700' : accounts[currentAccountIndex].color == 3,
-                            'text-yellow-400 hover:text-yellow-500' : accounts[currentAccountIndex].color == 4,
-                            'text-orange-500 hover:text-orange-600' : accounts[currentAccountIndex].color == 5,
-                        }"
-                        >
-                            <span class="block" style="transform: scale(-1);">&#x279c;</span>
-                        </button>
-                        <button @click="changeAccount(1)" class="absolute top-0 mt-32 right-0 bg-white rounded-full shadow-md h-12 w-12 text-2xl -mr-6 focus:outline-none focus:shadow-outline transition duration-500 ease-in-out"
-                        v-bind:class="{
-                            'text-green-600 hover:text-green-700' : accounts[currentAccountIndex].color == 1,
-                            'text-blue-600 hover:text-blue-700' : accounts[currentAccountIndex].color == 2,
-                            'text-red-600 hover:text-red-700' : accounts[currentAccountIndex].color == 3,
-                            'text-yellow-400 hover:text-yellow-500' : accounts[currentAccountIndex].color == 4,
-                            'text-orange-500 hover:text-orange-600' : accounts[currentAccountIndex].color == 5,
-                        }"
-                        >
-                            <span class="block" style="transform: scale(1);">&#x279c;</span>
-                        </button>
-                    </div>
+                    <account-card :data="accounts[currentAccountIndex]" class="py-4 px-4 md:py-5 md:pr-8" @changeCarouselPage="changeAccount"></account-card>
                     <p class="text-gray-600 text-xs italic mt-8">Seleccione una cuenta para la transacción.</p>
 
                 </div>
@@ -127,12 +68,14 @@
     import Loading from '../../components/common/loading';
     import GraphqlErrorToast from '../../components/errors/graphql-error-toast';
     import CREATE_CATEGORY from "../../graphql/categories/create.graphql";
+    import AccountCard from '../../components/cards/account-card';
 
     export default {
         name: "create",
         components: {
             Loading,
-            GraphqlErrorToast
+            GraphqlErrorToast,
+            AccountCard
         },
         data(){
             return {
@@ -176,7 +119,9 @@
                         name: item.name,
                         balance: item.balance,
                         color: item.color,
-                        description: item.description
+                        description: item.description,
+                        showActions: false,
+                        showCarouselBottons: true
                     }
                 });
                 //this.currentAccount = this.accounts[0] || null;
@@ -189,7 +134,6 @@
                 this.loading = this.$apollo.loading;
             },
             submit(){
-                console.log('submit');
                 this.loading = true;
                 this.errors = null;
             }

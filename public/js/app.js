@@ -14314,6 +14314,84 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "account-card",
@@ -14331,6 +14409,9 @@ __webpack_require__.r(__webpack_exports__);
     getFirstWord: function getFirstWord(string) {
       if (string.indexOf(' ') === -1) return string;
       return string.substr(0, string.indexOf(' '));
+    },
+    changeCarouselPage: function changeCarouselPage(param) {
+      this.$emit('changeCarouselPage', param);
     }
   }
 });
@@ -15011,7 +15092,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     balance: item.balance,
                     description: item.description,
                     created_at: item.created_at,
-                    user: item.user
+                    user: item.user,
+                    showActions: true
                   };
                 });
                 _this.loading = _this.$apollo.loading;
@@ -15821,6 +15903,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_errors_graphql_error_toast__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../components/errors/graphql-error-toast */ "./resources/js/components/errors/graphql-error-toast.vue");
 /* harmony import */ var _graphql_categories_create_graphql__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../graphql/categories/create.graphql */ "./resources/js/graphql/categories/create.graphql");
 /* harmony import */ var _graphql_categories_create_graphql__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_graphql_categories_create_graphql__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _components_cards_account_card__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../components/cards/account-card */ "./resources/js/components/cards/account-card.vue");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -15892,65 +15975,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+
 
 
 
@@ -15959,7 +15984,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   name: "create",
   components: {
     Loading: _components_common_loading__WEBPACK_IMPORTED_MODULE_2__["default"],
-    GraphqlErrorToast: _components_errors_graphql_error_toast__WEBPACK_IMPORTED_MODULE_3__["default"]
+    GraphqlErrorToast: _components_errors_graphql_error_toast__WEBPACK_IMPORTED_MODULE_3__["default"],
+    AccountCard: _components_cards_account_card__WEBPACK_IMPORTED_MODULE_5__["default"]
   },
   data: function data() {
     return {
@@ -16010,7 +16036,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     name: item.name,
                     balance: item.balance,
                     color: item.color,
-                    description: item.description
+                    description: item.description,
+                    showActions: false,
+                    showCarouselBottons: true
                   };
                 }); //this.currentAccount = this.accounts[0] || null;
 
@@ -16031,7 +16059,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }))();
     },
     submit: function submit() {
-      console.log('submit');
       this.loading = true;
       this.errors = null;
     }
@@ -63123,106 +63150,222 @@ var render = function() {
       "div",
       {
         staticClass:
-          "w-full rounded overflow-hidden shadow-lg transform motion-reduce:transform-none\n            hover:-translate-y-1 hover:scale-110 transition ease-in-out duration-300"
+          "relative rounded-lg block md:flex items-center bg-gray-100 shadow-xl transform motion-reduce:transform-none\n            hover:-translate-y-1 hover:scale-110 transition ease-in-out duration-300",
+        staticStyle: { "min-height": "15rem" }
       },
       [
         _c(
           "div",
           {
             staticClass:
-              "bg-white rounded lg:rounded p-5 flex flex-col justify-between leading-normal"
+              "relative w-full md:w-2/5 h-full overflow-hidden rounded-t-lg md:rounded-t-none md:rounded-l-lg",
+            staticStyle: { "min-height": "15rem" }
           },
           [
-            _c("div", { staticClass: "inline-flex justify-center" }, [
+            _c("div", {
+              staticClass:
+                "absolute inset-0 w-full h-full opacity-75 transition duration-500 ease-in-out",
+              class: {
+                "bg-green-700": _vm.data.color == 1,
+                "bg-blue-800": _vm.data.color == 2,
+                "bg-red-600": _vm.data.color == 3,
+                "bg-yellow-300": _vm.data.color == 4,
+                "bg-orange-500": _vm.data.color == 5
+              }
+            }),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticClass:
+                  "absolute inset-0 w-full h-full flex items-center justify-center fill-current text-white px-10"
+              },
+              [
+                _c("h4", {
+                  staticClass: "text-3xl font-semibold",
+                  domProps: { textContent: _vm._s(_vm.data.name) }
+                })
+              ]
+            )
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass:
+              "w-full md:w-3/5 h-full flex items-center bg-gray-100 rounded-lg"
+          },
+          [
+            _c("div", { staticClass: "p-12 md:pr-24 md:pl-16 md:py-12" }, [
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "text-gray-600 font-bold text-4xl text-center mb-1 transition duration-500 ease-in-out",
+                  domProps: { textContent: _vm._s("$" + _vm.data.balance) }
+                },
+                [_vm._v("$200")]
+              ),
+              _vm._v(" "),
+              _c("p", {
+                staticClass:
+                  "text-gray-600 text-center break-words transition duration-500 ease-in-out",
+                domProps: { textContent: _vm._s(_vm.data.description) }
+              }),
+              _vm._v(" "),
+              _c(
+                "a",
+                {
+                  staticClass:
+                    "flex items-baseline mt-3 transition duration-500 ease-in-out",
+                  class: {
+                    "text-green-600 hover:text-green-800": _vm.data.color == 1,
+                    "text-blue-600 hover:text-blue-800": _vm.data.color == 2,
+                    "text-red-600 hover:text-red-800": _vm.data.color == 3,
+                    "text-yellow-500 hover:text-yellow-600":
+                      _vm.data.color == 4,
+                    "text-orange-500 hover:text-orange-600": _vm.data.color == 5
+                  },
+                  attrs: { href: "/accounts" }
+                },
+                [
+                  _vm.data.showActions
+                    ? _c(
+                        "span",
+                        {
+                          staticClass: "flex-none mx-auto text-sm",
+                          class: { "text-gray-700": !_vm.data.showActions }
+                        },
+                        [_vm._v(_vm._s(_vm.formateDate(_vm.data.created_at)))]
+                      )
+                    : _c("span", { staticClass: "flex-none mx-auto" }, [
+                        _vm._v("Ver cuenta "),
+                        _c("span", { staticClass: "text-xs ml-1" }, [
+                          _vm._v("➜")
+                        ])
+                      ])
+                ]
+              ),
+              _vm._v(" "),
+              _vm.data.showActions
+                ? _c("div", { staticClass: "justify-center mt-4" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass:
+                          "bg-gray-200 text-gray-500 hover:bg-indigo-700 hover:text-gray-200 font-bold py-2 px-4 rounded-l",
+                        on: {
+                          click: function($event) {
+                            return _vm.editAccount(_vm.data)
+                          }
+                        }
+                      },
+                      [
+                        _vm._v(
+                          "\n                        Editar\n                    "
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass:
+                          "bg-gray-200 text-gray-500 hover:bg-red-700 hover:text-gray-200 font-bold py-2 px-4 rounded-r",
+                        on: {
+                          click: function($event) {
+                            return _vm.deleteAccount(_vm.data)
+                          }
+                        }
+                      },
+                      [
+                        _vm._v(
+                          "\n                        Eliminar\n                    "
+                        )
+                      ]
+                    )
+                  ])
+                : _vm._e()
+            ]),
+            _vm._v(" "),
+            _c(
+              "svg",
+              {
+                staticClass:
+                  "hidden md:block absolute inset-y-0 h-full w-24 fill-current text-gray-100 -ml-12",
+                attrs: { viewBox: "0 0 100 100", preserveAspectRatio: "none" }
+              },
+              [_c("polygon", { attrs: { points: "50,0 100,0 50,100 0,100" } })]
+            )
+          ]
+        ),
+        _vm._v(" "),
+        _vm.data.showCarouselBottons
+          ? _c("div", [
               _c(
                 "button",
                 {
                   staticClass:
-                    "bg-gray-100 text-gray-500 hover:bg-indigo-700 hover:text-gray-200 font-bold py-2 px-4 rounded-l",
+                    "absolute top-0 mt-32 left-0 bg-white rounded-full shadow-md h-12 w-12 text-2xl -ml-6 focus:outline-none focus:shadow-outline transition duration-500 ease-in-out",
+                  class: {
+                    "text-green-600 hover:text-green-700": _vm.data.color == 1,
+                    "text-blue-600 hover:text-blue-700": _vm.data.color == 2,
+                    "text-red-600 hover:text-red-700": _vm.data.color == 3,
+                    "text-yellow-400 hover:text-yellow-500":
+                      _vm.data.color == 4,
+                    "text-orange-500 hover:text-orange-600": _vm.data.color == 5
+                  },
                   on: {
                     click: function($event) {
-                      return _vm.editAccount(_vm.data)
+                      return _vm.changeCarouselPage(-1)
                     }
                   }
                 },
-                [_vm._v("\n                    Editar\n                ")]
+                [
+                  _c(
+                    "span",
+                    {
+                      staticClass: "block",
+                      staticStyle: { transform: "scale(-1)" }
+                    },
+                    [_vm._v("➜")]
+                  )
+                ]
               ),
               _vm._v(" "),
               _c(
                 "button",
                 {
                   staticClass:
-                    "bg-gray-100 text-gray-500 hover:bg-red-700 hover:text-gray-200 font-bold py-2 px-4 rounded-r",
+                    "absolute top-0 mt-32 right-0 bg-white rounded-full shadow-md h-12 w-12 text-2xl -mr-6 focus:outline-none focus:shadow-outline transition duration-500 ease-in-out",
+                  class: {
+                    "text-green-600 hover:text-green-700": _vm.data.color == 1,
+                    "text-blue-600 hover:text-blue-700": _vm.data.color == 2,
+                    "text-red-600 hover:text-red-700": _vm.data.color == 3,
+                    "text-yellow-400 hover:text-yellow-500":
+                      _vm.data.color == 4,
+                    "text-orange-500 hover:text-orange-600": _vm.data.color == 5
+                  },
                   on: {
                     click: function($event) {
-                      return _vm.deleteAccount(_vm.data)
+                      return _vm.changeCarouselPage(1)
                     }
                   }
                 },
-                [_vm._v("\n                    Eliminar\n                ")]
+                [
+                  _c(
+                    "span",
+                    {
+                      staticClass: "block",
+                      staticStyle: { transform: "scale(1)" }
+                    },
+                    [_vm._v("➜")]
+                  )
+                ]
               )
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "mb-4 flex" }, [
-              _c("div", { staticClass: "w-full" }, [
-                _c(
-                  "div",
-                  {
-                    staticClass: "text-gray-900 font-bold text-3xl text-center"
-                  },
-                  [_vm._v(_vm._s(_vm.data.name))]
-                ),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  {
-                    staticClass: "text-gray-500 font-bold text-4xl text-center"
-                  },
-                  [_vm._v("$" + _vm._s(_vm.data.balance))]
-                ),
-                _vm._v(" "),
-                _c(
-                  "p",
-                  { staticClass: "text-gray-700 text-base text-center" },
-                  [_vm._v(_vm._s(_vm.data.description))]
-                )
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "w-full md:flex" }, [
-              _c("div", { staticClass: "text-sm" }, [
-                _c(
-                  "p",
-                  {
-                    staticClass:
-                      "text-gray-900 leading-none text-center md:text-left"
-                  },
-                  [_vm._v(_vm._s(_vm.getFirstWord(_vm.data.user.name)))]
-                ),
-                _vm._v(" "),
-                _c(
-                  "p",
-                  {
-                    staticClass: "text-gray-600 text-center mb-2 md:text-left"
-                  },
-                  [_vm._v(_vm._s(_vm.formateDate(_vm.data.created_at)))]
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", {
-                staticClass:
-                  "rounded-full h-8 w-8 flex items-center text-center md:ml-auto",
-                class: {
-                  "bg-green-400": _vm.data.color == 1,
-                  "bg-blue-500": _vm.data.color == 2,
-                  "bg-red-500": _vm.data.color == 3,
-                  "bg-yellow-300": _vm.data.color == 4,
-                  "bg-orange-400": _vm.data.color == 5
-                }
-              })
             ])
-          ]
-        )
+          : _vm._e()
       ]
     )
   ])
@@ -65125,246 +65268,19 @@ var render = function() {
                   "div",
                   { staticClass: "mx-auto p-10 md:px-64 bg-gray-200" },
                   [
-                    _c(
-                      "div",
-                      {
-                        staticClass:
-                          "relative rounded-lg block md:flex items-center bg-gray-100 shadow-xl",
-                        staticStyle: { "min-height": "15rem" }
-                      },
-                      [
-                        _c(
-                          "div",
-                          {
-                            staticClass:
-                              "relative w-full md:w-2/5 h-full overflow-hidden rounded-t-lg md:rounded-t-none md:rounded-l-lg",
-                            staticStyle: { "min-height": "15rem" }
-                          },
-                          [
-                            _c("div", {
-                              staticClass:
-                                "absolute inset-0 w-full h-full opacity-75 transition duration-500 ease-in-out",
-                              class: {
-                                "bg-green-700":
-                                  _vm.accounts[_vm.currentAccountIndex].color ==
-                                  1,
-                                "bg-blue-800":
-                                  _vm.accounts[_vm.currentAccountIndex].color ==
-                                  2,
-                                "bg-red-600":
-                                  _vm.accounts[_vm.currentAccountIndex].color ==
-                                  3,
-                                "bg-yellow-300":
-                                  _vm.accounts[_vm.currentAccountIndex].color ==
-                                  4,
-                                "bg-orange-500":
-                                  _vm.accounts[_vm.currentAccountIndex].color ==
-                                  5
-                              }
-                            }),
-                            _vm._v(" "),
-                            _c(
-                              "div",
-                              {
-                                staticClass:
-                                  "absolute inset-0 w-full h-full flex items-center justify-center fill-current text-white px-10"
-                              },
-                              [
-                                _c("h4", {
-                                  staticClass: "text-3xl font-semibold",
-                                  domProps: {
-                                    textContent: _vm._s(
-                                      _vm.accounts[_vm.currentAccountIndex].name
-                                    )
-                                  }
-                                })
-                              ]
-                            )
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "div",
-                          {
-                            staticClass:
-                              "w-full md:w-3/5 h-full flex items-center bg-gray-100 rounded-lg"
-                          },
-                          [
-                            _c(
-                              "div",
-                              {
-                                staticClass: "p-12 md:pr-24 md:pl-16 md:py-12"
-                              },
-                              [
-                                _c(
-                                  "div",
-                                  {
-                                    staticClass:
-                                      "text-gray-600 font-bold text-4xl text-center mb-1 transition duration-500 ease-in-out",
-                                    domProps: {
-                                      textContent: _vm._s(
-                                        "$" +
-                                          _vm.accounts[_vm.currentAccountIndex]
-                                            .balance
-                                      )
-                                    }
-                                  },
-                                  [_vm._v("$200")]
-                                ),
-                                _vm._v(" "),
-                                _c("p", {
-                                  staticClass:
-                                    "text-gray-600 break-words transition duration-500 ease-in-out",
-                                  domProps: {
-                                    textContent: _vm._s(
-                                      _vm.accounts[_vm.currentAccountIndex]
-                                        .description
-                                    )
-                                  }
-                                }),
-                                _vm._v(" "),
-                                _c(
-                                  "a",
-                                  {
-                                    staticClass:
-                                      "flex items-baseline mt-3 transition duration-500 ease-in-out",
-                                    class: {
-                                      "text-green-600 hover:text-green-800":
-                                        _vm.accounts[_vm.currentAccountIndex]
-                                          .color == 1,
-                                      "text-blue-600 hover:text-blue-800":
-                                        _vm.accounts[_vm.currentAccountIndex]
-                                          .color == 2,
-                                      "text-red-600 hover:text-red-800":
-                                        _vm.accounts[_vm.currentAccountIndex]
-                                          .color == 3,
-                                      "text-yellow-500 hover:text-yellow-600":
-                                        _vm.accounts[_vm.currentAccountIndex]
-                                          .color == 4,
-                                      "text-orange-500 hover:text-orange-600":
-                                        _vm.accounts[_vm.currentAccountIndex]
-                                          .color == 5
-                                    },
-                                    attrs: { href: "/accounts" }
-                                  },
-                                  [
-                                    _c("span", [_vm._v("Ver cuenta")]),
-                                    _vm._v(" "),
-                                    _c(
-                                      "span",
-                                      { staticClass: "text-xs ml-1" },
-                                      [_vm._v("➜")]
-                                    )
-                                  ]
-                                )
-                              ]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "svg",
-                              {
-                                staticClass:
-                                  "hidden md:block absolute inset-y-0 h-full w-24 fill-current text-gray-100 -ml-12",
-                                attrs: {
-                                  viewBox: "0 0 100 100",
-                                  preserveAspectRatio: "none"
-                                }
-                              },
-                              [
-                                _c("polygon", {
-                                  attrs: { points: "50,0 100,0 50,100 0,100" }
-                                })
-                              ]
-                            )
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "button",
-                          {
-                            staticClass:
-                              "absolute top-0 mt-32 left-0 bg-white rounded-full shadow-md h-12 w-12 text-2xl -ml-6 focus:outline-none focus:shadow-outline transition duration-500 ease-in-out",
-                            class: {
-                              "text-green-600 hover:text-green-700":
-                                _vm.accounts[_vm.currentAccountIndex].color ==
-                                1,
-                              "text-blue-600 hover:text-blue-700":
-                                _vm.accounts[_vm.currentAccountIndex].color ==
-                                2,
-                              "text-red-600 hover:text-red-700":
-                                _vm.accounts[_vm.currentAccountIndex].color ==
-                                3,
-                              "text-yellow-400 hover:text-yellow-500":
-                                _vm.accounts[_vm.currentAccountIndex].color ==
-                                4,
-                              "text-orange-500 hover:text-orange-600":
-                                _vm.accounts[_vm.currentAccountIndex].color == 5
-                            },
-                            on: {
-                              click: function($event) {
-                                return _vm.changeAccount(-1)
-                              }
-                            }
-                          },
-                          [
-                            _c(
-                              "span",
-                              {
-                                staticClass: "block",
-                                staticStyle: { transform: "scale(-1)" }
-                              },
-                              [_vm._v("➜")]
-                            )
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "button",
-                          {
-                            staticClass:
-                              "absolute top-0 mt-32 right-0 bg-white rounded-full shadow-md h-12 w-12 text-2xl -mr-6 focus:outline-none focus:shadow-outline transition duration-500 ease-in-out",
-                            class: {
-                              "text-green-600 hover:text-green-700":
-                                _vm.accounts[_vm.currentAccountIndex].color ==
-                                1,
-                              "text-blue-600 hover:text-blue-700":
-                                _vm.accounts[_vm.currentAccountIndex].color ==
-                                2,
-                              "text-red-600 hover:text-red-700":
-                                _vm.accounts[_vm.currentAccountIndex].color ==
-                                3,
-                              "text-yellow-400 hover:text-yellow-500":
-                                _vm.accounts[_vm.currentAccountIndex].color ==
-                                4,
-                              "text-orange-500 hover:text-orange-600":
-                                _vm.accounts[_vm.currentAccountIndex].color == 5
-                            },
-                            on: {
-                              click: function($event) {
-                                return _vm.changeAccount(1)
-                              }
-                            }
-                          },
-                          [
-                            _c(
-                              "span",
-                              {
-                                staticClass: "block",
-                                staticStyle: { transform: "scale(1)" }
-                              },
-                              [_vm._v("➜")]
-                            )
-                          ]
-                        )
-                      ]
-                    ),
+                    _c("account-card", {
+                      staticClass: "py-4 px-4 md:py-5 md:pr-8",
+                      attrs: { data: _vm.accounts[_vm.currentAccountIndex] },
+                      on: { changeCarouselPage: _vm.changeAccount }
+                    }),
                     _vm._v(" "),
                     _c(
                       "p",
                       { staticClass: "text-gray-600 text-xs italic mt-8" },
                       [_vm._v("Seleccione una cuenta para la transacción.")]
                     )
-                  ]
+                  ],
+                  1
                 ),
                 _vm._v(" "),
                 _c(
