@@ -9,16 +9,16 @@
             </thead>
             <tbody class="text-center">
                 <tr v-for="item in data" class="px-4 py-5">
-                    <td v-for="row in item" class="border-b-2 border-gray-200 px-4 py-2">
+                    <td v-for="row in item" class="border-b-2 border-gray-100 px-4 py-2">
                         <div class="text-gray-700">{{ row }}</div>
                     </td>
-                    <td class="border-b-2 border-gray-200 px-4 py-2 text-gray-700">
-                        <button class="bg-transparent hover:bg-indigo-700 text-indigo-700 font-semibold hover:text-white
-                            py-2 px-2 border border-indigo-700 hover:border-transparent rounded" @click="editRecord(item)">
+                    <td class="border-b-2 border-gray-100 px-4 py-2 text-gray-700">
+                        <button class="bg-indigo-700 hover:bg-indigo-800 text-white text-sm
+                            py-2 px-2 hover:border-transparent rounded" @click="editRecord(item)">
                             Editar
                         </button>
-                        <button class="bg-transparent hover:bg-red-700 text-red-700 font-semibold hover:text-white
-                            py-2 px-2 border border-red-700 hover:border-transparent rounded" @click="deleteRecord(item)">
+                        <button class="bg-red-700 hover:bg-red-800 text-white text-sm
+                            py-2 px-2 hover:border-transparent rounded" @click="deleteRecord(item)">
                             Eliminar
                         </button>
                     </td>

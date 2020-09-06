@@ -3,13 +3,13 @@
 
         <graphql-error-toast v-if="this.errors" :errors="this.errors"></graphql-error-toast>
 
-        <div class="border-b p-6">
-            <div class="px-6 -mb-px">
-                <h2 class="font-semibold text-gray-600">Editar Categoría</h2>
+        <div class="border-b">
+            <div class="flex justify-between px-6 -mb-px">
+                <h3 class="text-indigo-700 py-4 font-normal text-lg">Editar categoría</h3>
             </div>
         </div>
 
-        <div class="flex flex-wrap -mx-3 px-12 py-6">
+        <div class="flex flex-wrap -mx-3 px-12 py-6 mt-5">
             <label class="block text-gray-600 text-sm font-bold mb-2" for="name">
                 Nombre de la categoría
             </label>

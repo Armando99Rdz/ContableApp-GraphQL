@@ -1,9 +1,8 @@
 <template>
     <div class="w-full">
-        <div class="flex justify-between">
-            <h2 class="font-semibold text-gray-700 mb-4">Mis Cuentas</h2>
-            <button class="bg-transparent hover:bg-indigo-700 text-indigo-700 font-semibold hover:text-white py-1 px-2
-                border border-indigo-700 hover:border-transparent rounded"
+        <div class="flex justify-between px-4 md:px-0">
+            <h2 class="font-semibold text-gray-700 mb-4">Mis cuentas</h2>
+            <button class="bg-indigo-700 hover:bg-indigo-800 text-white hover:text-white py-1 px-2 rounded"
                 @click="goToCrateAccount"
             >
                 Nueva cuenta
@@ -13,9 +12,9 @@
             <loading :loading="loading" color="gray"></loading>
         </div>
         <!--<simple-table :headings="headings" :data="accounts"></simple-table>-->
-        <div class="w-full h-full flex flex-wrap">
-            <div v-for="account in accounts" :key="account.id" class="sm:w-2/2 w-1/2">
-                <account-card :data="account" class="py-5 pr-5" @editAccount="editAccount" @deleteAccount="deleteAccount"></account-card>
+        <div class="w-full flex flex-wrap mt-4 md:mt-0">
+            <div v-for="account in accounts" :key="account.id" class="w-full mx-auto md:w-1/2">
+                <account-card :data="account" class="py-4 px-4 md:py-5 md:pr-8" @editAccount="editAccount" @deleteAccount="deleteAccount"></account-card>
             </div>
         </div>
     </div>

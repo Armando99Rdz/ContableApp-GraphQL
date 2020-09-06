@@ -8,6 +8,7 @@ query transactionInitalData{
             name
             balance
             color
+            description
         }
     }
     categories(first: 50){

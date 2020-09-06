@@ -17,7 +17,7 @@ input CreateTransactionInput {
     category_id: ID! @rules(apply: ["exists:categories,id"]) #
     amount: Float! @rules(apply: ["gt:0"]) # balance debe ser mayor a 0
     type: TransactionType!
-    description: String!
+    description: String
 }
 
 

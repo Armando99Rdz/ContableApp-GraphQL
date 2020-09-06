@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="max-w-sm rounded overflow-hidden shadow-lg transform motion-reduce:transform-none
+        <div class="w-full rounded overflow-hidden shadow-lg transform motion-reduce:transform-none
                 hover:-translate-y-1 hover:scale-110 transition ease-in-out duration-300">
             <div class="bg-white rounded lg:rounded p-5 flex flex-col justify-between leading-normal">
                 <div class="inline-flex justify-center">
@@ -21,12 +21,12 @@
                     </div>
 
                 </div>
-                <div class="max-w-sm md:flex">
+                <div class="w-full md:flex">
                     <div class="text-sm">
-                        <p class="text-gray-900 leading-none">{{ getFirstWord(data.user.name) }}</p>
-                        <p class="text-gray-600">{{ formateDate(data.created_at) }}</p>
+                        <p class="text-gray-900 leading-none text-center md:text-left">{{ getFirstWord(data.user.name) }}</p>
+                        <p class="text-gray-600 text-center mb-2 md:text-left">{{ formateDate(data.created_at) }}</p>
                     </div>
-                    <div class="rounded-full h-8 w-8 flex items-center md:ml-auto"
+                    <div class="rounded-full h-8 w-8 flex items-center text-center md:ml-auto"
                          v-bind:class="{
                                 'bg-green-400' : data.color == 1,
                                 'bg-blue-500' : data.color == 2,

@@ -5,8 +5,8 @@
             <graphql-error-toast v-if="this.errors" :errors="this.errors"></graphql-error-toast>
             <div class="border-b p-6">
                 <div class="flex flex-wrap px-6 -mb-px">
-                    <h2 class="font-semibold text-gray-600">Mis Categorías</h2>
-                    <button class="bg-transparent bg-indigo-700 font-semibold text-white py-2 px-2
+                    <h3 class="text-indigo-700 py-2 font-normal text-lg">Listado de categorías</h3>
+                    <button class="bg-transparent bg-indigo-700 text-white py-2 px-2
                         border hover:bg-indigo-800 hover:border-transparent rounded ml-auto"
                         @click="goToCrateCategory"
                     >
@@ -43,6 +43,7 @@
                 headings: ['ID', 'Nombre'],
                 categories: [],
                 loading: true,
+                errors: null
             }
         },
         components: {

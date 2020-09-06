@@ -14961,7 +14961,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
 
 
 
@@ -15457,7 +15456,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     return {
       headings: ['ID', 'Nombre'],
       categories: [],
-      loading: true
+      loading: true,
+      errors: null
     };
   },
   components: {
@@ -15819,6 +15819,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _graphql_transactions_create_inital_data_graphql__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_graphql_transactions_create_inital_data_graphql__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _components_common_loading__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../components/common/loading */ "./resources/js/components/common/loading.vue");
 /* harmony import */ var _components_errors_graphql_error_toast__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../components/errors/graphql-error-toast */ "./resources/js/components/errors/graphql-error-toast.vue");
+/* harmony import */ var _graphql_categories_create_graphql__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../graphql/categories/create.graphql */ "./resources/js/graphql/categories/create.graphql");
+/* harmony import */ var _graphql_categories_create_graphql__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_graphql_categories_create_graphql__WEBPACK_IMPORTED_MODULE_4__);
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -15838,6 +15840,49 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 
@@ -15852,7 +15897,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       loading: true,
       accounts: [],
       categories: [],
-      errors: null
+      errors: null,
+      form: {
+        account_id: null,
+        category_id: null,
+        type: 'INCOME',
+        // por defecto sera ingreso
+        ammount: 0
+      },
+      currentAccount: null
     };
   },
   created: function created() {
@@ -15880,9 +15933,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     id: item.id,
                     name: item.name,
                     balance: item.balance,
-                    color: item.color
+                    color: item.color,
+                    description: item.description
                   };
                 });
+                _this.currentAccount = _this.accounts[0] || null;
                 _this.categories = response.data.categories.data.map(function (item) {
                   return {
                     id: item.id,
@@ -15891,13 +15946,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 });
                 _this.loading = _this.$apollo.loading;
 
-              case 6:
+              case 7:
               case "end":
                 return _context.stop();
             }
           }
         }, _callee);
       }))();
+    },
+    submit: function submit() {
+      this.loading = true;
+      this.errors = null;
     }
   }
 });
@@ -62987,7 +63046,7 @@ var render = function() {
       "div",
       {
         staticClass:
-          "max-w-sm rounded overflow-hidden shadow-lg transform motion-reduce:transform-none\n            hover:-translate-y-1 hover:scale-110 transition ease-in-out duration-300"
+          "w-full rounded overflow-hidden shadow-lg transform motion-reduce:transform-none\n            hover:-translate-y-1 hover:scale-110 transition ease-in-out duration-300"
       },
       [
         _c(
@@ -63053,20 +63112,29 @@ var render = function() {
               ])
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "max-w-sm md:flex" }, [
+            _c("div", { staticClass: "w-full md:flex" }, [
               _c("div", { staticClass: "text-sm" }, [
-                _c("p", { staticClass: "text-gray-900 leading-none" }, [
-                  _vm._v(_vm._s(_vm.getFirstWord(_vm.data.user.name)))
-                ]),
+                _c(
+                  "p",
+                  {
+                    staticClass:
+                      "text-gray-900 leading-none text-center md:text-left"
+                  },
+                  [_vm._v(_vm._s(_vm.getFirstWord(_vm.data.user.name)))]
+                ),
                 _vm._v(" "),
-                _c("p", { staticClass: "text-gray-600" }, [
-                  _vm._v(_vm._s(_vm.formateDate(_vm.data.created_at)))
-                ])
+                _c(
+                  "p",
+                  {
+                    staticClass: "text-gray-600 text-center mb-2 md:text-left"
+                  },
+                  [_vm._v(_vm._s(_vm.formateDate(_vm.data.created_at)))]
+                )
               ]),
               _vm._v(" "),
               _c("div", {
                 staticClass:
-                  "rounded-full h-8 w-8 flex items-center md:ml-auto",
+                  "rounded-full h-8 w-8 flex items-center text-center md:ml-auto",
                 class: {
                   "bg-green-400": _vm.data.color == 1,
                   "bg-blue-500": _vm.data.color == 2,
@@ -63201,7 +63269,7 @@ var render = function() {
               _vm._l(item, function(row) {
                 return _c(
                   "td",
-                  { staticClass: "border-b-2 border-gray-200 px-4 py-2" },
+                  { staticClass: "border-b-2 border-gray-100 px-4 py-2" },
                   [
                     _c("div", { staticClass: "text-gray-700" }, [
                       _vm._v(_vm._s(row))
@@ -63214,14 +63282,14 @@ var render = function() {
                 "td",
                 {
                   staticClass:
-                    "border-b-2 border-gray-200 px-4 py-2 text-gray-700"
+                    "border-b-2 border-gray-100 px-4 py-2 text-gray-700"
                 },
                 [
                   _c(
                     "button",
                     {
                       staticClass:
-                        "bg-transparent hover:bg-indigo-700 text-indigo-700 font-semibold hover:text-white\n                        py-2 px-2 border border-indigo-700 hover:border-transparent rounded",
+                        "bg-indigo-700 hover:bg-indigo-800 text-white text-sm\n                        py-2 px-2 hover:border-transparent rounded",
                       on: {
                         click: function($event) {
                           return _vm.editRecord(item)
@@ -63239,7 +63307,7 @@ var render = function() {
                     "button",
                     {
                       staticClass:
-                        "bg-transparent hover:bg-red-700 text-red-700 font-semibold hover:text-white\n                        py-2 px-2 border border-red-700 hover:border-transparent rounded",
+                        "bg-red-700 hover:bg-red-800 text-white text-sm\n                        py-2 px-2 hover:border-transparent rounded",
                       on: {
                         click: function($event) {
                           return _vm.deleteRecord(item)
@@ -63836,16 +63904,16 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "w-full" }, [
-    _c("div", { staticClass: "flex justify-between" }, [
+    _c("div", { staticClass: "flex justify-between px-4 md:px-0" }, [
       _c("h2", { staticClass: "font-semibold text-gray-700 mb-4" }, [
-        _vm._v("Mis Cuentas")
+        _vm._v("Mis cuentas")
       ]),
       _vm._v(" "),
       _c(
         "button",
         {
           staticClass:
-            "bg-transparent hover:bg-indigo-700 text-indigo-700 font-semibold hover:text-white py-1 px-2\n            border border-indigo-700 hover:border-transparent rounded",
+            "bg-indigo-700 hover:bg-indigo-800 text-white hover:text-white py-1 px-2 rounded",
           on: { click: _vm.goToCrateAccount }
         },
         [_vm._v("\n            Nueva cuenta\n        ")]
@@ -63863,14 +63931,14 @@ var render = function() {
     _vm._v(" "),
     _c(
       "div",
-      { staticClass: "w-full h-full flex flex-wrap" },
+      { staticClass: "w-full flex flex-wrap mt-4 md:mt-0" },
       _vm._l(_vm.accounts, function(account) {
         return _c(
           "div",
-          { key: account.id, staticClass: "sm:w-2/2 w-1/2" },
+          { key: account.id, staticClass: "w-full mx-auto md:w-1/2" },
           [
             _c("account-card", {
-              staticClass: "py-5 pr-5",
+              staticClass: "py-4 px-4 md:py-5 md:pr-8",
               attrs: { data: account },
               on: {
                 editAccount: _vm.editAccount,
@@ -63920,7 +63988,7 @@ var render = function() {
       _vm._v(" "),
       _vm._m(0),
       _vm._v(" "),
-      _c("div", { staticClass: "flex flex-wrap -mx-3 px-12 py-6" }, [
+      _c("div", { staticClass: "flex flex-wrap -mx-3 px-12 py-6 mt-5" }, [
         _c(
           "label",
           {
@@ -63991,10 +64059,10 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "border-b p-6" }, [
-      _c("div", { staticClass: "px-6 -mb-px" }, [
-        _c("h2", { staticClass: "font-semibold text-gray-600" }, [
-          _vm._v("Nueva Categoría")
+    return _c("div", { staticClass: "border-b" }, [
+      _c("div", { staticClass: "flex justify-between px-6 -mb-px" }, [
+        _c("h3", { staticClass: "text-indigo-700 py-4 font-normal text-lg" }, [
+          _vm._v("Nueva categoría")
         ])
       ])
     ])
@@ -64034,7 +64102,7 @@ var render = function() {
       _vm._v(" "),
       _vm._m(0),
       _vm._v(" "),
-      _c("div", { staticClass: "flex flex-wrap -mx-3 px-12 py-6" }, [
+      _c("div", { staticClass: "flex flex-wrap -mx-3 px-12 py-6 mt-5" }, [
         _c(
           "label",
           {
@@ -64105,10 +64173,10 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "border-b p-6" }, [
-      _c("div", { staticClass: "px-6 -mb-px" }, [
-        _c("h2", { staticClass: "font-semibold text-gray-600" }, [
-          _vm._v("Editar Categoría")
+    return _c("div", { staticClass: "border-b" }, [
+      _c("div", { staticClass: "flex justify-between px-6 -mb-px" }, [
+        _c("h3", { staticClass: "text-indigo-700 py-4 font-normal text-lg" }, [
+          _vm._v("Editar categoría")
         ])
       ])
     ])
@@ -64149,15 +64217,17 @@ var render = function() {
         _vm._v(" "),
         _c("div", { staticClass: "border-b p-6" }, [
           _c("div", { staticClass: "flex flex-wrap px-6 -mb-px" }, [
-            _c("h2", { staticClass: "font-semibold text-gray-600" }, [
-              _vm._v("Mis Categorías")
-            ]),
+            _c(
+              "h3",
+              { staticClass: "text-indigo-700 py-2 font-normal text-lg" },
+              [_vm._v("Listado de categorías")]
+            ),
             _vm._v(" "),
             _c(
               "button",
               {
                 staticClass:
-                  "bg-transparent bg-indigo-700 font-semibold text-white py-2 px-2\n                    border hover:bg-indigo-800 hover:border-transparent rounded ml-auto",
+                  "bg-transparent bg-indigo-700 text-white py-2 px-2\n                    border hover:bg-indigo-800 hover:border-transparent rounded ml-auto",
                 on: { click: _vm.goToCrateCategory }
               },
               [
@@ -64964,15 +65034,196 @@ var render = function() {
             [_c("loading", { attrs: { loading: _vm.loading, color: "gray" } })],
             1
           )
-        : _c("div", {
-            staticClass:
-              "w-full bg-white p-12 rounded-md overflow-hidden shadow-lg"
-          })
+        : _c(
+            "div",
+            {
+              staticClass:
+                "w-full bg-white border-t border-b sm:rounded sm:border shadow"
+            },
+            [
+              _vm._m(0),
+              _vm._v(" "),
+              _c("div", { staticClass: "w-full text-center" }, [
+                _c("div", { staticClass: "mx-auto p-10 md:px-64 bg-white" }, [
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "relative rounded-lg block md:flex items-center bg-gray-100 shadow-xl transition duration-500 ease-in-out",
+                      staticStyle: { "min-height": "15rem" }
+                    },
+                    [
+                      _c(
+                        "div",
+                        {
+                          staticClass:
+                            "relative w-full md:w-2/5 h-full overflow-hidden rounded-t-lg md:rounded-t-none md:rounded-l-lg",
+                          staticStyle: { "min-height": "15rem" }
+                        },
+                        [
+                          _c("div", {
+                            staticClass:
+                              "absolute inset-0 w-full h-full bg-indigo-900 opacity-75"
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            {
+                              staticClass:
+                                "absolute inset-0 w-full h-full flex items-center justify-center fill-current text-white px-10"
+                            },
+                            [
+                              _c("h4", {
+                                staticClass: "text-3xl font-semibold",
+                                domProps: {
+                                  textContent: _vm._s(_vm.currentAccount.name)
+                                }
+                              })
+                            ]
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          staticClass:
+                            "w-full md:w-3/5 h-full flex items-center bg-gray-100 rounded-lg"
+                        },
+                        [
+                          _c(
+                            "div",
+                            { staticClass: "p-12 md:pr-24 md:pl-16 md:py-12" },
+                            [
+                              _c(
+                                "div",
+                                {
+                                  staticClass:
+                                    "text-gray-600 font-bold text-4xl text-center mb-1",
+                                  domProps: {
+                                    textContent: _vm._s(
+                                      "$" + _vm.currentAccount.balance
+                                    )
+                                  }
+                                },
+                                [_vm._v("$200")]
+                              ),
+                              _vm._v(" "),
+                              _c("p", {
+                                staticClass: "text-gray-600 break-words",
+                                domProps: {
+                                  textContent: _vm._s(
+                                    _vm.currentAccount.description
+                                  )
+                                }
+                              }),
+                              _vm._v(" "),
+                              _vm._m(1)
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "svg",
+                            {
+                              staticClass:
+                                "hidden md:block absolute inset-y-0 h-full w-24 fill-current text-gray-100 -ml-12",
+                              attrs: {
+                                viewBox: "0 0 100 100",
+                                preserveAspectRatio: "none"
+                              }
+                            },
+                            [
+                              _c("polygon", {
+                                attrs: { points: "50,0 100,0 50,100 0,100" }
+                              })
+                            ]
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _vm._m(2),
+                      _vm._v(" "),
+                      _vm._m(3)
+                    ]
+                  )
+                ])
+              ])
+            ]
+          )
     ],
     1
   )
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "border-b" }, [
+      _c("div", { staticClass: "flex justify-between px-6 -mb-px" }, [
+        _c("h3", { staticClass: "text-indigo-700 py-4 font-normal text-lg" }, [
+          _vm._v("Nueva transacción")
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "a",
+      {
+        staticClass:
+          "flex items-baseline mt-3 text-indigo-600 hover:text-indigo-800 focus:text-indigo-900",
+        attrs: { href: "/accounts" }
+      },
+      [
+        _c("span", [_vm._v("Ver cuenta")]),
+        _vm._v(" "),
+        _c("span", { staticClass: "text-xs ml-1" }, [_vm._v("➜")])
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass:
+          "absolute top-0 mt-32 left-0 bg-white rounded-full shadow-md h-12 w-12 text-2xl text-indigo-600 hover:text-indigo-500 focus:text-indigo-500 -ml-6 focus:outline-none focus:shadow-outline"
+      },
+      [
+        _c(
+          "span",
+          { staticClass: "block", staticStyle: { transform: "scale(-1)" } },
+          [_vm._v("➜")]
+        )
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass:
+          "absolute top-0 mt-32 right-0 bg-white rounded-full shadow-md h-12 w-12 text-2xl text-indigo-600 hover:text-indigo-500 focus:text-indigo-500 -mr-6 focus:outline-none focus:shadow-outline"
+      },
+      [
+        _c(
+          "span",
+          { staticClass: "block", staticStyle: { transform: "scale(1)" } },
+          [_vm._v("➜")]
+        )
+      ]
+    )
+  }
+]
 render._withStripped = true
 
 
@@ -82758,8 +83009,8 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports) {
 
 
-    var doc = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"transactionInitalData"},"variableDefinitions":[],"directives":[],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"accounts"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"first"},"value":{"kind":"IntValue","value":"20"}}],"directives":[],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"data"},"arguments":[],"directives":[],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"},"arguments":[],"directives":[]},{"kind":"Field","name":{"kind":"Name","value":"name"},"arguments":[],"directives":[]},{"kind":"Field","name":{"kind":"Name","value":"balance"},"arguments":[],"directives":[]},{"kind":"Field","name":{"kind":"Name","value":"color"},"arguments":[],"directives":[]}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"categories"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"first"},"value":{"kind":"IntValue","value":"50"}}],"directives":[],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"data"},"arguments":[],"directives":[],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"},"arguments":[],"directives":[]},{"kind":"Field","name":{"kind":"Name","value":"name"},"arguments":[],"directives":[]}]}}]}}]}}],"loc":{"start":0,"end":364}};
-    doc.loc.source = {"body":"# consultar los datos necesarios para crear una transaccion\n# en este caso: son necesarias las cuentas y categorias.\n\nquery transactionInitalData{\n    accounts(first: 20){\n        data {\n            id\n            name\n            balance\n            color\n        }\n    }\n    categories(first: 50){\n        data{\n            id\n            name\n        }\n    }\n}\n","name":"GraphQL request","locationOffset":{"line":1,"column":1}};
+    var doc = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"transactionInitalData"},"variableDefinitions":[],"directives":[],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"accounts"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"first"},"value":{"kind":"IntValue","value":"20"}}],"directives":[],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"data"},"arguments":[],"directives":[],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"},"arguments":[],"directives":[]},{"kind":"Field","name":{"kind":"Name","value":"name"},"arguments":[],"directives":[]},{"kind":"Field","name":{"kind":"Name","value":"balance"},"arguments":[],"directives":[]},{"kind":"Field","name":{"kind":"Name","value":"color"},"arguments":[],"directives":[]},{"kind":"Field","name":{"kind":"Name","value":"description"},"arguments":[],"directives":[]}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"categories"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"first"},"value":{"kind":"IntValue","value":"50"}}],"directives":[],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"data"},"arguments":[],"directives":[],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"},"arguments":[],"directives":[]},{"kind":"Field","name":{"kind":"Name","value":"name"},"arguments":[],"directives":[]}]}}]}}]}}],"loc":{"start":0,"end":388}};
+    doc.loc.source = {"body":"# consultar los datos necesarios para crear una transaccion\n# en este caso: son necesarias las cuentas y categorias.\n\nquery transactionInitalData{\n    accounts(first: 20){\n        data {\n            id\n            name\n            balance\n            color\n            description\n        }\n    }\n    categories(first: 50){\n        data{\n            id\n            name\n        }\n    }\n}\n","name":"GraphQL request","locationOffset":{"line":1,"column":1}};
   
 
     var names = {};
