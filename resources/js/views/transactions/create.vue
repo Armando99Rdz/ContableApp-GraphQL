@@ -60,7 +60,7 @@
                             </label>
                             <div class="relative">
                                 <select v-model="form.category_id" class="block appearance-none w-full bg-white border text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-indigo-300" id="category_id">
-                                    <option value="YEE" selected>Seleccione</option>
+                                    <option selected>Seleccione</option>
                                     <option v-for="cat in categories" :key="cat.id" :value="cat.id">{{cat.name}}</option>
                                 </select>
                                 <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">

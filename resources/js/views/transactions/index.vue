@@ -1,15 +1,11 @@
 
 <template>
     <div>
-        <h2 class="text-4xl font-medium capitalize text-gray-600">transacciones</h2>
+        <h2 class="text-4xl font-medium capitalize text-gray-600 ml-2 md:ml-0">transacciones</h2>
         <div class="mt-1 mb-4 md:flex items-center justify-between text-gray-600">
-            <span class="m-3  md:m-0 block md:flex">
-                Balance total:
-                <strong class="ml-2">$710.180</strong>
-            </span>
             <span class="m-3 md:m-0 block md:flex">
-                Total de transacciones:
-                <strong class="ml-2">46</strong>
+                Transacciones totales:
+                <strong class="ml-2">{{transactions.length}}</strong>
             </span>
             <div class="flex items-center select-none pl-3 md:pl-0">
                 <button @click="goToCreateTransaction" class="bg-indigo-700 hover:bg-indigo-800 text-white hover:text-white py-3 px-2 rounded">
@@ -21,10 +17,10 @@
         <div class="border border-gray-300 transition duration-500
             ease-in-out">
         </div>
-        <div class="flex flex-col mt-2">
-            <div class="flex flex-row mt-2 px-5 md:px-0 md:border md:border-gray-300 md:shadow-md">
+        <div class="flex flex-col mt-4">
+            <div class="px-5 md:px-0">
                 <!-- card -->
-                <TransactionCard v-for="tr in transactions" :key="tr.id" :data="tr"></TransactionCard>
+                <transaction-card v-for="tr in transactions" :key="tr.id" :data="tr"></transaction-card>
 
             </div>
 
@@ -34,23 +30,47 @@
 
 <script>
 
-    import gql from 'graphql-tag'
+    import gql from 'graphql-tag';
+    import TRANSACTIONS from '../../graphql/transactions/transactions.graphql';
     import TransactionCard from '../../components/cards/transaction-card';
 
     export default {
-        components: [
+        components: {
             TransactionCard
-        ],
+       },
         mounted() {
+            this.getTransactions();
         },
         data(){
             return {
                 transactions: [],
+                loading: true,
             }
         },
         methods: {
             goToCreateTransaction(){
-                this.$router.push('/transactions/create')
+                this.$router.push('/transactions/create');
+            },
+            async getTransactions(){
+                const response = await this.$apollo.query({
+                    query: TRANSACTIONS,
+                    variables: {
+                        first: 20,
+                        page: 1
+                    }
+                });
+                this.transactions = response.data.transactions.data.map(item => {
+                    return {
+                        id: item.id,
+                        amount: item.amount,
+                        type: item.type,
+                        description: item.description,
+                        account: item.account,
+                        category: item.category,
+                        created_at: item.created_at
+                    }
+                });
+                this.loading = this.$apollo.loading;
             }
         }
     }

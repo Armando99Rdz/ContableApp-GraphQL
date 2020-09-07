@@ -14427,6 +14427,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_0__);
 //
 //
 //
@@ -14522,6 +14524,23 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "transaction-card",
   props: ['data'],
@@ -14533,7 +14552,7 @@ __webpack_require__.r(__webpack_exports__);
       this.$emit('deleteTransaction', transaction);
     },
     formateDate: function formateDate(date) {
-      return moment(date).locale('es').format('DD [de] MMMM [del] YYYY');
+      return moment__WEBPACK_IMPORTED_MODULE_0___default()(date).locale('es').format('DD [de] MMMM [del] YYYY');
     },
     getFirstWord: function getFirstWord(string) {
       if (string.indexOf(' ') === -1) return string;
@@ -16309,9 +16328,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var graphql_tag__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! graphql-tag */ "./node_modules/graphql-tag/src/index.js");
-/* harmony import */ var graphql_tag__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(graphql_tag__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _components_cards_transaction_card__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../components/cards/transaction-card */ "./resources/js/components/cards/transaction-card.vue");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var graphql_tag__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! graphql-tag */ "./node_modules/graphql-tag/src/index.js");
+/* harmony import */ var graphql_tag__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(graphql_tag__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _graphql_transactions_transactions_graphql__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../graphql/transactions/transactions.graphql */ "./resources/js/graphql/transactions/transactions.graphql");
+/* harmony import */ var _graphql_transactions_transactions_graphql__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_graphql_transactions_transactions_graphql__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _components_cards_transaction_card__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../components/cards/transaction-card */ "./resources/js/components/cards/transaction-card.vue");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 //
 //
 //
@@ -16342,23 +16371,66 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  components: [_components_cards_transaction_card__WEBPACK_IMPORTED_MODULE_1__["default"]],
-  mounted: function mounted() {},
+  components: {
+    TransactionCard: _components_cards_transaction_card__WEBPACK_IMPORTED_MODULE_3__["default"]
+  },
+  mounted: function mounted() {
+    this.getTransactions();
+  },
   data: function data() {
     return {
-      transactions: []
+      transactions: [],
+      loading: true
     };
   },
   methods: {
     goToCreateTransaction: function goToCreateTransaction() {
       this.$router.push('/transactions/create');
+    },
+    getTransactions: function getTransactions() {
+      var _this = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return _this.$apollo.query({
+                  query: _graphql_transactions_transactions_graphql__WEBPACK_IMPORTED_MODULE_2___default.a,
+                  variables: {
+                    first: 20,
+                    page: 1
+                  }
+                });
+
+              case 2:
+                response = _context.sent;
+                _this.transactions = response.data.transactions.data.map(function (item) {
+                  return {
+                    id: item.id,
+                    amount: item.amount,
+                    type: item.type,
+                    description: item.description,
+                    account: item.account,
+                    category: item.category,
+                    created_at: item.created_at
+                  };
+                });
+                _this.loading = _this.$apollo.loading;
+
+              case 5:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
     }
   }
 });
@@ -63625,7 +63697,14 @@ var render = function() {
     "div",
     {
       staticClass:
-        "md:flex w-full items-center justify-between bg-white px-8 py-6 border-l-4 border-green-400"
+        "md:flex w-full items-center justify-between bg-white px-8 py-6 border-l-4 my-2 shadow-md hover:shadow-lg hover:-translate-y-1 hover:scale-100 transition ease-in-out duration-300 transform motion-reduce:transform-none",
+      class: {
+        "border-green-500": _vm.data.account.color == 1,
+        "border-blue-600": _vm.data.account.color == 2,
+        "border-red-600": _vm.data.account.color == 3,
+        "border-yellow-300": _vm.data.account.color == 4,
+        "border-orange-500": _vm.data.account.color == 5
+      }
     },
     [
       _c("div", { staticClass: "md:flex" }, [
@@ -63640,18 +63719,21 @@ var render = function() {
               _vm._v(
                 "\n                " +
                   _vm._s(
-                    _vm.data.type === "INCOME" ? "Ingreso a " : "Gasto en "
+                    _vm.data.type === "INCOME"
+                      ? "Ingreso registrado en "
+                      : "Gasto registrado en "
                   ) +
                   "\n                "
               ),
               _c("span", { staticClass: "font-bold flex ml-2" }, [
                 _vm._v(
                   "\n                        " +
-                    _vm._s(_vm.data.name) +
+                    _vm._s(_vm.data.account.name) +
                     "\n                    "
                 ),
                 _c("div", {
-                  staticClass: "rounded-lg h-5 w-5 ml-2 my-auto text-white",
+                  staticClass:
+                    "rounded-lg h-5 w-5 ml-2 my-auto text-white mr-2",
                   class: {
                     "bg-green-500": _vm.data.account.color == 1,
                     "bg-blue-600": _vm.data.account.color == 2,
@@ -63659,19 +63741,69 @@ var render = function() {
                     "bg-yellow-300": _vm.data.account.color == 4,
                     "bg-orange-500": _vm.data.account.color == 5
                   }
-                })
+                }),
+                _vm._v(" "),
+                _c("span", { staticClass: "text-gray-600 font-normal" }, [
+                  _vm._v("#" + _vm._s(_vm.data.id))
+                ])
               ])
             ]),
             _vm._v(" "),
             _c(
               "span",
-              { staticClass: "text-2xl my-2 font-semibold text-green-500" },
+              { staticClass: "flex text-2xl my-2 font-semibold text-gray-600" },
               [
                 _vm._v(
                   "\n                $" +
                     _vm._s(_vm.data.amount) +
-                    "\n            "
-                )
+                    "\n                "
+                ),
+                _vm.data.type === "INCOME"
+                  ? _c(
+                      "svg",
+                      {
+                        staticClass: "text-green-500",
+                        attrs: {
+                          width: "22",
+                          height: "22",
+                          viewBox: "0 0 20 20",
+                          fill: "currentColor"
+                        }
+                      },
+                      [
+                        _c("path", {
+                          attrs: {
+                            "fill-rule": "evenodd",
+                            d:
+                              "M12 7a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0V8.414l-4.293 4.293a1 1 0 01-1.414 0L8 10.414l-4.293 4.293a1 1 0 01-1.414-1.414l5-5a1 1 0 011.414 0L11 10.586 14.586 7H12z",
+                            "clip-rule": "evenodd"
+                          }
+                        })
+                      ]
+                    )
+                  : _c(
+                      "svg",
+                      {
+                        staticClass: "text-red-600",
+                        attrs: {
+                          fill: "none",
+                          width: "22",
+                          height: "22",
+                          viewBox: "0 0 24 24",
+                          stroke: "currentColor"
+                        }
+                      },
+                      [
+                        _c("path", {
+                          attrs: {
+                            strokeLinecap: "round",
+                            strokeLinejoin: "round",
+                            strokeWidth: "3",
+                            d: "M13 17h8m0 0V9m0 8l-8-8-4 4-6-6"
+                          }
+                        })
+                      ]
+                    )
               ]
             ),
             _vm._v(" "),
@@ -63706,7 +63838,7 @@ var render = function() {
                   [
                     _vm._v(
                       "\n                        " +
-                        _vm._s(_vm.getFirstWord(_vm.data.user.name)) +
+                        _vm._s(_vm.getFirstWord(_vm.data.account.user.name)) +
                         "\n                    "
                     )
                   ]
@@ -66039,11 +66171,9 @@ var render = function() {
                                 }
                               },
                               [
-                                _c(
-                                  "option",
-                                  { attrs: { value: "YEE", selected: "" } },
-                                  [_vm._v("Seleccione")]
-                                ),
+                                _c("option", { attrs: { selected: "" } }, [
+                                  _vm._v("Seleccione")
+                                ]),
                                 _vm._v(" "),
                                 _vm._l(_vm.categories, function(cat) {
                                   return _c(
@@ -66219,9 +66349,14 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("h2", { staticClass: "text-4xl font-medium capitalize text-gray-600" }, [
-      _vm._v("transacciones")
-    ]),
+    _c(
+      "h2",
+      {
+        staticClass:
+          "text-4xl font-medium capitalize text-gray-600 ml-2 md:ml-0"
+      },
+      [_vm._v("transacciones")]
+    ),
     _vm._v(" "),
     _c(
       "div",
@@ -66230,9 +66365,12 @@ var render = function() {
           "mt-1 mb-4 md:flex items-center justify-between text-gray-600"
       },
       [
-        _vm._m(0),
-        _vm._v(" "),
-        _vm._m(1),
+        _c("span", { staticClass: "m-3 md:m-0 block md:flex" }, [
+          _vm._v("\n            Transacciones totales:\n            "),
+          _c("strong", { staticClass: "ml-2" }, [
+            _vm._v(_vm._s(_vm.transactions.length))
+          ])
+        ]),
         _vm._v(" "),
         _c(
           "div",
@@ -66257,41 +66395,19 @@ var render = function() {
         "border border-gray-300 transition duration-500\n        ease-in-out"
     }),
     _vm._v(" "),
-    _c("div", { staticClass: "flex flex-col mt-2" }, [
+    _c("div", { staticClass: "flex flex-col mt-4" }, [
       _c(
         "div",
-        {
-          staticClass:
-            "flex flex-row mt-2 px-5 md:px-0 md:border md:border-gray-300 md:shadow-md"
-        },
+        { staticClass: "px-5 md:px-0" },
         _vm._l(_vm.transactions, function(tr) {
-          return _c("TransactionCard", { key: tr.id, attrs: { data: tr } })
+          return _c("transaction-card", { key: tr.id, attrs: { data: tr } })
         }),
         1
       )
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("span", { staticClass: "m-3  md:m-0 block md:flex" }, [
-      _vm._v("\n            Balance total:\n            "),
-      _c("strong", { staticClass: "ml-2" }, [_vm._v("$710.180")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("span", { staticClass: "m-3 md:m-0 block md:flex" }, [
-      _vm._v("\n            Total de transacciones:\n            "),
-      _c("strong", { staticClass: "ml-2" }, [_vm._v("46")])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -84371,6 +84487,139 @@ __webpack_require__.r(__webpack_exports__);
     module.exports = doc;
     
         module.exports["createTransaction"] = oneQuery(doc, "createTransaction");
+        
+
+
+/***/ }),
+
+/***/ "./resources/js/graphql/transactions/transactions.graphql":
+/*!****************************************************************!*\
+  !*** ./resources/js/graphql/transactions/transactions.graphql ***!
+  \****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+
+    var doc = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"transactions"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"first"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},"directives":[]},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"page"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}},"directives":[]}],"directives":[],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"transactions"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"first"},"value":{"kind":"Variable","name":{"kind":"Name","value":"first"}}},{"kind":"Argument","name":{"kind":"Name","value":"page"},"value":{"kind":"Variable","name":{"kind":"Name","value":"page"}}}],"directives":[],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"data"},"arguments":[],"directives":[],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"},"arguments":[],"directives":[]},{"kind":"Field","name":{"kind":"Name","value":"amount"},"arguments":[],"directives":[]},{"kind":"Field","name":{"kind":"Name","value":"type"},"arguments":[],"directives":[]},{"kind":"Field","name":{"kind":"Name","value":"description"},"arguments":[],"directives":[]},{"kind":"Field","name":{"kind":"Name","value":"account"},"arguments":[],"directives":[],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"},"arguments":[],"directives":[]},{"kind":"Field","name":{"kind":"Name","value":"name"},"arguments":[],"directives":[]},{"kind":"Field","name":{"kind":"Name","value":"color"},"arguments":[],"directives":[]},{"kind":"Field","name":{"kind":"Name","value":"user"},"arguments":[],"directives":[],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"},"arguments":[],"directives":[]},{"kind":"Field","name":{"kind":"Name","value":"name"},"arguments":[],"directives":[]},{"kind":"Field","name":{"kind":"Name","value":"avatar"},"arguments":[],"directives":[]}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"category"},"arguments":[],"directives":[],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"},"arguments":[],"directives":[]},{"kind":"Field","name":{"kind":"Name","value":"name"},"arguments":[],"directives":[]}]}},{"kind":"Field","name":{"kind":"Name","value":"created_at"},"arguments":[],"directives":[]}]}}]}}]}}],"loc":{"start":0,"end":558}};
+    doc.loc.source = {"body":"# obtner las transactions\n\nquery transactions($first: Int!, $page: Int) {\n    transactions(first: $first, page: $page) {\n        data {\n            id\n            amount\n            type\n            description\n            account{\n                id\n                name\n                color\n                user{\n                    id\n                    name\n                    avatar\n                }\n                \n            }\n            category {\n                id\n                name\n            }\n            created_at\n        }\n    }\n}\n","name":"GraphQL request","locationOffset":{"line":1,"column":1}};
+  
+
+    var names = {};
+    function unique(defs) {
+      return defs.filter(
+        function(def) {
+          if (def.kind !== 'FragmentDefinition') return true;
+          var name = def.name.value
+          if (names[name]) {
+            return false;
+          } else {
+            names[name] = true;
+            return true;
+          }
+        }
+      )
+    }
+  
+
+    // Collect any fragment/type references from a node, adding them to the refs Set
+    function collectFragmentReferences(node, refs) {
+      if (node.kind === "FragmentSpread") {
+        refs.add(node.name.value);
+      } else if (node.kind === "VariableDefinition") {
+        var type = node.type;
+        if (type.kind === "NamedType") {
+          refs.add(type.name.value);
+        }
+      }
+
+      if (node.selectionSet) {
+        node.selectionSet.selections.forEach(function(selection) {
+          collectFragmentReferences(selection, refs);
+        });
+      }
+
+      if (node.variableDefinitions) {
+        node.variableDefinitions.forEach(function(def) {
+          collectFragmentReferences(def, refs);
+        });
+      }
+
+      if (node.definitions) {
+        node.definitions.forEach(function(def) {
+          collectFragmentReferences(def, refs);
+        });
+      }
+    }
+
+    var definitionRefs = {};
+    (function extractReferences() {
+      doc.definitions.forEach(function(def) {
+        if (def.name) {
+          var refs = new Set();
+          collectFragmentReferences(def, refs);
+          definitionRefs[def.name.value] = refs;
+        }
+      });
+    })();
+
+    function findOperation(doc, name) {
+      for (var i = 0; i < doc.definitions.length; i++) {
+        var element = doc.definitions[i];
+        if (element.name && element.name.value == name) {
+          return element;
+        }
+      }
+    }
+
+    function oneQuery(doc, operationName) {
+      // Copy the DocumentNode, but clear out the definitions
+      var newDoc = {
+        kind: doc.kind,
+        definitions: [findOperation(doc, operationName)]
+      };
+      if (doc.hasOwnProperty("loc")) {
+        newDoc.loc = doc.loc;
+      }
+
+      // Now, for the operation we're running, find any fragments referenced by
+      // it or the fragments it references
+      var opRefs = definitionRefs[operationName] || new Set();
+      var allRefs = new Set();
+      var newRefs = new Set();
+
+      // IE 11 doesn't support "new Set(iterable)", so we add the members of opRefs to newRefs one by one
+      opRefs.forEach(function(refName) {
+        newRefs.add(refName);
+      });
+
+      while (newRefs.size > 0) {
+        var prevRefs = newRefs;
+        newRefs = new Set();
+
+        prevRefs.forEach(function(refName) {
+          if (!allRefs.has(refName)) {
+            allRefs.add(refName);
+            var childRefs = definitionRefs[refName] || new Set();
+            childRefs.forEach(function(childRef) {
+              newRefs.add(childRef);
+            });
+          }
+        });
+      }
+
+      allRefs.forEach(function(refName) {
+        var op = findOperation(doc, refName);
+        if (op) {
+          newDoc.definitions.push(op);
+        }
+      });
+
+      return newDoc;
+    }
+
+    module.exports = doc;
+    
+        module.exports["transactions"] = oneQuery(doc, "transactions");
         
 
 

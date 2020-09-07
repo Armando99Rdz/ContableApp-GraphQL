@@ -1,0 +1,28 @@
+# obtner las transactions
+
+query transactions($first: Int!, $page: Int) {
+    transactions(first: $first, page: $page) {
+        data {
+            id
+            amount
+            type
+            description
+            account{
+                id
+                name
+                color
+                user{
+                    id
+                    name
+                    avatar
+                }
+                
+            }
+            category {
+                id
+                name
+            }
+            created_at
+        }
+    }
+}
