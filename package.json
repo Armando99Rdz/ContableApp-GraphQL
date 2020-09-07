@@ -28,6 +28,7 @@
     "dependencies": {
         "@saeris/vue-spinners": "^1.0.8",
         "apollo-boost": "^0.4.9",
+        "currency.js": "^2.0.3",
         "graphql": "^15.3.0",
         "moment": "^2.27.0",
         "sweetalert": "^2.1.2",

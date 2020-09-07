@@ -9,21 +9,22 @@
             </div>
         </div>
 
-        <div class="flex flex-wrap -mx-3 px-12 py-6 mt-5">
-            <label class="block text-gray-600 text-sm font-bold mb-2" for="name">
-                Nombre de la categoría
-            </label>
-            <input v-model="form.name" class="shadow appearance-none border rounded w-full py-2 px-3
-                text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="name" type="text" placeholder="">
+        <div class="flex justify-center -mx-3 px-12 py-6 mt-5">
+            <div class="w-2/4">
+                <label class="block text-gray-600 text-sm font-bold mb-2" for="name">
+                    Nombre de la categoría
+                </label>
+                <input v-model="form.name" class="appearance-none block w-full bg-white text-gray-700 border rounded py-2 px-4 leading-tight focus:outline-none focus:bg-white focus:border-indigo-300" id="name" type="text" placeholder="">
 
-            <div v-if="loading" class="mt-5 w-full">
-                <loading :loading="loading" :size="10"></loading>
-            </div>
-            <div v-else class="w-full text-center mt-5">
-                <a href="/categories" class="bg-transparent hover:bg-gray-400 bg-gray-300 font-semibold text-gray-800
-                    py-2 px-4 rounded mt-4">Cancelar</a>
-                <button class="bg-transparent hover:bg-indigo-800 bg-indigo-700 font-semibold text-white py-2 px-4
-                    rounded mt-4" @click="submit">Editar categoría</button>
+                <div v-if="loading" class="mt-5 w-full">
+                    <loading :loading="loading" :size="10"></loading>
+                </div>
+                <div v-else class="w-full text-center mt-5">
+                    <a href="/categories" class="bg-transparent hover:bg-gray-400 bg-gray-300 font-semibold text-gray-800
+                        py-2 px-4 rounded mt-4">Cancelar</a>
+                    <button class="bg-transparent hover:bg-indigo-800 bg-indigo-700 font-semibold text-white py-2 px-4
+                        rounded mt-4" @click="submit">Editar categoría</button>
+                </div>
             </div>
         </div>
 

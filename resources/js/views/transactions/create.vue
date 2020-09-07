@@ -25,18 +25,18 @@
                 <form class="w-full px-6 md:px-60 mx-auto mt-8">
                     <div class="flex flex-wrap -mx-3 mb-6">
                         <div class="w-full px-3">
-                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
-                            Monto
-                        </label>
-                        <div class="mt-1 relative rounded-md shadow-sm">
-                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                <span class="text-gray-500 sm:text-sm sm:leading-5">
-                                    $
-                                </span>
+                            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
+                                Monto
+                            </label>
+                            <div class="mt-1 relative rounded-md shadow-sm">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <span class="text-gray-500 sm:text-sm sm:leading-5">
+                                        $
+                                    </span>
+                                </div>
+                                <input v-model="form.amount" class="appearance-none block w-full bg-white text-gray-700 border rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-indigo-300 text-center" id="amount" type="number" placeholder="2800">
+                                
                             </div>
-                            <input v-model="form.amount" class="appearance-none block w-full bg-white text-gray-700 border rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-indigo-300 text-center" id="amount" type="number" placeholder="2800">
-                            
-                        </div>
                         </div>
                     </div>
                     <div class="flex flex-wrap -mx-3 mb-6">

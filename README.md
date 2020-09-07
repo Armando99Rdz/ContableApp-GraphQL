@@ -83,6 +83,13 @@ https://exchangeratesapi.io/ posee un wrapper para laravel:
 https://github.com/ash-jc-allen/laravel-exchange-rates
 - `composer require ashallendesign/laravel-exchange-rates`  
 
+### GraphQL Playground HTTP Headers
+``
+{
+  "Authorization": "Bearer [access_token]"
+}
+``
+
 ## Frontend
 
 #### tailwindcss

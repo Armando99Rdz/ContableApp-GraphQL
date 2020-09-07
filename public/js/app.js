@@ -14823,6 +14823,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
@@ -14835,7 +14840,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     return {
       form: {
         name: null,
-        balance: 0.0,
+        balance: null,
         color: 1,
         description: null
       },
@@ -14933,6 +14938,10 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+//
+//
+//
+//
 //
 //
 //
@@ -15388,6 +15397,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 
 
 
@@ -15485,6 +15495,7 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+//
 //
 //
 //
@@ -15835,6 +15846,26 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _graphql_transactions_transactions_graphql__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../graphql/transactions/transactions.graphql */ "./resources/js/graphql/transactions/transactions.graphql");
+/* harmony import */ var _graphql_transactions_transactions_graphql__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_graphql_transactions_transactions_graphql__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _graphql_accounts_accounts_graphql__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../graphql/accounts/accounts.graphql */ "./resources/js/graphql/accounts/accounts.graphql");
+/* harmony import */ var _graphql_accounts_accounts_graphql__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_graphql_accounts_accounts_graphql__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _graphql_exchange_rates_conversion_graphql__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../graphql/exchange-rates/conversion.graphql */ "./resources/js/graphql/exchange-rates/conversion.graphql");
+/* harmony import */ var _graphql_exchange_rates_conversion_graphql__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_graphql_exchange_rates_conversion_graphql__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var currency_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! currency.js */ "./node_modules/currency.js/dist/currency.min.js");
+/* harmony import */ var currency_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(currency_js__WEBPACK_IMPORTED_MODULE_4__);
+
+
+var _methods;
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 //
 //
 //
@@ -16032,32 +16063,240 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-/* harmony default export */ __webpack_exports__["default"] = ({});
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      loading: true,
+      transactions: [],
+      accounts: [],
+      generalBalance: 0.00,
+      dollarValue: 0.00,
+      euroValue: 0.00,
+      canadianValue: 0.00
+    };
+  },
+  mounted: function mounted() {
+    this.getTransactions();
+    this.getAccounts();
+    this.getDollarValue();
+    this.getEuroValue();
+  },
+  methods: (_methods = {
+    getTransactions: function getTransactions() {
+      var _this = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return _this.$apollo.query({
+                  query: _graphql_transactions_transactions_graphql__WEBPACK_IMPORTED_MODULE_1___default.a,
+                  variables: {
+                    first: 20,
+                    page: 1
+                  }
+                });
+
+              case 2:
+                response = _context.sent;
+                _this.transactions = response.data.transactions.data.map(function (item) {
+                  return {
+                    id: item.id,
+                    amount: item.amount,
+                    type: item.type,
+                    account: item.account,
+                    created_at: item.created_at
+                  };
+                });
+                _this.loading = _this.$apollo.loading;
+
+              case 5:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
+    getAccounts: function getAccounts() {
+      var _this2 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+        var response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _context2.next = 2;
+                return _this2.$apollo.query({
+                  query: _graphql_accounts_accounts_graphql__WEBPACK_IMPORTED_MODULE_2___default.a,
+                  variables: {
+                    first: 20,
+                    page: 1
+                  }
+                });
+
+              case 2:
+                response = _context2.sent;
+                _this2.accounts = response.data.accounts.data.map(function (item) {
+                  return {
+                    id: item.id,
+                    color: item.color,
+                    name: item.name,
+                    balance: item.balance,
+                    user: item.user
+                  };
+                });
+                _this2.loading = _this2.$apollo.loading;
+
+                _this2.getGeneralBalance();
+
+              case 6:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
+    },
+    getGeneralBalance: function getGeneralBalance() {
+      var _this3 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+        var balance;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                _context3.next = 2;
+                return _this3.accounts.forEach(function (item, index) {
+                  _this3.generalBalance += item.balance;
+                });
+
+              case 2:
+                balance = _context3.sent;
+
+              case 3:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }))();
+    },
+    getDollarValue: function getDollarValue() {
+      var _this4 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
+        var response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                _context4.next = 2;
+                return _this4.$apollo.query({
+                  query: _graphql_exchange_rates_conversion_graphql__WEBPACK_IMPORTED_MODULE_3___default.a,
+                  variables: {
+                    input: {
+                      from: "USD",
+                      to: "MXN",
+                      value: 1
+                    }
+                  }
+                });
+
+              case 2:
+                response = _context4.sent;
+                _this4.dollarValue = response.data.exchangeConversion.result;
+                _this4.loading = _this4.$apollo.loading;
+
+              case 5:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4);
+      }))();
+    },
+    getEuroValue: function getEuroValue() {
+      var _this5 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5() {
+        var response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
+          while (1) {
+            switch (_context5.prev = _context5.next) {
+              case 0:
+                _context5.next = 2;
+                return _this5.$apollo.query({
+                  query: _graphql_exchange_rates_conversion_graphql__WEBPACK_IMPORTED_MODULE_3___default.a,
+                  variables: {
+                    input: {
+                      from: "EUR",
+                      to: "MXN",
+                      value: 1
+                    }
+                  }
+                });
+
+              case 2:
+                response = _context5.sent;
+                _this5.euroValue = response.data.exchangeConversion.result;
+                _this5.loading = _this5.$apollo.loading;
+
+              case 5:
+              case "end":
+                return _context5.stop();
+            }
+          }
+        }, _callee5);
+      }))();
+    }
+  }, _defineProperty(_methods, "getEuroValue", function getEuroValue() {
+    var _this6 = this;
+
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee6() {
+      var response;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee6$(_context6) {
+        while (1) {
+          switch (_context6.prev = _context6.next) {
+            case 0:
+              _context6.next = 2;
+              return _this6.$apollo.query({
+                query: _graphql_exchange_rates_conversion_graphql__WEBPACK_IMPORTED_MODULE_3___default.a,
+                variables: {
+                  input: {
+                    from: "CAD",
+                    to: "MXN",
+                    value: 1
+                  }
+                }
+              });
+
+            case 2:
+              response = _context6.sent;
+              _this6.canadianValue = response.data.exchangeConversion.result;
+              _this6.loading = _this6.$apollo.loading;
+
+            case 5:
+            case "end":
+              return _context6.stop();
+          }
+        }
+      }, _callee6);
+    }))();
+  }), _defineProperty(_methods, "currencyFormatter", function currencyFormatter(value) {
+    return currency_js__WEBPACK_IMPORTED_MODULE_4___default()(value).format();
+  }), _methods),
+  computed: {}
+});
 
 /***/ }),
 
@@ -16434,6 +16673,29 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }
   }
 });
+
+/***/ }),
+
+/***/ "./node_modules/currency.js/dist/currency.min.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/currency.js/dist/currency.min.js ***!
+  \*******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/*
+ currency.js - v2.0.3
+ http://scurker.github.io/currency.js
+
+ Copyright (c) 2020 Jason Wilson
+ Released under MIT license
+*/
+(function(e,g){ true?module.exports=g():undefined})(this,function(){function e(b,a){if(!(this instanceof e))return new e(b,a);a=Object.assign({},m,a);var d=Math.pow(10,a.precision);this.intValue=b=g(b,a);this.value=b/d;a.increment=a.increment||1/d;a.groups=a.useVedic?n:p;this.s=a;this.p=d}function g(b,a){var d=2<arguments.length&&void 0!==arguments[2]?arguments[2]:!0;var c=a.decimal;
+var h=a.errorOnInvalid,k=a.fromCents,l=Math.pow(10,a.precision),f=b instanceof e;if(f&&k)return b.intValue;if("number"===typeof b||f)c=f?b.value:b;else if("string"===typeof b)h=new RegExp("[^-\\d"+c+"]","g"),c=new RegExp("\\"+c,"g"),c=(c=b.replace(/\((.*)\)/,"-$1").replace(h,"").replace(c,"."))||0;else{if(h)throw Error("Invalid Input");c=0}k||(c=(c*l).toFixed(4));return d?Math.round(c):c}var m={symbol:"$",separator:",",decimal:".",errorOnInvalid:!1,precision:2,pattern:"!#",negativePattern:"-!#",format:function(b,
+a){var d=a.pattern,c=a.negativePattern,h=a.symbol,k=a.separator,l=a.decimal;a=a.groups;var f=(""+b).replace(/^-/,"").split("."),q=f[0];f=f[1];return(0<=b.value?d:c).replace("!",h).replace("#",q.replace(a,"$1"+k)+(f?l+f:""))},fromCents:!1},p=/(\d)(?=(\d{3})+\b)/g,n=/(\d)(?=(\d\d)+\d\b)/g;e.prototype={add:function(b){var a=this.s,d=this.p;return e((this.intValue+g(b,a))/(a.fromCents?1:d),a)},subtract:function(b){var a=this.s,d=this.p;return e((this.intValue-g(b,a))/(a.fromCents?1:d),a)},multiply:function(b){var a=
+this.s;return e(this.intValue*b/(a.fromCents?1:Math.pow(10,a.precision)),a)},divide:function(b){var a=this.s;return e(this.intValue/g(b,a,!1),a)},distribute:function(b){var a=this.intValue,d=this.p,c=this.s,h=[],k=Math[0<=a?"floor":"ceil"](a/b),l=Math.abs(a-k*b);for(d=c.fromCents?1:d;0!==b;b--){var f=e(k/d,c);0<l--&&(f=f[0<=a?"add":"subtract"](1/d));h.push(f)}return h},dollars:function(){return~~this.value},cents:function(){return~~(this.intValue%this.p)},format:function(b){var a=this.s;return"function"===
+typeof b?b(this,a):a.format(this,Object.assign({},a,b))},toString:function(){var b=this.s,a=b.increment;return(Math.round(this.intValue/this.p/a)*a).toFixed(b.precision)},toJSON:function(){return this.value}};return e});
+
 
 /***/ }),
 
@@ -64227,228 +64489,260 @@ var render = function() {
         ])
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "flex flex-wrap -mx-3 p-12" }, [
-        _c("div", { staticClass: "w-full md:w-1/2 px-3 mb-6" }, [
-          _c(
-            "label",
-            {
-              staticClass: "block text-gray-600 text-sm font-bold mb-2",
-              attrs: { for: "name" }
-            },
-            [_vm._v("\n                Nombre de la cuenta\n            ")]
-          ),
-          _vm._v(" "),
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.form.name,
-                expression: "form.name"
-              }
-            ],
-            staticClass:
-              "shadow appearance-none border rounded w-full py-2 px-3\n            text-gray-700 leading-tight focus:outline-none focus:shadow-outline",
-            attrs: { id: "name", type: "text", placeholder: "" },
-            domProps: { value: _vm.form.name },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.$set(_vm.form, "name", $event.target.value)
-              }
-            }
-          })
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "w-full md:w-1/2 px-3 mb-6" }, [
-          _c(
-            "label",
-            {
-              staticClass: "block text-gray-600 text-sm font-bold mb-2",
-              attrs: { for: "balance" }
-            },
-            [_vm._v("\n                Balance inicial\n            ")]
-          ),
-          _vm._v(" "),
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.form.balance,
-                expression: "form.balance"
-              }
-            ],
-            staticClass:
-              "shadow appearance-none border rounded w-full py-2 px-3\n            text-gray-700 leading-tight focus:outline-none focus:shadow-outline",
-            attrs: { id: "balance", type: "number", min: "0", value: "0.0" },
-            domProps: { value: _vm.form.balance },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.$set(_vm.form, "balance", $event.target.value)
-              }
-            }
-          })
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "w-full md:w-1/2 px-3 mb-6" }, [
-          _c(
-            "label",
-            {
-              staticClass: "block text-gray-600 text-sm font-bold mb-2",
-              attrs: { for: "description" }
-            },
-            [_vm._v("\n                Descripción\n            ")]
-          ),
-          _vm._v(" "),
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.form.description,
-                expression: "form.description"
-              }
-            ],
-            staticClass:
-              "shadow appearance-none border rounded w-full py-2 px-3\n            text-gray-700 leading-tight\n            focus:outline-none focus:shadow-outline",
-            attrs: { id: "description", type: "text", placeholder: "" },
-            domProps: { value: _vm.form.description },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.$set(_vm.form, "description", $event.target.value)
-              }
-            }
-          })
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "w-full md:w-1/2 px-3 mb-3" }, [
-          _c(
-            "label",
-            { staticClass: "block text-gray-600 text-sm font-bold mb-2" },
-            [_vm._v("\n                Color\n            ")]
-          ),
-          _vm._v(" "),
-          _c("div", { staticClass: "inline-flex" }, [
+      _c("div", { staticClass: "-mx-3 p-12 px-36" }, [
+        _c("div", { staticClass: "flex flex-wrap" }, [
+          _c("div", { staticClass: "w-full md:w-1/2 px-3 mb-6" }, [
             _c(
-              "span",
+              "label",
               {
-                staticClass:
-                  "inline-block bg-gray-200 rounded-full px-3 py-2 text-sm font-semibold text-gray-700\n                    mr-2 mb-2 hover:bg-green-500 hover:text-gray-100 cursor-pointer",
-                class: { "bg-green-500": _vm.form.color === 1 },
-                on: {
-                  click: function($event) {
-                    return _vm.setColor(1)
-                  }
-                }
+                staticClass: "block text-gray-600 text-sm font-bold mb-2",
+                attrs: { for: "name" }
               },
-              [_vm._v("Verde")]
+              [
+                _vm._v(
+                  "\n                    Nombre de la cuenta\n                "
+                )
+              ]
             ),
             _vm._v(" "),
-            _c(
-              "span",
-              {
-                staticClass:
-                  "inline-block bg-gray-200 rounded-full px-3 py-2 text-sm font-semibold text-gray-700\n                    mr-2 mb-2 hover:bg-blue-500 hover:text-gray-100 cursor-pointer",
-                class: { "bg-blue-500": _vm.form.color === 2 },
-                on: {
-                  click: function($event) {
-                    return _vm.setColor(2)
-                  }
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.form.name,
+                  expression: "form.name"
                 }
+              ],
+              staticClass:
+                "appearance-none block w-full bg-white text-gray-700 border rounded py-2 px-4 leading-tight focus:outline-none focus:bg-white focus:border-indigo-300",
+              attrs: { id: "name", type: "text", placeholder: "" },
+              domProps: { value: _vm.form.name },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.form, "name", $event.target.value)
+                }
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "w-full md:w-1/2 px-3 mb-6" }, [
+            _c(
+              "label",
+              {
+                staticClass: "block text-gray-600 text-sm font-bold mb-2",
+                attrs: { for: "balance" }
               },
-              [_vm._v("Azul")]
+              [
+                _vm._v(
+                  "\n                    Balance inicial\n                "
+                )
+              ]
             ),
             _vm._v(" "),
-            _c(
-              "span",
-              {
+            _c("div", { staticClass: "mt-1 relative rounded-md shadow-sm" }, [
+              _vm._m(0),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.form.balance,
+                    expression: "form.balance"
+                  }
+                ],
                 staticClass:
-                  "inline-block bg-gray-200 rounded-full px-3 py-2 text-sm font-semibold text-gray-700\n                    mr-2 mb-2 hover:bg-red-500 hover:text-gray-100 cursor-pointer",
-                class: { "bg-red-500": _vm.form.color === 3 },
+                  "appearance-none block w-full bg-white text-gray-700 border rounded py-3 px-7 leading-tight focus:outline-none focus:bg-white focus:border-indigo-300",
+                attrs: { id: "balance", type: "number", placeholder: "0.00" },
+                domProps: { value: _vm.form.balance },
                 on: {
-                  click: function($event) {
-                    return _vm.setColor(3)
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.form, "balance", $event.target.value)
                   }
                 }
+              })
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "w-full md:w-1/2 px-3 mb-6" }, [
+            _c(
+              "label",
+              {
+                staticClass: "block text-gray-600 text-sm font-bold mb-2",
+                attrs: { for: "description" }
               },
-              [_vm._v("Rojo")]
+              [_vm._v("\n                    Descripción\n                ")]
             ),
             _vm._v(" "),
-            _c(
-              "span",
-              {
-                staticClass:
-                  "inline-block bg-gray-200 rounded-full px-3 py-2 text-sm font-semibold text-gray-700\n                    mr-2 mb-2 hover:bg-yellow-200 hover:text-gray-700 cursor-pointer",
-                class: { "bg-yellow-200": _vm.form.color === 4 },
-                on: {
-                  click: function($event) {
-                    return _vm.setColor(4)
-                  }
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.form.description,
+                  expression: "form.description"
                 }
-              },
-              [_vm._v("Amarillo")]
+              ],
+              staticClass:
+                "appearance-none block w-full bg-white text-gray-700 border rounded py-2 px-4 leading-tight focus:outline-none focus:bg-white focus:border-indigo-300",
+              attrs: { id: "description", type: "text", placeholder: "" },
+              domProps: { value: _vm.form.description },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.form, "description", $event.target.value)
+                }
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "w-full md:w-1/2 px-3 mb-3" }, [
+            _c(
+              "label",
+              { staticClass: "block text-gray-600 text-sm font-bold mb-2" },
+              [_vm._v("\n                    Color\n                ")]
             ),
             _vm._v(" "),
-            _c(
-              "span",
-              {
-                staticClass:
-                  "inline-block bg-gray-200 rounded-full px-3 py-2 text-sm font-semibold text-gray-700\n                    mr-2 mb-2 hover:bg-orange-400 hover:text-gray-100 cursor-pointer",
-                class: { "bg-orange-400": _vm.form.color === 5 },
-                on: {
-                  click: function($event) {
-                    return _vm.setColor(5)
-                  }
-                }
-              },
-              [_vm._v("Naranja")]
-            )
-          ])
-        ]),
-        _vm._v(" "),
-        _vm.loading
-          ? _c(
-              "div",
-              { staticClass: "mt-5 w-full" },
-              [_c("loading", { attrs: { loading: _vm.loading, size: 10 } })],
-              1
-            )
-          : _c("div", { staticClass: "w-full text-center" }, [
+            _c("div", { staticClass: "inline-flex" }, [
               _c(
-                "a",
+                "span",
                 {
                   staticClass:
-                    "bg-transparent hover:bg-gray-400 bg-gray-300 font-semibold text-gray-800\n                py-2 px-4 rounded mt-4 cursor-pointer",
-                  attrs: { href: "/accounts", type: "reset" }
+                    "inline-block bg-gray-200 rounded-full px-3 py-2 text-sm font-semibold text-gray-700\n                        mr-2 mb-2 hover:bg-green-500 hover:text-gray-100 cursor-pointer",
+                  class: { "bg-green-500": _vm.form.color === 1 },
+                  on: {
+                    click: function($event) {
+                      return _vm.setColor(1)
+                    }
+                  }
                 },
-                [_vm._v("Cancelar")]
+                [_vm._v("Verde")]
               ),
               _vm._v(" "),
               _c(
-                "button",
+                "span",
                 {
                   staticClass:
-                    "bg-transparent hover:bg-indigo-800 bg-indigo-700 font-semibold text-white py-2 px-4\n                rounded mt-4",
-                  on: { click: _vm.submit }
+                    "inline-block bg-gray-200 rounded-full px-3 py-2 text-sm font-semibold text-gray-700\n                        mr-2 mb-2 hover:bg-blue-500 hover:text-gray-100 cursor-pointer",
+                  class: { "bg-blue-500": _vm.form.color === 2 },
+                  on: {
+                    click: function($event) {
+                      return _vm.setColor(2)
+                    }
+                  }
                 },
-                [_vm._v("Crear cuenta")]
+                [_vm._v("Azul")]
+              ),
+              _vm._v(" "),
+              _c(
+                "span",
+                {
+                  staticClass:
+                    "inline-block bg-gray-200 rounded-full px-3 py-2 text-sm font-semibold text-gray-700\n                        mr-2 mb-2 hover:bg-red-500 hover:text-gray-100 cursor-pointer",
+                  class: { "bg-red-500": _vm.form.color === 3 },
+                  on: {
+                    click: function($event) {
+                      return _vm.setColor(3)
+                    }
+                  }
+                },
+                [_vm._v("Rojo")]
+              ),
+              _vm._v(" "),
+              _c(
+                "span",
+                {
+                  staticClass:
+                    "inline-block bg-gray-200 rounded-full px-3 py-2 text-sm font-semibold text-gray-700\n                        mr-2 mb-2 hover:bg-yellow-200 hover:text-gray-700 cursor-pointer",
+                  class: { "bg-yellow-200": _vm.form.color === 4 },
+                  on: {
+                    click: function($event) {
+                      return _vm.setColor(4)
+                    }
+                  }
+                },
+                [_vm._v("Amarillo")]
+              ),
+              _vm._v(" "),
+              _c(
+                "span",
+                {
+                  staticClass:
+                    "inline-block bg-gray-200 rounded-full px-3 py-2 text-sm font-semibold text-gray-700\n                        mr-2 mb-2 hover:bg-orange-400 hover:text-gray-100 cursor-pointer",
+                  class: { "bg-orange-400": _vm.form.color === 5 },
+                  on: {
+                    click: function($event) {
+                      return _vm.setColor(5)
+                    }
+                  }
+                },
+                [_vm._v("Naranja")]
               )
             ])
+          ]),
+          _vm._v(" "),
+          _vm.loading
+            ? _c(
+                "div",
+                { staticClass: "mt-5 w-full" },
+                [_c("loading", { attrs: { loading: _vm.loading, size: 10 } })],
+                1
+              )
+            : _c("div", { staticClass: "w-full text-center" }, [
+                _c(
+                  "a",
+                  {
+                    staticClass:
+                      "bg-transparent hover:bg-gray-400 bg-gray-300 font-semibold text-gray-800\n                    py-2 px-4 rounded mt-4 cursor-pointer",
+                    attrs: { href: "/accounts", type: "reset" }
+                  },
+                  [_vm._v("Cancelar")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass:
+                      "bg-transparent hover:bg-indigo-800 bg-indigo-700 font-semibold text-white py-2 px-4\n                    rounded mt-4",
+                    on: { click: _vm.submit }
+                  },
+                  [_vm._v("Crear cuenta")]
+                )
+              ])
+        ])
       ])
     ],
     1
   )
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      {
+        staticClass:
+          "absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
+      },
+      [
+        _c("span", { staticClass: "text-gray-500 sm:text-sm sm:leading-5" }, [
+          _vm._v("\n                            $\n                        ")
+        ])
+      ]
+    )
+  }
+]
 render._withStripped = true
 
 
@@ -64481,249 +64775,282 @@ var render = function() {
         ? _c("graphql-error-toast", { attrs: { errors: this.errors } })
         : _vm._e(),
       _vm._v(" "),
-      _c("div", { staticClass: "border-b p-6" }, [
-        _c("div", { staticClass: "flex justify-between px-6 -mb-px" }, [
-          _c("div", { staticClass: "flex flex-wrap" }, [
-            _c("div", {
-              staticClass: "rounded-full h-8 w-8 flex items-center mr-2",
-              class: {
-                "bg-green-400": _vm.form.color == 1,
-                "bg-blue-500": _vm.form.color == 2,
-                "bg-red-500": _vm.form.color == 3,
-                "bg-yellow-200": _vm.form.color == 4,
-                "bg-orange-400": _vm.form.color == 5
-              }
-            }),
-            _vm._v(" "),
-            _c("h2", { staticClass: "font-semibold text-gray-600 pt-1" }, [
-              _vm._v("Editar Cuenta")
-            ])
-          ])
+      _c("div", { staticClass: "border-b" }, [
+        _c("div", { staticClass: "flex justify-start px-6 -mb-px" }, [
+          _c("div", {
+            staticClass: "rounded-lg h-8 w-8 flex items-center mr-2 my-auto",
+            class: {
+              "bg-green-400": _vm.form.color == 1,
+              "bg-blue-500": _vm.form.color == 2,
+              "bg-red-500": _vm.form.color == 3,
+              "bg-yellow-200": _vm.form.color == 4,
+              "bg-orange-400": _vm.form.color == 5
+            }
+          }),
+          _vm._v(" "),
+          _c(
+            "h3",
+            { staticClass: "text-indigo-700 py-4 font-normal text-lg md:ml-1" },
+            [_vm._v("Editar cuenta")]
+          )
         ])
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "flex flex-wrap -mx-3 p-6" }, [
-        _c("div", { staticClass: "w-full md:w-1/2 px-3 mb-6" }, [
-          _c(
-            "label",
-            {
-              staticClass: "block text-gray-600 text-sm font-bold mb-2",
-              attrs: { for: "name" }
-            },
-            [_vm._v("\n                Nombre de la cuenta\n            ")]
-          ),
-          _vm._v(" "),
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.form.name,
-                expression: "form.name"
-              }
-            ],
-            staticClass:
-              "shadow appearance-none border rounded w-full py-2 px-3\n            text-gray-700 leading-tight focus:outline-none focus:shadow-outline",
-            attrs: { id: "name", type: "text", placeholder: "" },
-            domProps: { value: _vm.form.name },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.$set(_vm.form, "name", $event.target.value)
-              }
-            }
-          })
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "w-full md:w-1/2 px-3 mb-6" }, [
-          _c(
-            "label",
-            {
-              staticClass: "block text-gray-600 text-sm font-bold mb-2",
-              attrs: { for: "balance" }
-            },
-            [_vm._v("\n                Balance actual\n            ")]
-          ),
-          _vm._v(" "),
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.form.balance,
-                expression: "form.balance"
-              }
-            ],
-            staticClass:
-              "shadow appearance-none border rounded w-full py-2 px-3\n            text-gray-700 leading-tight focus:outline-none focus:shadow-outline",
-            attrs: { id: "balance", type: "number", disabled: "" },
-            domProps: { value: _vm.form.balance },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.$set(_vm.form, "balance", $event.target.value)
-              }
-            }
-          })
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "w-full md:w-1/2 px-3 mb-6" }, [
-          _c(
-            "label",
-            {
-              staticClass: "block text-gray-600 text-sm font-bold mb-2",
-              attrs: { for: "description" }
-            },
-            [_vm._v("\n                Descripción\n            ")]
-          ),
-          _vm._v(" "),
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.form.description,
-                expression: "form.description"
-              }
-            ],
-            staticClass:
-              "shadow appearance-none border rounded w-full py-2 px-3\n            text-gray-700 leading-tight\n            focus:outline-none focus:shadow-outline",
-            attrs: { id: "description", type: "text", placeholder: "" },
-            domProps: { value: _vm.form.description },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.$set(_vm.form, "description", $event.target.value)
-              }
-            }
-          })
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "w-full md:w-1/2 px-3 mb-3" }, [
-          _c(
-            "label",
-            { staticClass: "block text-gray-600 text-sm font-bold mb-2" },
-            [_vm._v("\n                Color\n            ")]
-          ),
-          _vm._v(" "),
-          _c("div", { staticClass: "inline-flex" }, [
+      _c("div", { staticClass: "-mx-3 p-6 px-36" }, [
+        _c("div", { staticClass: "flex flex-wrap" }, [
+          _c("div", { staticClass: "w-full md:w-1/2 px-3 mb-6" }, [
             _c(
-              "span",
+              "label",
               {
-                staticClass:
-                  "inline-block bg-gray-200 rounded-full px-3 py-2 text-sm font-semibold text-gray-700\n                    mr-2 mb-2 hover:bg-green-500 hover:text-gray-200 cursor-pointer",
-                class: { "bg-green-500": _vm.form.color == 1 },
-                on: {
-                  click: function($event) {
-                    return _vm.setColor(1)
-                  }
-                }
+                staticClass: "block text-gray-600 text-sm font-bold mb-2",
+                attrs: { for: "name" }
               },
-              [_vm._v("Verde")]
+              [
+                _vm._v(
+                  "\n                    Nombre de la cuenta\n                "
+                )
+              ]
             ),
             _vm._v(" "),
-            _c(
-              "span",
-              {
-                staticClass:
-                  "inline-block bg-gray-200 rounded-full px-3 py-2 text-sm font-semibold text-gray-700\n                    mr-2 mb-2 hover:bg-blue-500 hover:text-gray-200 cursor-pointer",
-                class: { "bg-blue-500": _vm.form.color == 2 },
-                on: {
-                  click: function($event) {
-                    return _vm.setColor(2)
-                  }
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.form.name,
+                  expression: "form.name"
                 }
+              ],
+              staticClass:
+                "appearance-none block w-full bg-white text-gray-700 border rounded py-2 px-4 leading-tight focus:outline-none focus:bg-white focus:border-indigo-300",
+              attrs: { id: "name", type: "text", placeholder: "" },
+              domProps: { value: _vm.form.name },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.form, "name", $event.target.value)
+                }
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "w-full md:w-1/2 px-3 mb-6" }, [
+            _c(
+              "label",
+              {
+                staticClass: "block text-gray-600 text-sm font-bold mb-2",
+                attrs: { for: "balance" }
               },
-              [_vm._v("Azul")]
+              [_vm._v("\n                    Balance actual\n                ")]
             ),
             _vm._v(" "),
-            _c(
-              "span",
-              {
+            _c("div", { staticClass: "mt-1 relative rounded-md shadow-sm" }, [
+              _vm._m(0),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.form.balance,
+                    expression: "form.balance"
+                  }
+                ],
                 staticClass:
-                  "inline-block bg-gray-200 rounded-full px-3 py-2 text-sm font-semibold text-gray-700\n                    mr-2 mb-2 hover:bg-red-500 hover:text-gray-200 cursor-pointer",
-                class: { "bg-red-500": _vm.form.color == 3 },
+                  "appearance-none block w-full bg-white text-gray-700 border rounded py-2 px-7 leading-tight focus:outline-none focus:bg-white focus:border-indigo-300",
+                attrs: {
+                  id: "balance",
+                  type: "number",
+                  placeholder: "0.00",
+                  disabled: ""
+                },
+                domProps: { value: _vm.form.balance },
                 on: {
-                  click: function($event) {
-                    return _vm.setColor(3)
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.form, "balance", $event.target.value)
                   }
                 }
+              })
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "w-full md:w-1/2 px-3 mb-6" }, [
+            _c(
+              "label",
+              {
+                staticClass: "block text-gray-600 text-sm font-bold mb-2",
+                attrs: { for: "description" }
               },
-              [_vm._v("Rojo")]
+              [_vm._v("\n                    Descripción\n                ")]
             ),
             _vm._v(" "),
-            _c(
-              "span",
-              {
-                staticClass:
-                  "inline-block bg-gray-200 rounded-full px-3 py-2 text-sm font-semibold text-gray-700\n                    mr-2 mb-2 hover:bg-yellow-200 hover:text-gray-600 cursor-pointer",
-                class: { "bg-yellow-300": _vm.form.color == 4 },
-                on: {
-                  click: function($event) {
-                    return _vm.setColor(4)
-                  }
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.form.description,
+                  expression: "form.description"
                 }
-              },
-              [_vm._v("Amarillo")]
+              ],
+              staticClass:
+                "appearance-none block w-full bg-white text-gray-700 border rounded py-2 px-4 leading-tight focus:outline-none focus:bg-white focus:border-indigo-300",
+              attrs: { id: "description", type: "text", placeholder: "" },
+              domProps: { value: _vm.form.description },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.form, "description", $event.target.value)
+                }
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "w-full md:w-1/2 px-3 mb-3" }, [
+            _c(
+              "label",
+              { staticClass: "block text-gray-600 text-sm font-bold mb-2" },
+              [_vm._v("\n                    Color\n                ")]
             ),
             _vm._v(" "),
-            _c(
-              "span",
-              {
-                staticClass:
-                  "inline-block bg-gray-200 rounded-full px-3 py-2 text-sm font-semibold text-gray-700\n                    mr-2 mb-2 hover:bg-orange-400 hover:text-gray-200 cursor-pointer",
-                class: { "bg-orange-400": _vm.form.color == 5 },
-                on: {
-                  click: function($event) {
-                    return _vm.setColor(5)
-                  }
-                }
-              },
-              [_vm._v("Naranja")]
-            )
-          ])
-        ]),
-        _vm._v(" "),
-        _vm.loading
-          ? _c(
-              "div",
-              { staticClass: "mt-5 w-full" },
-              [_c("loading", { attrs: { loading: _vm.loading, size: 10 } })],
-              1
-            )
-          : _c("div", { staticClass: "w-full text-center" }, [
+            _c("div", { staticClass: "inline-flex" }, [
               _c(
-                "a",
+                "span",
                 {
                   staticClass:
-                    "bg-transparent hover:bg-gray-400 bg-gray-300 font-semibold text-gray-800\n                py-2 px-4 rounded mt-4 cursor-pointer",
-                  attrs: { href: "/accounts", type: "reset" }
+                    "inline-block bg-gray-200 rounded-full px-3 py-2 text-sm font-semibold text-gray-700\n                        mr-2 mb-2 hover:bg-green-500 hover:text-gray-200 cursor-pointer",
+                  class: { "bg-green-500": _vm.form.color == 1 },
+                  on: {
+                    click: function($event) {
+                      return _vm.setColor(1)
+                    }
+                  }
                 },
-                [_vm._v("Cancelar")]
+                [_vm._v("Verde")]
               ),
               _vm._v(" "),
               _c(
-                "button",
+                "span",
                 {
                   staticClass:
-                    "bg-transparent hover:bg-indigo-800 bg-indigo-700 font-semibold text-white py-2 px-4\n                rounded mt-4",
-                  on: { click: _vm.submit }
+                    "inline-block bg-gray-200 rounded-full px-3 py-2 text-sm font-semibold text-gray-700\n                        mr-2 mb-2 hover:bg-blue-500 hover:text-gray-200 cursor-pointer",
+                  class: { "bg-blue-500": _vm.form.color == 2 },
+                  on: {
+                    click: function($event) {
+                      return _vm.setColor(2)
+                    }
+                  }
                 },
-                [_vm._v("Editar cuenta")]
+                [_vm._v("Azul")]
+              ),
+              _vm._v(" "),
+              _c(
+                "span",
+                {
+                  staticClass:
+                    "inline-block bg-gray-200 rounded-full px-3 py-2 text-sm font-semibold text-gray-700\n                        mr-2 mb-2 hover:bg-red-500 hover:text-gray-200 cursor-pointer",
+                  class: { "bg-red-500": _vm.form.color == 3 },
+                  on: {
+                    click: function($event) {
+                      return _vm.setColor(3)
+                    }
+                  }
+                },
+                [_vm._v("Rojo")]
+              ),
+              _vm._v(" "),
+              _c(
+                "span",
+                {
+                  staticClass:
+                    "inline-block bg-gray-200 rounded-full px-3 py-2 text-sm font-semibold text-gray-700\n                        mr-2 mb-2 hover:bg-yellow-200 hover:text-gray-600 cursor-pointer",
+                  class: { "bg-yellow-300": _vm.form.color == 4 },
+                  on: {
+                    click: function($event) {
+                      return _vm.setColor(4)
+                    }
+                  }
+                },
+                [_vm._v("Amarillo")]
+              ),
+              _vm._v(" "),
+              _c(
+                "span",
+                {
+                  staticClass:
+                    "inline-block bg-gray-200 rounded-full px-3 py-2 text-sm font-semibold text-gray-700\n                        mr-2 mb-2 hover:bg-orange-400 hover:text-gray-200 cursor-pointer",
+                  class: { "bg-orange-400": _vm.form.color == 5 },
+                  on: {
+                    click: function($event) {
+                      return _vm.setColor(5)
+                    }
+                  }
+                },
+                [_vm._v("Naranja")]
               )
             ])
+          ]),
+          _vm._v(" "),
+          _vm.loading
+            ? _c(
+                "div",
+                { staticClass: "mt-5 w-full" },
+                [_c("loading", { attrs: { loading: _vm.loading, size: 10 } })],
+                1
+              )
+            : _c("div", { staticClass: "w-full text-center" }, [
+                _c(
+                  "a",
+                  {
+                    staticClass:
+                      "bg-transparent hover:bg-gray-400 bg-gray-300 font-semibold text-gray-800\n                    py-2 px-4 rounded mt-4 cursor-pointer",
+                    attrs: { href: "/accounts", type: "reset" }
+                  },
+                  [_vm._v("Cancelar")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass:
+                      "bg-transparent hover:bg-indigo-800 bg-indigo-700 font-semibold text-white py-2 px-4\n                    rounded mt-4",
+                    on: { click: _vm.submit }
+                  },
+                  [_vm._v("Editar cuenta")]
+                )
+              ])
+        ])
       ])
     ],
     1
   )
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      {
+        staticClass:
+          "absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
+      },
+      [
+        _c("span", { staticClass: "text-gray-500 sm:text-sm sm:leading-5" }, [
+          _vm._v("\n                            $\n                        ")
+        ])
+      ]
+    )
+  }
+]
 render._withStripped = true
 
 
@@ -64866,67 +65193,69 @@ var render = function() {
       _vm._v(" "),
       _vm._m(0),
       _vm._v(" "),
-      _c("div", { staticClass: "flex flex-wrap -mx-3 px-12 py-6 mt-5" }, [
-        _c(
-          "label",
-          {
-            staticClass: "block text-gray-600 text-sm font-bold mb-2",
-            attrs: { for: "name" }
-          },
-          [_vm._v("\n            Nombre de la categoría\n        ")]
-        ),
-        _vm._v(" "),
-        _c("input", {
-          directives: [
+      _c("div", { staticClass: "flex justify-center px-12 py-6 mt-5" }, [
+        _c("div", { staticClass: "w-2/4" }, [
+          _c(
+            "label",
             {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.form.name,
-              expression: "form.name"
-            }
-          ],
-          staticClass:
-            "shadow appearance-none border rounded w-full py-2 px-3\n            text-gray-700 leading-tight focus:outline-none focus:shadow-outline",
-          attrs: { id: "name", type: "text", placeholder: "" },
-          domProps: { value: _vm.form.name },
-          on: {
-            input: function($event) {
-              if ($event.target.composing) {
-                return
+              staticClass: "block text-gray-600 text-sm font-bold mb-2",
+              attrs: { for: "name" }
+            },
+            [_vm._v("\n                Nombre de la categoría\n            ")]
+          ),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.form.name,
+                expression: "form.name"
               }
-              _vm.$set(_vm.form, "name", $event.target.value)
+            ],
+            staticClass:
+              "appearance-none block w-full bg-white text-gray-700 border rounded py-2 px-4 leading-tight focus:outline-none focus:bg-white focus:border-indigo-300",
+            attrs: { id: "name", type: "text", placeholder: "" },
+            domProps: { value: _vm.form.name },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.form, "name", $event.target.value)
+              }
             }
-          }
-        }),
-        _vm._v(" "),
-        _vm.loading
-          ? _c(
-              "div",
-              { staticClass: "mt-5 w-full" },
-              [_c("loading", { attrs: { loading: _vm.loading, size: 10 } })],
-              1
-            )
-          : _c("div", { staticClass: "w-full text-center mt-5" }, [
-              _c(
-                "a",
-                {
-                  staticClass:
-                    "bg-transparent hover:bg-gray-400 bg-gray-300 font-semibold text-gray-800\n                py-2 px-4 rounded mt-4",
-                  attrs: { href: "/categories" }
-                },
-                [_vm._v("Cancelar")]
-              ),
-              _vm._v(" "),
-              _c(
-                "button",
-                {
-                  staticClass:
-                    "bg-transparent hover:bg-indigo-800 bg-indigo-700 font-semibold text-white py-2 px-4\n                rounded mt-4",
-                  on: { click: _vm.submit }
-                },
-                [_vm._v("Crear categoría")]
+          }),
+          _vm._v(" "),
+          _vm.loading
+            ? _c(
+                "div",
+                { staticClass: "mt-5 w-full" },
+                [_c("loading", { attrs: { loading: _vm.loading, size: 10 } })],
+                1
               )
-            ])
+            : _c("div", { staticClass: "w-full text-center mt-5" }, [
+                _c(
+                  "a",
+                  {
+                    staticClass:
+                      "bg-transparent hover:bg-gray-400 bg-gray-300 font-semibold text-gray-800\n                    py-2 px-4 rounded mt-4",
+                    attrs: { href: "/categories" }
+                  },
+                  [_vm._v("Cancelar")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass:
+                      "bg-transparent hover:bg-indigo-800 bg-indigo-700 font-semibold text-white py-2 px-4\n                    rounded mt-4",
+                    on: { click: _vm.submit }
+                  },
+                  [_vm._v("Crear categoría")]
+                )
+              ])
+        ])
       ])
     ],
     1
@@ -64980,67 +65309,69 @@ var render = function() {
       _vm._v(" "),
       _vm._m(0),
       _vm._v(" "),
-      _c("div", { staticClass: "flex flex-wrap -mx-3 px-12 py-6 mt-5" }, [
-        _c(
-          "label",
-          {
-            staticClass: "block text-gray-600 text-sm font-bold mb-2",
-            attrs: { for: "name" }
-          },
-          [_vm._v("\n            Nombre de la categoría\n        ")]
-        ),
-        _vm._v(" "),
-        _c("input", {
-          directives: [
+      _c("div", { staticClass: "flex justify-center -mx-3 px-12 py-6 mt-5" }, [
+        _c("div", { staticClass: "w-2/4" }, [
+          _c(
+            "label",
             {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.form.name,
-              expression: "form.name"
-            }
-          ],
-          staticClass:
-            "shadow appearance-none border rounded w-full py-2 px-3\n            text-gray-700 leading-tight focus:outline-none focus:shadow-outline",
-          attrs: { id: "name", type: "text", placeholder: "" },
-          domProps: { value: _vm.form.name },
-          on: {
-            input: function($event) {
-              if ($event.target.composing) {
-                return
+              staticClass: "block text-gray-600 text-sm font-bold mb-2",
+              attrs: { for: "name" }
+            },
+            [_vm._v("\n                Nombre de la categoría\n            ")]
+          ),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.form.name,
+                expression: "form.name"
               }
-              _vm.$set(_vm.form, "name", $event.target.value)
+            ],
+            staticClass:
+              "appearance-none block w-full bg-white text-gray-700 border rounded py-2 px-4 leading-tight focus:outline-none focus:bg-white focus:border-indigo-300",
+            attrs: { id: "name", type: "text", placeholder: "" },
+            domProps: { value: _vm.form.name },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.form, "name", $event.target.value)
+              }
             }
-          }
-        }),
-        _vm._v(" "),
-        _vm.loading
-          ? _c(
-              "div",
-              { staticClass: "mt-5 w-full" },
-              [_c("loading", { attrs: { loading: _vm.loading, size: 10 } })],
-              1
-            )
-          : _c("div", { staticClass: "w-full text-center mt-5" }, [
-              _c(
-                "a",
-                {
-                  staticClass:
-                    "bg-transparent hover:bg-gray-400 bg-gray-300 font-semibold text-gray-800\n                py-2 px-4 rounded mt-4",
-                  attrs: { href: "/categories" }
-                },
-                [_vm._v("Cancelar")]
-              ),
-              _vm._v(" "),
-              _c(
-                "button",
-                {
-                  staticClass:
-                    "bg-transparent hover:bg-indigo-800 bg-indigo-700 font-semibold text-white py-2 px-4\n                rounded mt-4",
-                  on: { click: _vm.submit }
-                },
-                [_vm._v("Editar categoría")]
+          }),
+          _vm._v(" "),
+          _vm.loading
+            ? _c(
+                "div",
+                { staticClass: "mt-5 w-full" },
+                [_c("loading", { attrs: { loading: _vm.loading, size: 10 } })],
+                1
               )
-            ])
+            : _c("div", { staticClass: "w-full text-center mt-5" }, [
+                _c(
+                  "a",
+                  {
+                    staticClass:
+                      "bg-transparent hover:bg-gray-400 bg-gray-300 font-semibold text-gray-800\n                    py-2 px-4 rounded mt-4",
+                    attrs: { href: "/categories" }
+                  },
+                  [_vm._v("Cancelar")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass:
+                      "bg-transparent hover:bg-indigo-800 bg-indigo-700 font-semibold text-white py-2 px-4\n                    rounded mt-4",
+                    on: { click: _vm.submit }
+                  },
+                  [_vm._v("Editar categoría")]
+                )
+              ])
+        ])
       ])
     ],
     1
@@ -65193,45 +65524,110 @@ var render = function() {
           "bg-white border-t border-b sm:border-l sm:border-r sm:rounded shadow mb-6"
       },
       [
-        _vm._m(0),
-        _vm._v(" "),
-        _c("div", { staticClass: "flex items-center px-6 lg:hidden" }, [
-          _vm._m(1),
-          _vm._v(" "),
-          _c("div", { staticClass: "flex-shrink w-32 inline-block relative" }, [
-            _vm._m(2),
-            _vm._v(" "),
+        _c("div", { staticClass: "border-b px-6" }, [
+          _c("div", { staticClass: "flex justify-between -mb-px" }, [
             _c(
               "div",
-              {
-                staticClass:
-                  "pointer-events-none absolute pin-y pin-r flex items-center px-2 text-grey"
-              },
-              [
+              { staticClass: "lg:hidden text-blue-dark py-4 text-lg" },
+              [_vm._v("\n                    Resumen\n                ")]
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "hidden lg:flex w-full" }, [
+              _c(
+                "div",
+                { staticClass: "appearance-none py-4 text-gray-600 w-full" },
+                [
+                  _vm._v(
+                    "\n                        Balance General · " +
+                      _vm._s(_vm.currencyFormatter(_vm.generalBalance)) +
+                      " MX\n                    "
+                  )
+                ]
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "mr-2 lg:flex w-full" }, [
                 _c(
-                  "svg",
+                  "div",
                   {
-                    staticClass: "fill-current h-4 w-4",
-                    attrs: {
-                      xmlns: "http://www.w3.org/2000/svg",
-                      viewBox: "0 0 20 20"
-                    }
+                    staticClass:
+                      "appearance-none py-4 text-gray-500 border-b border-transparent hover:border-grey-dark mr-8 ml-auto"
                   },
                   [
-                    _c("path", {
-                      attrs: {
-                        d:
-                          "M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
-                      }
-                    })
+                    _vm._v(
+                      "\n                            $1 USD · " +
+                        _vm._s(_vm.currencyFormatter(_vm.dollarValue)) +
+                        " MX\n                        "
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "appearance-none py-4 text-gray-500 border-b border-transparent hover:border-grey-dark mr-8"
+                  },
+                  [
+                    _vm._v(
+                      "\n                            $1 EUR · " +
+                        _vm._s(_vm.currencyFormatter(_vm.euroValue)) +
+                        " MX\n                        "
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "appearance-none py-4 text-gray-500 border-b border-transparent hover:border-grey-dark mr-8"
+                  },
+                  [
+                    _vm._v(
+                      "\n                            $1 CAD · " +
+                        _vm._s(_vm.currencyFormatter(_vm.canadianValue)) +
+                        " MX\n                        "
+                    )
                   ]
                 )
-              ]
-            )
+              ])
+            ])
           ])
         ]),
         _vm._v(" "),
-        _vm._m(3)
+        _vm._m(0),
+        _vm._v(" "),
+        _c("div", { staticClass: "hidden lg:flex" }, [
+          _c("div", { staticClass: "w-1/3 text-center py-8" }, [
+            _c("div", { staticClass: "border-r" }, [
+              _c("div", { staticClass: "text-gray-600 mb-2" }, [
+                _c("span", { staticClass: "text-3xl align-top" }, [
+                  _vm._v("CA$")
+                ]),
+                _vm._v(" "),
+                _c("span", { staticClass: "text-5xl" }, [
+                  _vm._v(_vm._s(_vm.currencyFormatter(_vm.generalBalance)))
+                ])
+              ]),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass: "text-sm uppercase text-gray-500 tracking-wide"
+                },
+                [
+                  _vm._v(
+                    "\n                    Balance general\n                "
+                  )
+                ]
+              )
+            ])
+          ]),
+          _vm._v(" "),
+          _vm._m(1),
+          _vm._v(" "),
+          _vm._m(2)
+        ])
       ]
     ),
     _vm._v(" "),
@@ -65247,7 +65643,7 @@ var render = function() {
                 "flex-grow flex flex-col bg-white border-t border-b sm:rounded sm:border shadow overflow-hidden"
             },
             [
-              _vm._m(4),
+              _vm._m(3),
               _vm._v(" "),
               _c(
                 "div",
@@ -65296,9 +65692,9 @@ var render = function() {
                     ]
                   ),
                   _vm._v(" "),
-                  _vm._m(5),
+                  _vm._m(4),
                   _vm._v(" "),
-                  _vm._m(6)
+                  _vm._m(5)
                 ]
               ),
               _vm._v(" "),
@@ -65350,9 +65746,9 @@ var render = function() {
                     ]
                   ),
                   _vm._v(" "),
-                  _vm._m(7),
+                  _vm._m(6),
                   _vm._v(" "),
-                  _vm._m(8)
+                  _vm._m(7)
                 ]
               ),
               _vm._v(" "),
@@ -65404,13 +65800,13 @@ var render = function() {
                     ]
                   ),
                   _vm._v(" "),
-                  _vm._m(9),
+                  _vm._m(8),
                   _vm._v(" "),
-                  _vm._m(10)
+                  _vm._m(9)
                 ]
               ),
               _vm._v(" "),
-              _vm._m(11)
+              _vm._m(10)
             ]
           )
         ]
@@ -65424,7 +65820,7 @@ var render = function() {
               "bg-white border-t border-b sm:rounded sm:border shadow"
           },
           [
-            _vm._m(12),
+            _vm._m(11),
             _vm._v(" "),
             _c("div", [
               _c("div", { staticClass: "text-center px-6 py-4" }, [
@@ -65468,7 +65864,7 @@ var render = function() {
                     ]
                   ),
                   _vm._v(" "),
-                  _vm._m(13)
+                  _vm._m(12)
                 ])
               ])
             ])
@@ -65483,116 +65879,20 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "border-b px-6" }, [
-      _c("div", { staticClass: "flex justify-between -mb-px" }, [
-        _c("div", { staticClass: "lg:hidden text-blue-dark py-4 text-lg" }, [
-          _vm._v("\n                    Price Charts\n                ")
+    return _c("div", { staticClass: "flex items-center px-6 lg:hidden" }, [
+      _c("div", { staticClass: "flex-grow flex-no-shrink py-6" }, [
+        _c("div", { staticClass: "mb-2" }, [
+          _c("span", { staticClass: "text-3xl align-top text-gray-500" }, [
+            _vm._v("CA$")
+          ]),
+          _vm._v(" "),
+          _c("span", { staticClass: "text-5xl text-gray-500" }, [
+            _vm._v("21,404.74")
+          ])
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "hidden lg:flex" }, [
-          _c(
-            "button",
-            {
-              staticClass:
-                "appearance-none py-4 text-indigo-700 border-b border-indigo-700 mr-6",
-              attrs: { type: "button" }
-            },
-            [
-              _vm._v(
-                "\n                        Bitcoin · CA$21,404.74\n                    "
-              )
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "button",
-            {
-              staticClass:
-                "appearance-none py-4 text-gray-500 border-b border-transparent hover:border-grey-dark mr-6",
-              attrs: { type: "button" }
-            },
-            [
-              _vm._v(
-                "\n                        Ethereum · CA$884.80\n                    "
-              )
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "button",
-            {
-              staticClass:
-                "appearance-none py-4 text-gray-500 border-b border-transparent hover:border-grey-dark",
-              attrs: { type: "button" }
-            },
-            [
-              _vm._v(
-                "\n                        Litecoin · CA$358.24\n                    "
-              )
-            ]
-          )
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "flex text-sm" }, [
-          _c(
-            "button",
-            {
-              staticClass:
-                "appearance-none py-4 text-grey-dark border-b border-transparent hover:border-grey-dark mr-3",
-              attrs: { type: "button" }
-            },
-            [_vm._v("\n                        1M\n                    ")]
-          ),
-          _vm._v(" "),
-          _c(
-            "button",
-            {
-              staticClass:
-                "appearance-none py-4 text-grey-dark border-b border-transparent hover:border-grey-dark mr-3",
-              attrs: { type: "button" }
-            },
-            [_vm._v("\n                        1D\n                    ")]
-          ),
-          _vm._v(" "),
-          _c(
-            "button",
-            {
-              staticClass:
-                "appearance-none py-4 text-grey-dark border-b border-transparent hover:border-grey-dark mr-3",
-              attrs: { type: "button" }
-            },
-            [_vm._v("\n                        1W\n                    ")]
-          ),
-          _vm._v(" "),
-          _c(
-            "button",
-            {
-              staticClass:
-                "font-semibold appearance-none py-4 text-indigo-700 border-b border-indigo-700 mr-3",
-              attrs: { type: "button" }
-            },
-            [_vm._v("\n                        1M\n                    ")]
-          ),
-          _vm._v(" "),
-          _c(
-            "button",
-            {
-              staticClass:
-                "appearance-none py-4 text-grey-dark border-b border-transparent hover:border-grey-dark mr-3",
-              attrs: { type: "button" }
-            },
-            [_vm._v("\n                        1Y\n                    ")]
-          ),
-          _vm._v(" "),
-          _c(
-            "button",
-            {
-              staticClass:
-                "appearance-none py-4 text-grey-dark border-b border-transparent hover:border-grey-dark",
-              attrs: { type: "button" }
-            },
-            [_vm._v("\n                        ALL\n                    ")]
-          )
+        _c("div", { staticClass: "text-sm" }, [
+          _vm._v("\n                ↑ CA$12,955.35 (154.16%)\n                ")
         ])
       ])
     ])
@@ -65601,19 +65901,28 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "flex-grow flex-no-shrink py-6" }, [
-      _c("div", { staticClass: "mb-2" }, [
-        _c("span", { staticClass: "text-3xl align-top text-gray-500" }, [
-          _vm._v("CA$")
+    return _c("div", { staticClass: "w-1/3 text-center py-8" }, [
+      _c("div", { staticClass: "border-r" }, [
+        _c("div", { staticClass: "text-gray-600 mb-2" }, [
+          _c("span", { staticClass: "text-3xl align-top" }, [
+            _c("span", { staticClass: "text-green align-top" }, [_vm._v("+")]),
+            _vm._v("CA$")
+          ]),
+          _vm._v(" "),
+          _c("span", { staticClass: "text-5xl" }, [_vm._v("12,998")]),
+          _vm._v(" "),
+          _c("span", { staticClass: "text-3xl align-top" }, [_vm._v(".48")])
         ]),
         _vm._v(" "),
-        _c("span", { staticClass: "text-5xl text-gray-500" }, [
-          _vm._v("21,404.74")
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "text-sm" }, [
-        _vm._v("\n                ↑ CA$12,955.35 (154.16%)\n                ")
+        _c(
+          "div",
+          { staticClass: "text-sm uppercase text-gray-500 tracking-wide" },
+          [
+            _vm._v(
+              "\n                    Since last month (CAD)\n                "
+            )
+          ]
+        )
       ])
     ])
   },
@@ -65621,91 +65930,27 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "select",
-      {
-        staticClass:
-          "block appearance-none w-full bg-white border border-grey-light px-4 py-2 pr-8 rounded"
-      },
-      [
-        _c("option", [_vm._v("BTC")]),
+    return _c("div", { staticClass: "w-1/3 text-center py-8" }, [
+      _c("div", [
+        _c("div", { staticClass: "text-gray-600 mb-2" }, [
+          _c("span", { staticClass: "text-3xl align-top" }, [
+            _c("span", { staticClass: "text-green align-top" }, [_vm._v("+")])
+          ]),
+          _vm._v(" "),
+          _c("span", { staticClass: "text-5xl" }, [_vm._v("154.47")]),
+          _vm._v(" "),
+          _c("span", { staticClass: "text-3xl align-top" }, [_vm._v("%")])
+        ]),
         _vm._v(" "),
-        _c("option", [_vm._v("ETH")]),
-        _vm._v(" "),
-        _c("option", [_vm._v("LTC")])
-      ]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "hidden lg:flex" }, [
-      _c("div", { staticClass: "w-1/3 text-center py-8" }, [
-        _c("div", { staticClass: "border-r" }, [
-          _c("div", { staticClass: "text-gray-600 mb-2" }, [
-            _c("span", { staticClass: "text-3xl align-top" }, [_vm._v("CA$")]),
-            _vm._v(" "),
-            _c("span", { staticClass: "text-5xl" }, [_vm._v("21,404.74")])
-          ]),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "text-sm uppercase text-gray-500 tracking-wide" },
-            [_vm._v("\n                    Bitcoin Price\n                ")]
-          )
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "w-1/3 text-center py-8" }, [
-        _c("div", { staticClass: "border-r" }, [
-          _c("div", { staticClass: "text-gray-600 mb-2" }, [
-            _c("span", { staticClass: "text-3xl align-top" }, [
-              _c("span", { staticClass: "text-green align-top" }, [
-                _vm._v("+")
-              ]),
-              _vm._v("CA$")
-            ]),
-            _vm._v(" "),
-            _c("span", { staticClass: "text-5xl" }, [_vm._v("12,998")]),
-            _vm._v(" "),
-            _c("span", { staticClass: "text-3xl align-top" }, [_vm._v(".48")])
-          ]),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "text-sm uppercase text-gray-500 tracking-wide" },
-            [
-              _vm._v(
-                "\n                    Since last month (CAD)\n                "
-              )
-            ]
-          )
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "w-1/3 text-center py-8" }, [
-        _c("div", [
-          _c("div", { staticClass: "text-gray-600 mb-2" }, [
-            _c("span", { staticClass: "text-3xl align-top" }, [
-              _c("span", { staticClass: "text-green align-top" }, [_vm._v("+")])
-            ]),
-            _vm._v(" "),
-            _c("span", { staticClass: "text-5xl" }, [_vm._v("154.47")]),
-            _vm._v(" "),
-            _c("span", { staticClass: "text-3xl align-top" }, [_vm._v("%")])
-          ]),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "text-sm uppercase text-gray-500 tracking-wide" },
-            [
-              _vm._v(
-                "\n                    Since last month (%)\n                "
-              )
-            ]
-          )
-        ])
+        _c(
+          "div",
+          { staticClass: "text-sm uppercase text-gray-500 tracking-wide" },
+          [
+            _vm._v(
+              "\n                    Since last month (%)\n                "
+            )
+          ]
+        )
       ])
     ])
   },
@@ -65973,7 +66218,7 @@ var render = function() {
                           },
                           [
                             _vm._v(
-                              "\n                        Monto\n                    "
+                              "\n                            Monto\n                        "
                             )
                           ]
                         ),
@@ -66320,7 +66565,7 @@ var staticRenderFns = [
       [
         _c("span", { staticClass: "text-gray-500 sm:text-sm sm:leading-5" }, [
           _vm._v(
-            "\n                                $\n                            "
+            "\n                                    $\n                                "
           )
         ])
       ]
@@ -84221,6 +84466,139 @@ __webpack_require__.r(__webpack_exports__);
     module.exports = doc;
     
         module.exports["updateCategory"] = oneQuery(doc, "updateCategory");
+        
+
+
+/***/ }),
+
+/***/ "./resources/js/graphql/exchange-rates/conversion.graphql":
+/*!****************************************************************!*\
+  !*** ./resources/js/graphql/exchange-rates/conversion.graphql ***!
+  \****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+
+    var doc = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"exchangeConversion"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ExchangeConversionInput"}}},"directives":[]}],"directives":[],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"exchangeConversion"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"directives":[],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"from"},"arguments":[],"directives":[]},{"kind":"Field","name":{"kind":"Name","value":"to"},"arguments":[],"directives":[]},{"kind":"Field","name":{"kind":"Name","value":"value"},"arguments":[],"directives":[]},{"kind":"Field","name":{"kind":"Name","value":"result"},"arguments":[],"directives":[]},{"kind":"Field","name":{"kind":"Name","value":"date"},"arguments":[],"directives":[]}]}}]}}],"loc":{"start":0,"end":341}};
+    doc.loc.source = {"body":"# Para conversiones de divisas por medio de api externa \n# integrada a mi schema graphql (ExchangeRates).\n# API: https://github.com/ash-jc-allen/laravel-exchange-rates\n\nquery exchangeConversion($input: ExchangeConversionInput!){\n    exchangeConversion(input: $input){\n        from\n        to\n        value\n        result\n        date\n    }\n}","name":"GraphQL request","locationOffset":{"line":1,"column":1}};
+  
+
+    var names = {};
+    function unique(defs) {
+      return defs.filter(
+        function(def) {
+          if (def.kind !== 'FragmentDefinition') return true;
+          var name = def.name.value
+          if (names[name]) {
+            return false;
+          } else {
+            names[name] = true;
+            return true;
+          }
+        }
+      )
+    }
+  
+
+    // Collect any fragment/type references from a node, adding them to the refs Set
+    function collectFragmentReferences(node, refs) {
+      if (node.kind === "FragmentSpread") {
+        refs.add(node.name.value);
+      } else if (node.kind === "VariableDefinition") {
+        var type = node.type;
+        if (type.kind === "NamedType") {
+          refs.add(type.name.value);
+        }
+      }
+
+      if (node.selectionSet) {
+        node.selectionSet.selections.forEach(function(selection) {
+          collectFragmentReferences(selection, refs);
+        });
+      }
+
+      if (node.variableDefinitions) {
+        node.variableDefinitions.forEach(function(def) {
+          collectFragmentReferences(def, refs);
+        });
+      }
+
+      if (node.definitions) {
+        node.definitions.forEach(function(def) {
+          collectFragmentReferences(def, refs);
+        });
+      }
+    }
+
+    var definitionRefs = {};
+    (function extractReferences() {
+      doc.definitions.forEach(function(def) {
+        if (def.name) {
+          var refs = new Set();
+          collectFragmentReferences(def, refs);
+          definitionRefs[def.name.value] = refs;
+        }
+      });
+    })();
+
+    function findOperation(doc, name) {
+      for (var i = 0; i < doc.definitions.length; i++) {
+        var element = doc.definitions[i];
+        if (element.name && element.name.value == name) {
+          return element;
+        }
+      }
+    }
+
+    function oneQuery(doc, operationName) {
+      // Copy the DocumentNode, but clear out the definitions
+      var newDoc = {
+        kind: doc.kind,
+        definitions: [findOperation(doc, operationName)]
+      };
+      if (doc.hasOwnProperty("loc")) {
+        newDoc.loc = doc.loc;
+      }
+
+      // Now, for the operation we're running, find any fragments referenced by
+      // it or the fragments it references
+      var opRefs = definitionRefs[operationName] || new Set();
+      var allRefs = new Set();
+      var newRefs = new Set();
+
+      // IE 11 doesn't support "new Set(iterable)", so we add the members of opRefs to newRefs one by one
+      opRefs.forEach(function(refName) {
+        newRefs.add(refName);
+      });
+
+      while (newRefs.size > 0) {
+        var prevRefs = newRefs;
+        newRefs = new Set();
+
+        prevRefs.forEach(function(refName) {
+          if (!allRefs.has(refName)) {
+            allRefs.add(refName);
+            var childRefs = definitionRefs[refName] || new Set();
+            childRefs.forEach(function(childRef) {
+              newRefs.add(childRef);
+            });
+          }
+        });
+      }
+
+      allRefs.forEach(function(refName) {
+        var op = findOperation(doc, refName);
+        if (op) {
+          newDoc.definitions.push(op);
+        }
+      });
+
+      return newDoc;
+    }
+
+    module.exports = doc;
+    
+        module.exports["exchangeConversion"] = oneQuery(doc, "exchangeConversion");
         
 
 

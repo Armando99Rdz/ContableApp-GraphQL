@@ -4,38 +4,23 @@
         <div class="border-b px-6">
             <div class="flex justify-between -mb-px">
                 <div class="lg:hidden text-blue-dark py-4 text-lg">
-                    Price Charts
+                    Resumen
                 </div>
-                <div class="hidden lg:flex">
-                    <button type="button" class="appearance-none py-4 text-indigo-700 border-b border-indigo-700 mr-6">
-                        Bitcoin &middot; CA$21,404.74
-                    </button>
-                    <button type="button" class="appearance-none py-4 text-gray-500 border-b border-transparent hover:border-grey-dark mr-6">
-                        Ethereum &middot; CA$884.80
-                    </button>
-                    <button type="button" class="appearance-none py-4 text-gray-500 border-b border-transparent hover:border-grey-dark">
-                        Litecoin &middot; CA$358.24
-                    </button>
-                </div>
-                <div class="flex text-sm">
-                    <button type="button" class="appearance-none py-4 text-grey-dark border-b border-transparent hover:border-grey-dark mr-3">
-                        1M
-                    </button>
-                    <button type="button" class="appearance-none py-4 text-grey-dark border-b border-transparent hover:border-grey-dark mr-3">
-                        1D
-                    </button>
-                    <button type="button" class="appearance-none py-4 text-grey-dark border-b border-transparent hover:border-grey-dark mr-3">
-                        1W
-                    </button>
-                    <button type="button" class="font-semibold appearance-none py-4 text-indigo-700 border-b border-indigo-700 mr-3">
-                        1M
-                    </button>
-                    <button type="button" class="appearance-none py-4 text-grey-dark border-b border-transparent hover:border-grey-dark mr-3">
-                        1Y
-                    </button>
-                    <button type="button" class="appearance-none py-4 text-grey-dark border-b border-transparent hover:border-grey-dark">
-                        ALL
-                    </button>
+                <div class="hidden lg:flex w-full">
+                    <div class="appearance-none py-4 text-gray-600 w-full">
+                        Balance General &middot; {{ currencyFormatter(generalBalance) }} MX
+                    </div>
+                    <div class="mr-2 lg:flex w-full">
+                        <div class="appearance-none py-4 text-gray-500 border-b border-transparent hover:border-grey-dark mr-8 ml-auto">
+                            $1 USD &middot; {{ currencyFormatter(dollarValue) }} MX
+                        </div>
+                        <div class="appearance-none py-4 text-gray-500 border-b border-transparent hover:border-grey-dark mr-8">
+                            $1 EUR &middot; {{currencyFormatter(euroValue)}} MX
+                        </div>
+                        <div class="appearance-none py-4 text-gray-500 border-b border-transparent hover:border-grey-dark mr-8">
+                            $1 CAD &middot; {{ currencyFormatter(canadianValue) }} MX
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -49,26 +34,16 @@
                 &uarr; CA$12,955.35 (154.16%)
                 </div>
             </div>
-            <div class="flex-shrink w-32 inline-block relative">
-                <select class="block appearance-none w-full bg-white border border-grey-light px-4 py-2 pr-8 rounded">
-                    <option>BTC</option>
-                    <option>ETH</option>
-                    <option>LTC</option>
-                </select>
-                <div class="pointer-events-none absolute pin-y pin-r flex items-center px-2 text-grey">
-                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
-                </div>
-            </div>
         </div>
         <div class="hidden lg:flex">
             <div class="w-1/3 text-center py-8">
                 <div class="border-r">
                 <div class="text-gray-600 mb-2">
                     <span class="text-3xl align-top">CA$</span>
-                    <span class="text-5xl">21,404.74</span>
+                    <span class="text-5xl">{{ currencyFormatter(generalBalance) }}</span>
                 </div>
                 <div class="text-sm uppercase text-gray-500 tracking-wide">
-                    Bitcoin Price
+                    Balance general
                 </div>
                 </div>
             </div>
@@ -221,7 +196,124 @@
 </div>
 </template>
 <script>
+
+import TRANSACTIONS from '../graphql/transactions/transactions.graphql';
+import ACCOUNTS from '../graphql/accounts/accounts.graphql';
+import EXCHANGE_CONVERSION from '../graphql/exchange-rates/conversion.graphql';
+import currency from 'currency.js';
+
 export default {
+    data(){
+        return {
+            loading: true,
+            transactions: [],
+            accounts: [],
+            generalBalance: 0.00,
+            dollarValue: 0.00,
+            euroValue: 0.00,
+            canadianValue: 0.00
+        }
+    },
+    mounted(){
+        this.getTransactions();
+        this.getAccounts();
+        this.getDollarValue();
+        this.getEuroValue();
+    },
+    methods: {
+        async getTransactions(){
+            const response = await this.$apollo.query({
+                query: TRANSACTIONS,
+                variables: {
+                    first: 20,
+                    page: 1
+                }
+            });
+            this.transactions = response.data.transactions.data.map(item => {
+                return {
+                    id: item.id,
+                    amount: item.amount,
+                    type: item.type,
+                    account: item.account,
+                    created_at: item.created_at
+                }
+            });
+            this.loading = this.$apollo.loading;
+        },
+        async getAccounts(){
+            const response = await this.$apollo.query({
+                query: ACCOUNTS,
+                variables: {
+                    first: 20,
+                    page: 1
+                }
+            });
+            this.accounts = response.data.accounts.data.map(item => {
+                return {
+                    id: item.id,
+                    color: item.color,
+                    name: item.name,
+                    balance: item.balance,
+                    user: item.user
+                }
+            });
+            this.loading = this.$apollo.loading;
+            this.getGeneralBalance();
+        },
+        async getGeneralBalance(){
+            const balance = await this.accounts.forEach( (item, index) => {
+                this.generalBalance += item.balance;
+            });
+        },
+        async getDollarValue(){
+            const response = await this.$apollo.query({
+                query: EXCHANGE_CONVERSION,
+                variables: {
+                    input: {
+                        from: "USD",
+                        to: "MXN",
+                        value: 1
+                    }
+                }
+            });
+            this.dollarValue = response.data.exchangeConversion.result;
+            this.loading = this.$apollo.loading;
+        },
+        async getEuroValue(){
+            const response = await this.$apollo.query({
+                query: EXCHANGE_CONVERSION,
+                variables: {
+                    input: {
+                        from: "EUR",
+                        to: "MXN",
+                        value: 1
+                    }
+                }
+            });
+            this.euroValue = response.data.exchangeConversion.result;
+            this.loading = this.$apollo.loading;
+        },
+        async getEuroValue(){
+            const response = await this.$apollo.query({
+                query: EXCHANGE_CONVERSION,
+                variables: {
+                    input: {
+                        from: "CAD",
+                        to: "MXN",
+                        value: 1
+                    }
+                }
+            });
+            this.canadianValue = response.data.exchangeConversion.result;
+            this.loading = this.$apollo.loading;
+        },
+        currencyFormatter(value){
+            return currency(value).format();
+        }
+    },
+    computed: {
+        
+    }
     
 }
 </script>

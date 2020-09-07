@@ -1,0 +1,13 @@
+# Para conversiones de divisas por medio de api externa 
+# integrada a mi schema graphql (ExchangeRates).
+# API: https://github.com/ash-jc-allen/laravel-exchange-rates
+
+query exchangeConversion($input: ExchangeConversionInput!){
+    exchangeConversion(input: $input){
+        from
+        to
+        value
+        result
+        date
+    }
+}
