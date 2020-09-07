@@ -1,21 +1,32 @@
 <template>
     <div class="w-full">
-        <div class="w-full bg-white rounded-md overflow-hidden border-t border-b sm:border-l sm:border-r sm:rounded shadow">
 
-            <graphql-error-toast v-if="this.errors" :errors="this.errors"></graphql-error-toast>
-            <div class="border-b p-6">
-                <div class="flex flex-wrap px-6 -mb-px">
-                    <h3 class="text-indigo-700 py-2 font-normal text-lg">Listado de categorías</h3>
-                    <button class="bg-transparent bg-indigo-700 text-white py-2 px-2
-                        border hover:bg-indigo-800 hover:border-transparent rounded ml-auto"
-                        @click="goToCrateCategory"
-                    >
-                        Nueva categoría
-                    </button>
-                </div>
+        <graphql-error-toast v-if="this.errors" :errors="this.errors"></graphql-error-toast>
+
+        <!-- header -->
+        <div class="">
+            <h2 class="text-4xl font-medium capitalize text-gray-600">mis cuentas</h2>
+            <div class="flex mt-1 mb-4 md:flex items-center justify-between text-gray-600">
+                <span class="m-3 md:m-0 block md:flex">
+                    Total de categorías: 
+                    <strong v-text="categories.length" class="ml-2"></strong>
+                </span>
+                <button class="bg-indigo-700 hover:bg-indigo-800 text-white hover:text-white py-3 px-2 rounded"
+                    @click="goToCrateCategory">
+                    Nueva categoría
+                </button>
             </div>
+        </div>
 
-            <div class="-mx-3 px-12 py-4">
+        <!-- divider -->
+        <div class="invisible md:visible md:mt-2 md:mb-4 border border-gray-300 transition duration-500
+            ease-in-out">
+        </div>
+
+        <!-- content / table -->
+        <div class="w-full">
+            
+            <div class="-mx-3 ">
                 <div v-if="loading" class="mt-20">
                     <loading :loading="loading" color="gray"></loading>
                 </div>

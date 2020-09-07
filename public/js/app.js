@@ -14418,6 +14418,132 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/cards/transaction-card.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/cards/transaction-card.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "transaction-card",
+  props: ['data'],
+  methods: {
+    editTransaction: function editTransaction(transaction) {
+      this.$emit('editTransaction', transaction);
+    },
+    deleteTransaction: function deleteTransaction(transaction) {
+      this.$emit('deleteTransaction', transaction);
+    },
+    formateDate: function formateDate(date) {
+      return moment(date).locale('es').format('DD [de] MMMM [del] YYYY');
+    },
+    getFirstWord: function getFirstWord(string) {
+      if (string.indexOf(' ') === -1) return string;
+      return string.substr(0, string.indexOf(' '));
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/common/loading.vue?vue&type=script&lang=js&":
 /*!*************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/common/loading.vue?vue&type=script&lang=js& ***!
@@ -14555,6 +14681,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "simple-table",
   props: ['headings', 'data'],
@@ -14591,7 +14725,6 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
-//
 //
 //
 //
@@ -15020,6 +15153,18 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -15529,6 +15674,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -15899,11 +16055,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _graphql_transactions_create_inital_data_graphql__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../graphql/transactions/create-inital-data.graphql */ "./resources/js/graphql/transactions/create-inital-data.graphql");
 /* harmony import */ var _graphql_transactions_create_inital_data_graphql__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_graphql_transactions_create_inital_data_graphql__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _components_common_loading__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../components/common/loading */ "./resources/js/components/common/loading.vue");
-/* harmony import */ var _components_errors_graphql_error_toast__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../components/errors/graphql-error-toast */ "./resources/js/components/errors/graphql-error-toast.vue");
-/* harmony import */ var _graphql_categories_create_graphql__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../graphql/categories/create.graphql */ "./resources/js/graphql/categories/create.graphql");
-/* harmony import */ var _graphql_categories_create_graphql__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_graphql_categories_create_graphql__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _components_cards_account_card__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../components/cards/account-card */ "./resources/js/components/cards/account-card.vue");
+/* harmony import */ var _graphql_transactions_create_graphql__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../graphql/transactions/create.graphql */ "./resources/js/graphql/transactions/create.graphql");
+/* harmony import */ var _graphql_transactions_create_graphql__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_graphql_transactions_create_graphql__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _components_common_loading__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../components/common/loading */ "./resources/js/components/common/loading.vue");
+/* harmony import */ var _components_errors_graphql_error_toast__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../components/errors/graphql-error-toast */ "./resources/js/components/errors/graphql-error-toast.vue");
+/* harmony import */ var _graphql_categories_create_graphql__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../graphql/categories/create.graphql */ "./resources/js/graphql/categories/create.graphql");
+/* harmony import */ var _graphql_categories_create_graphql__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_graphql_categories_create_graphql__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _components_cards_account_card__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../components/cards/account-card */ "./resources/js/components/cards/account-card.vue");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -15975,6 +16133,32 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 
@@ -15983,9 +16167,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "create",
   components: {
-    Loading: _components_common_loading__WEBPACK_IMPORTED_MODULE_2__["default"],
-    GraphqlErrorToast: _components_errors_graphql_error_toast__WEBPACK_IMPORTED_MODULE_3__["default"],
-    AccountCard: _components_cards_account_card__WEBPACK_IMPORTED_MODULE_5__["default"]
+    Loading: _components_common_loading__WEBPACK_IMPORTED_MODULE_3__["default"],
+    GraphqlErrorToast: _components_errors_graphql_error_toast__WEBPACK_IMPORTED_MODULE_4__["default"],
+    AccountCard: _components_cards_account_card__WEBPACK_IMPORTED_MODULE_6__["default"]
   },
   data: function data() {
     return {
@@ -15998,7 +16182,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         category_id: null,
         type: 'INCOME',
         // por defecto sera ingreso
-        ammount: 0
+        amount: null,
+        description: null
       },
       currentAccountIndex: 0
     };
@@ -16013,6 +16198,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       } else {
         if (this.currentAccountIndex <= 0) this.currentAccountIndex = this.accounts.length - 1;else this.currentAccountIndex--;
       }
+
+      this.form.account_id = this.accounts[this.currentAccountIndex].id;
     },
     getInitialData: function getInitialData() {
       var _this = this;
@@ -16040,8 +16227,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     showActions: false,
                     showCarouselBottons: true
                   };
-                }); //this.currentAccount = this.accounts[0] || null;
-
+                });
+                _this.form.account_id = _this.accounts[_this.currentAccountIndex].id || null;
                 _this.categories = response.data.categories.data.map(function (item) {
                   return {
                     id: item.id,
@@ -16050,7 +16237,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 });
                 _this.loading = _this.$apollo.loading;
 
-              case 6:
+              case 7:
               case "end":
                 return _context.stop();
             }
@@ -16059,8 +16246,54 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }))();
     },
     submit: function submit() {
-      this.loading = true;
-      this.errors = null;
+      var _this2 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+        var response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _this2.loading = true;
+                _this2.errors = null;
+                _context2.prev = 2;
+                parseFloat(_this2.form.amount);
+                _context2.next = 6;
+                return _this2.$apollo.mutate({
+                  mutation: _graphql_transactions_create_graphql__WEBPACK_IMPORTED_MODULE_2___default.a,
+                  variables: {
+                    input: _this2.form
+                  }
+                });
+
+              case 6:
+                response = _context2.sent;
+                _this2.loading = false;
+
+                if (!response.data) {
+                  _context2.next = 10;
+                  break;
+                }
+
+                return _context2.abrupt("return", _this2.$router.push('/transactions'));
+
+              case 10:
+                _context2.next = 16;
+                break;
+
+              case 12:
+                _context2.prev = 12;
+                _context2.t0 = _context2["catch"](2);
+                _this2.errors = _context2.t0;
+                _this2.loading = false;
+
+              case 16:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2, null, [[2, 12]]);
+      }))();
     }
   }
 });
@@ -16076,60 +16309,56 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var graphql_tag__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! graphql-tag */ "./node_modules/graphql-tag/src/index.js");
-/* harmony import */ var graphql_tag__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(graphql_tag__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var graphql_tag__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! graphql-tag */ "./node_modules/graphql-tag/src/index.js");
+/* harmony import */ var graphql_tag__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(graphql_tag__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _components_cards_transaction_card__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../components/cards/transaction-card */ "./resources/js/components/cards/transaction-card.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
-
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  components: [_components_cards_transaction_card__WEBPACK_IMPORTED_MODULE_1__["default"]],
+  mounted: function mounted() {},
   data: function data() {
     return {
-      data: []
+      transactions: []
     };
   },
-  mounted: function mounted() {
-    this.getCategories();
-  },
   methods: {
-    getCategories: function getCategories() {
-      var _this = this;
-
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var response;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                _context.next = 2;
-                return _this.$apollo.query({
-                  query: graphql_tag__WEBPACK_IMPORTED_MODULE_1___default()("\n                    {\n                        categories(first: 20) {data {id name}}\n                        accounts(first: 20) {data {id name}}\n                    }\n                ")
-                });
-
-              case 2:
-                response = _context.sent;
-                _this.data = response.data;
-
-              case 4:
-              case "end":
-                return _context.stop();
-            }
-          }
-        }, _callee);
-      }))();
+    goToCreateTransaction: function goToCreateTransaction() {
+      this.$router.push('/transactions/create');
     }
   }
 });
@@ -63377,6 +63606,229 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/cards/transaction-card.vue?vue&type=template&id=6dd5c056&":
+/*!*************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/cards/transaction-card.vue?vue&type=template&id=6dd5c056& ***!
+  \*************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    {
+      staticClass:
+        "md:flex w-full items-center justify-between bg-white px-8 py-6 border-l-4 border-green-400"
+    },
+    [
+      _c("div", { staticClass: "md:flex" }, [
+        _c(
+          "div",
+          {
+            staticClass:
+              "flex flex-col ml-6 mt-6 md:mt-0 text-center md:text-left"
+          },
+          [
+            _c("span", { staticClass: "text-xl text-gray-600 flex" }, [
+              _vm._v(
+                "\n                " +
+                  _vm._s(
+                    _vm.data.type === "INCOME" ? "Ingreso a " : "Gasto en "
+                  ) +
+                  "\n                "
+              ),
+              _c("span", { staticClass: "font-bold flex ml-2" }, [
+                _vm._v(
+                  "\n                        " +
+                    _vm._s(_vm.data.name) +
+                    "\n                    "
+                ),
+                _c("div", {
+                  staticClass: "rounded-lg h-5 w-5 ml-2 my-auto text-white",
+                  class: {
+                    "bg-green-500": _vm.data.account.color == 1,
+                    "bg-blue-600": _vm.data.account.color == 2,
+                    "bg-red-600": _vm.data.account.color == 3,
+                    "bg-yellow-300": _vm.data.account.color == 4,
+                    "bg-orange-500": _vm.data.account.color == 5
+                  }
+                })
+              ])
+            ]),
+            _vm._v(" "),
+            _c(
+              "span",
+              { staticClass: "text-2xl my-2 font-semibold text-green-500" },
+              [
+                _vm._v(
+                  "\n                $" +
+                    _vm._s(_vm.data.amount) +
+                    "\n            "
+                )
+              ]
+            ),
+            _vm._v(" "),
+            _c("span", { staticClass: "text-sm mb-2 text-gray-600" }, [
+              _vm._v(_vm._s(_vm.data.description))
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "mt-1 flex" }, [
+              _c("div", { staticClass: "flex" }, [
+                _c(
+                  "svg",
+                  {
+                    staticClass: "h-5 w-5 fill-current text-gray-600",
+                    attrs: { viewBox: "0 0 24 24" }
+                  },
+                  [
+                    _c("path", {
+                      attrs: {
+                        d:
+                          "M12 4a4 4 0 014 4 4 4 0 01-4 4\n                            4 4 0 01-4-4 4 4 0 014-4m0\n                            10c4.42 0 8 1.79 8\n                            4v2H4v-2c0-2.21 3.58-4 8-4z"
+                      }
+                    })
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "span",
+                  {
+                    staticClass:
+                      "ml-2 text-sm text-gray-600\n                        dark:text-gray-300 capitalize md:pt-1"
+                  },
+                  [
+                    _vm._v(
+                      "\n                        " +
+                        _vm._s(_vm.getFirstWord(_vm.data.user.name)) +
+                        "\n                    "
+                    )
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "flex ml-6" }, [
+                _c(
+                  "svg",
+                  {
+                    staticClass: "h-5 w-5 fill-current text-gray-600",
+                    attrs: { viewBox: "0 0 24 24" }
+                  },
+                  [
+                    _c("path", {
+                      attrs: {
+                        d:
+                          "M19\n                            19H5V8h14m-3-7v2H8V1H6v2H5c-1.11\n                            0-2 .89-2 2v14a2 2 0 002 2h14a2 2\n                            0 002-2V5a2 2 0 00-2-2h-1V1m-1\n                            11h-5v5h5v-5z"
+                      }
+                    })
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "span",
+                  {
+                    staticClass: "ml-2 text-sm text-gray-600 capitalize md:pt-1"
+                  },
+                  [
+                    _vm._v(
+                      "\n                        " +
+                        _vm._s(_vm.formateDate(_vm.data.created_at)) +
+                        "\n                    "
+                    )
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "flex ml-6" }, [
+                _c(
+                  "svg",
+                  {
+                    staticClass: "h-5 w-5 fill-current text-gray-600",
+                    attrs: { viewBox: "0 0 24 24" }
+                  },
+                  [
+                    _c("path", {
+                      attrs: { d: "M3 13h12v-2H3m0-5v2h18V6M3 18h6v-2H3v2z" }
+                    })
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "span",
+                  {
+                    staticClass: "ml-2 text-sm text-gray-600 capitalize md:pt-1"
+                  },
+                  [
+                    _vm._v(
+                      "\n                        " +
+                        _vm._s(_vm.data.category.name) +
+                        "\n                    "
+                    )
+                  ]
+                )
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "mt-4 flex" })
+          ]
+        )
+      ]),
+      _vm._v(" "),
+      _vm._m(0)
+    ]
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      {
+        staticClass:
+          "mx-auto md:flex md:flex-col md:-mt-10 md:mr-20 text-center"
+      },
+      [
+        _c(
+          "div",
+          { staticClass: "inline-flex justify-center md:mt-6 md:ml-auto" },
+          [
+            _c(
+              "button",
+              {
+                staticClass:
+                  "bg-gray-200 hover:bg-indigo-700 hover:text-white \n            text-gray-700 py-2 font-semibold px-4 rounded md:mr-2"
+              },
+              [_vm._v("\n                Editar\n            ")]
+            ),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass:
+                  "bg-gray-200 hover:bg-red-700 hover:text-white \n            text-gray-700 py-2 px-4 font-semibold rounded"
+              },
+              [_vm._v("\n                Eliminar\n            ")]
+            )
+          ]
+        )
+      ]
+    )
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/common/loading.vue?vue&type=template&id=688edfba&scoped=true&":
 /*!*****************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/common/loading.vue?vue&type=template&id=688edfba&scoped=true& ***!
@@ -63456,98 +63908,136 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("table", { staticClass: "table-auto w-full" }, [
-      _c("thead", { staticClass: "text-gray-700 bg-gray-300" }, [
+    _c("div", { staticClass: "flex flex-col" }, [
+      _c("div", { staticClass: "-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8" }, [
         _c(
-          "tr",
-          {},
+          "div",
+          {
+            staticClass:
+              "py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8"
+          },
           [
-            _vm._l(_vm.headings, function(heading) {
-              return _c(
-                "th",
-                { staticClass: "p-4 z-20 sticky top-0 text-sm font-semibold" },
-                [_vm._v(_vm._s(heading))]
-              )
-            }),
-            _vm._v(" "),
-            _c("th", {
-              staticClass: "p-4 z-20 sticky top-0 text-sm font-semibold"
-            })
-          ],
-          2
-        )
-      ]),
-      _vm._v(" "),
-      _c(
-        "tbody",
-        { staticClass: "text-center" },
-        _vm._l(_vm.data, function(item) {
-          return _c(
-            "tr",
-            { staticClass: "px-4 py-5" },
-            [
-              _vm._l(item, function(row) {
-                return _c(
-                  "td",
-                  { staticClass: "border-b-2 border-gray-100 px-4 py-2" },
+            _c(
+              "div",
+              {
+                staticClass:
+                  "shadow overflow-hidden border-b border-gray-200 sm:rounded-lg"
+              },
+              [
+                _c(
+                  "table",
+                  { staticClass: "min-w-full divide-y divide-gray-200" },
                   [
-                    _c("div", { staticClass: "text-gray-700" }, [
-                      _vm._v(_vm._s(row))
-                    ])
+                    _c("thead", { staticClass: "text-gray-700 bg-gray-200" }, [
+                      _c(
+                        "tr",
+                        {},
+                        [
+                          _vm._l(_vm.headings, function(heading) {
+                            return _c(
+                              "th",
+                              {
+                                key: heading.id,
+                                staticClass:
+                                  "px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
+                              },
+                              [_vm._v(_vm._s(heading))]
+                            )
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "th",
+                            {
+                              staticClass:
+                                "px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
+                            },
+                            [_vm._v("Acciones")]
+                          )
+                        ],
+                        2
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "tbody",
+                      { staticClass: "bg-white divide-y divide-gray-200" },
+                      _vm._l(_vm.data, function(item) {
+                        return _c(
+                          "tr",
+                          { staticClass: "px-4 py-5" },
+                          [
+                            _vm._l(item, function(row) {
+                              return _c(
+                                "td",
+                                {
+                                  key: row.id,
+                                  staticClass:
+                                    "border-b-2 border-gray-100 px-4 py-2"
+                                },
+                                [
+                                  _c(
+                                    "div",
+                                    { staticClass: "text-gray-700 pl-3" },
+                                    [_vm._v(_vm._s(row))]
+                                  )
+                                ]
+                              )
+                            }),
+                            _vm._v(" "),
+                            _c(
+                              "td",
+                              { staticClass: "px-6 py-4 whitespace-no-wrap" },
+                              [
+                                _c(
+                                  "button",
+                                  {
+                                    staticClass:
+                                      "bg-indigo-700 hover:bg-indigo-800 text-white text-sm\n                                        py-2 px-2 hover:border-transparent rounded",
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.editRecord(item)
+                                      }
+                                    }
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                                        Editar\n                                    "
+                                    )
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "button",
+                                  {
+                                    staticClass:
+                                      "bg-red-700 hover:bg-red-800 text-white text-sm\n                                        py-2 px-2 hover:border-transparent rounded",
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.deleteRecord(item)
+                                      }
+                                    }
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                                        Eliminar\n                                    "
+                                    )
+                                  ]
+                                )
+                              ]
+                            )
+                          ],
+                          2
+                        )
+                      }),
+                      0
+                    )
                   ]
                 )
-              }),
-              _vm._v(" "),
-              _c(
-                "td",
-                {
-                  staticClass:
-                    "border-b-2 border-gray-100 px-4 py-2 text-gray-700"
-                },
-                [
-                  _c(
-                    "button",
-                    {
-                      staticClass:
-                        "bg-indigo-700 hover:bg-indigo-800 text-white text-sm\n                        py-2 px-2 hover:border-transparent rounded",
-                      on: {
-                        click: function($event) {
-                          return _vm.editRecord(item)
-                        }
-                      }
-                    },
-                    [
-                      _vm._v(
-                        "\n                        Editar\n                    "
-                      )
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "button",
-                    {
-                      staticClass:
-                        "bg-red-700 hover:bg-red-800 text-white text-sm\n                        py-2 px-2 hover:border-transparent rounded",
-                      on: {
-                        click: function($event) {
-                          return _vm.deleteRecord(item)
-                        }
-                      }
-                    },
-                    [
-                      _vm._v(
-                        "\n                        Eliminar\n                    "
-                      )
-                    ]
-                  )
-                ]
-              )
-            ],
-            2
-          )
-        }),
-        0
-      )
+              ]
+            )
+          ]
+        )
+      ])
     ])
   ])
 }
@@ -63584,24 +64074,24 @@ var render = function() {
         ? _c("graphql-error-toast", { attrs: { errors: this.errors } })
         : _vm._e(),
       _vm._v(" "),
-      _c("div", { staticClass: "border-b p-6" }, [
-        _c("div", { staticClass: "flex justify-between px-6 -mb-px" }, [
-          _c("div", { staticClass: "flex flex-wrap" }, [
-            _c("div", {
-              staticClass: "rounded-full h-8 w-8 flex items-center mr-2",
-              class: {
-                "bg-green-400": _vm.form.color === 1,
-                "bg-blue-500": _vm.form.color === 2,
-                "bg-red-500": _vm.form.color === 3,
-                "bg-yellow-200": _vm.form.color === 4,
-                "bg-orange-400": _vm.form.color === 5
-              }
-            }),
-            _vm._v(" "),
-            _c("h2", { staticClass: "font-semibold text-gray-600 pt-1" }, [
-              _vm._v("Nueva Cuenta")
-            ])
-          ])
+      _c("div", { staticClass: "border-b" }, [
+        _c("div", { staticClass: "flex justify-start px-6 -mb-px" }, [
+          _c("div", {
+            staticClass: "rounded-lg h-8 w-8 flex items-center mr-2 my-auto",
+            class: {
+              "bg-green-400": _vm.form.color === 1,
+              "bg-blue-500": _vm.form.color === 2,
+              "bg-red-500": _vm.form.color === 3,
+              "bg-yellow-200": _vm.form.color === 4,
+              "bg-orange-400": _vm.form.color === 5
+            }
+          }),
+          _vm._v(" "),
+          _c(
+            "h3",
+            { staticClass: "text-indigo-700 py-4 font-normal text-lg md:ml-1" },
+            [_vm._v("Nueva cuenta")]
+          )
         ])
       ]),
       _vm._v(" "),
@@ -64124,21 +64614,47 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "w-full" }, [
-    _c("div", { staticClass: "flex justify-between px-4 md:px-0" }, [
-      _c("h2", { staticClass: "font-semibold text-gray-700 mb-4" }, [
-        _vm._v("Mis cuentas")
-      ]),
+    _c("div", {}, [
+      _c(
+        "h2",
+        { staticClass: "text-4xl font-medium capitalize text-gray-600" },
+        [_vm._v("mis cuentas")]
+      ),
       _vm._v(" "),
       _c(
-        "button",
+        "div",
         {
           staticClass:
-            "bg-indigo-700 hover:bg-indigo-800 text-white hover:text-white py-1 px-2 rounded",
-          on: { click: _vm.goToCrateAccount }
+            "flex mt-1 mb-4 md:flex items-center justify-between text-gray-600"
         },
-        [_vm._v("\n            Nueva cuenta\n        ")]
+        [
+          _vm._m(0),
+          _vm._v(" "),
+          _c("span", { staticClass: "m-3 md:m-0 block md:flex" }, [
+            _vm._v("\n                Total de cuentas: \n                "),
+            _c("strong", {
+              staticClass: "ml-2",
+              domProps: { textContent: _vm._s(_vm.accounts.length) }
+            })
+          ]),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass:
+                "bg-indigo-700 hover:bg-indigo-800 text-white hover:text-white py-3 px-2 rounded",
+              on: { click: _vm.goToCrateAccount }
+            },
+            [_vm._v("\n                Nueva cuenta\n            ")]
+          )
+        ]
       )
     ]),
+    _vm._v(" "),
+    _c("div", {
+      staticClass:
+        "invisible md:visible md:mt-2 md:mb-4 border border-gray-300 transition duration-500\n        ease-in-out"
+    }),
     _vm._v(" "),
     _vm.loading
       ? _c(
@@ -64173,7 +64689,17 @@ var render = function() {
     )
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "m-3  md:m-0 block md:flex" }, [
+      _vm._v("\n                Balance total: \n                "),
+      _c("strong", { staticClass: "ml-2" }, [_vm._v("$710.180")])
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -64423,43 +64949,58 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "w-full" }, [
-    _c(
-      "div",
-      {
-        staticClass:
-          "w-full bg-white rounded-md overflow-hidden border-t border-b sm:border-l sm:border-r sm:rounded shadow"
-      },
-      [
-        this.errors
-          ? _c("graphql-error-toast", { attrs: { errors: this.errors } })
-          : _vm._e(),
+  return _c(
+    "div",
+    { staticClass: "w-full" },
+    [
+      this.errors
+        ? _c("graphql-error-toast", { attrs: { errors: this.errors } })
+        : _vm._e(),
+      _vm._v(" "),
+      _c("div", {}, [
+        _c(
+          "h2",
+          { staticClass: "text-4xl font-medium capitalize text-gray-600" },
+          [_vm._v("mis cuentas")]
+        ),
         _vm._v(" "),
-        _c("div", { staticClass: "border-b p-6" }, [
-          _c("div", { staticClass: "flex flex-wrap px-6 -mb-px" }, [
-            _c(
-              "h3",
-              { staticClass: "text-indigo-700 py-2 font-normal text-lg" },
-              [_vm._v("Listado de categorías")]
-            ),
+        _c(
+          "div",
+          {
+            staticClass:
+              "flex mt-1 mb-4 md:flex items-center justify-between text-gray-600"
+          },
+          [
+            _c("span", { staticClass: "m-3 md:m-0 block md:flex" }, [
+              _vm._v(
+                "\n                Total de categorías: \n                "
+              ),
+              _c("strong", {
+                staticClass: "ml-2",
+                domProps: { textContent: _vm._s(_vm.categories.length) }
+              })
+            ]),
             _vm._v(" "),
             _c(
               "button",
               {
                 staticClass:
-                  "bg-transparent bg-indigo-700 text-white py-2 px-2\n                    border hover:bg-indigo-800 hover:border-transparent rounded ml-auto",
+                  "bg-indigo-700 hover:bg-indigo-800 text-white hover:text-white py-3 px-2 rounded",
                 on: { click: _vm.goToCrateCategory }
               },
-              [
-                _vm._v(
-                  "\n                    Nueva categoría\n                "
-                )
-              ]
+              [_vm._v("\n                Nueva categoría\n            ")]
             )
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "-mx-3 px-12 py-4" }, [
+          ]
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", {
+        staticClass:
+          "invisible md:visible md:mt-2 md:mb-4 border border-gray-300 transition duration-500\n        ease-in-out"
+      }),
+      _vm._v(" "),
+      _c("div", { staticClass: "w-full" }, [
+        _c("div", { staticClass: "-mx-3 " }, [
           _vm.loading
             ? _c(
                 "div",
@@ -64485,10 +65026,10 @@ var render = function() {
                 1
               )
         ])
-      ],
-      1
-    )
-  ])
+      ])
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -65266,7 +65807,9 @@ var render = function() {
               _c("div", { staticClass: "w-full text-center" }, [
                 _c(
                   "div",
-                  { staticClass: "mx-auto p-10 md:px-64 bg-gray-200" },
+                  {
+                    staticClass: "mx-auto p-10 pt-2 pb-5 md:px-64 bg-gray-200"
+                  },
                   [
                     _c("account-card", {
                       staticClass: "py-4 px-4 md:py-5 md:pr-8",
@@ -65276,7 +65819,7 @@ var render = function() {
                     _vm._v(" "),
                     _c(
                       "p",
-                      { staticClass: "text-gray-600 text-xs italic mt-8" },
+                      { staticClass: "text-gray-600 text-xs italic mt-5" },
                       [_vm._v("Seleccione una cuenta para la transacción.")]
                     )
                   ],
@@ -65288,7 +65831,158 @@ var render = function() {
                   { staticClass: "w-full px-6 md:px-60 mx-auto mt-8" },
                   [
                     _c("div", { staticClass: "flex flex-wrap -mx-3 mb-6" }, [
-                      _vm._m(1),
+                      _c("div", { staticClass: "w-full px-3" }, [
+                        _c(
+                          "label",
+                          {
+                            staticClass:
+                              "block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2",
+                            attrs: { for: "grid-first-name" }
+                          },
+                          [
+                            _vm._v(
+                              "\n                        Monto\n                    "
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          { staticClass: "mt-1 relative rounded-md shadow-sm" },
+                          [
+                            _vm._m(1),
+                            _vm._v(" "),
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.form.amount,
+                                  expression: "form.amount"
+                                }
+                              ],
+                              staticClass:
+                                "appearance-none block w-full bg-white text-gray-700 border rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-indigo-300 text-center",
+                              attrs: {
+                                id: "amount",
+                                type: "number",
+                                placeholder: "2800"
+                              },
+                              domProps: { value: _vm.form.amount },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.form,
+                                    "amount",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            })
+                          ]
+                        )
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "flex flex-wrap -mx-3 mb-6" }, [
+                      _c(
+                        "div",
+                        { staticClass: "w-full md:w-1/2 px-3 mb-6 md:mb-0" },
+                        [
+                          _c(
+                            "label",
+                            {
+                              staticClass:
+                                "block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2",
+                              attrs: { for: "grid-state" }
+                            },
+                            [
+                              _vm._v(
+                                "\n                            Tipo\n                        "
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "relative" }, [
+                            _c(
+                              "select",
+                              {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.form.type,
+                                    expression: "form.type"
+                                  }
+                                ],
+                                staticClass:
+                                  "block appearance-none w-full bg-white border text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-indigo-300",
+                                attrs: { id: "type" },
+                                on: {
+                                  change: function($event) {
+                                    var $$selectedVal = Array.prototype.filter
+                                      .call($event.target.options, function(o) {
+                                        return o.selected
+                                      })
+                                      .map(function(o) {
+                                        var val =
+                                          "_value" in o ? o._value : o.value
+                                        return val
+                                      })
+                                    _vm.$set(
+                                      _vm.form,
+                                      "type",
+                                      $event.target.multiple
+                                        ? $$selectedVal
+                                        : $$selectedVal[0]
+                                    )
+                                  }
+                                }
+                              },
+                              [
+                                _c("option", { attrs: { value: "INCOME" } }, [
+                                  _vm._v("Ingreso")
+                                ]),
+                                _vm._v(" "),
+                                _c("option", { attrs: { value: "EXPENSE" } }, [
+                                  _vm._v("Gasto")
+                                ])
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "div",
+                              {
+                                staticClass:
+                                  "pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700"
+                              },
+                              [
+                                _c(
+                                  "svg",
+                                  {
+                                    staticClass: "fill-current h-4 w-4",
+                                    attrs: {
+                                      xmlns: "http://www.w3.org/2000/svg",
+                                      viewBox: "0 0 20 20"
+                                    }
+                                  },
+                                  [
+                                    _c("path", {
+                                      attrs: {
+                                        d:
+                                          "M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
+                                      }
+                                    })
+                                  ]
+                                )
+                              ]
+                            )
+                          ])
+                        ]
+                      ),
                       _vm._v(" "),
                       _c(
                         "div",
@@ -65303,13 +65997,67 @@ var render = function() {
                             },
                             [
                               _vm._v(
-                                "\n                        Tipo\n                    "
+                                "\n                            Categoría\n                        "
                               )
                             ]
                           ),
                           _vm._v(" "),
                           _c("div", { staticClass: "relative" }, [
-                            _vm._m(2),
+                            _c(
+                              "select",
+                              {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.form.category_id,
+                                    expression: "form.category_id"
+                                  }
+                                ],
+                                staticClass:
+                                  "block appearance-none w-full bg-white border text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-indigo-300",
+                                attrs: { id: "category_id" },
+                                on: {
+                                  change: function($event) {
+                                    var $$selectedVal = Array.prototype.filter
+                                      .call($event.target.options, function(o) {
+                                        return o.selected
+                                      })
+                                      .map(function(o) {
+                                        var val =
+                                          "_value" in o ? o._value : o.value
+                                        return val
+                                      })
+                                    _vm.$set(
+                                      _vm.form,
+                                      "category_id",
+                                      $event.target.multiple
+                                        ? $$selectedVal
+                                        : $$selectedVal[0]
+                                    )
+                                  }
+                                }
+                              },
+                              [
+                                _c(
+                                  "option",
+                                  { attrs: { value: "YEE", selected: "" } },
+                                  [_vm._v("Seleccione")]
+                                ),
+                                _vm._v(" "),
+                                _vm._l(_vm.categories, function(cat) {
+                                  return _c(
+                                    "option",
+                                    {
+                                      key: cat.id,
+                                      domProps: { value: cat.id }
+                                    },
+                                    [_vm._v(_vm._s(cat.name))]
+                                  )
+                                })
+                              ],
+                              2
+                            ),
                             _vm._v(" "),
                             _c(
                               "div",
@@ -65343,7 +66091,54 @@ var render = function() {
                       )
                     ]),
                     _vm._v(" "),
-                    _vm._m(3),
+                    _c("div", { staticClass: "flex flex-wrap -mx-3 mb-6" }, [
+                      _c("div", { staticClass: "w-full px-3" }, [
+                        _c(
+                          "label",
+                          {
+                            staticClass:
+                              "block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2",
+                            attrs: { for: "grid-password" }
+                          },
+                          [
+                            _vm._v(
+                              "\n                        Descripción\n                    "
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.form.description,
+                              expression: "form.description"
+                            }
+                          ],
+                          staticClass:
+                            "appearance-none block w-full bg-white text-gray-700 border rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-indigo-300",
+                          attrs: {
+                            id: "description",
+                            type: "text",
+                            placeholder: "Detalles de la transacción"
+                          },
+                          domProps: { value: _vm.form.description },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.form,
+                                "description",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        })
+                      ])
+                    ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "w-full my-10" }, [
                       _c(
@@ -65386,73 +66181,20 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "w-full md:w-1/2 px-3 mb-6 md:mb-0" }, [
-      _c(
-        "label",
-        {
-          staticClass:
-            "block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2",
-          attrs: { for: "grid-first-name" }
-        },
-        [_vm._v("\n                        Monto\n                    ")]
-      ),
-      _vm._v(" "),
-      _c("input", {
-        staticClass:
-          "appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500",
-        attrs: { id: "grid-city", type: "number", placeholder: "$200" }
-      })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c(
-      "select",
+      "div",
       {
         staticClass:
-          "block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500",
-        attrs: { id: "grid-state" }
+          "absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
       },
       [
-        _c("option", [_vm._v("Ingreso")]),
-        _vm._v(" "),
-        _c("option", [_vm._v("Gasto")])
+        _c("span", { staticClass: "text-gray-500 sm:text-sm sm:leading-5" }, [
+          _vm._v(
+            "\n                                $\n                            "
+          )
+        ])
       ]
     )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "flex flex-wrap -mx-3 mb-6" }, [
-      _c("div", { staticClass: "w-full px-3" }, [
-        _c(
-          "label",
-          {
-            staticClass:
-              "block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2",
-            attrs: { for: "grid-password" }
-          },
-          [
-            _vm._v(
-              "\n                        Descripción\n                    "
-            )
-          ]
-        ),
-        _vm._v(" "),
-        _c("input", {
-          staticClass:
-            "appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500",
-          attrs: {
-            id: "description",
-            type: "text",
-            placeholder: "Detalles de la transacción"
-          }
-        })
-      ])
-    ])
   }
 ]
 render._withStripped = true
@@ -65477,12 +66219,79 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("h1", [_vm._v("Transactions")]),
+    _c("h2", { staticClass: "text-4xl font-medium capitalize text-gray-600" }, [
+      _vm._v("transacciones")
+    ]),
     _vm._v(" "),
-    _c("pre", [_vm._v(_vm._s(_vm.data.categories))])
+    _c(
+      "div",
+      {
+        staticClass:
+          "mt-1 mb-4 md:flex items-center justify-between text-gray-600"
+      },
+      [
+        _vm._m(0),
+        _vm._v(" "),
+        _vm._m(1),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "flex items-center select-none pl-3 md:pl-0" },
+          [
+            _c(
+              "button",
+              {
+                staticClass:
+                  "bg-indigo-700 hover:bg-indigo-800 text-white hover:text-white py-3 px-2 rounded",
+                on: { click: _vm.goToCreateTransaction }
+              },
+              [_vm._v("\n                Nueva transacción\n            ")]
+            )
+          ]
+        )
+      ]
+    ),
+    _vm._v(" "),
+    _c("div", {
+      staticClass:
+        "border border-gray-300 transition duration-500\n        ease-in-out"
+    }),
+    _vm._v(" "),
+    _c("div", { staticClass: "flex flex-col mt-2" }, [
+      _c(
+        "div",
+        {
+          staticClass:
+            "flex flex-row mt-2 px-5 md:px-0 md:border md:border-gray-300 md:shadow-md"
+        },
+        _vm._l(_vm.transactions, function(tr) {
+          return _c("TransactionCard", { key: tr.id, attrs: { data: tr } })
+        }),
+        1
+      )
+    ])
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "m-3  md:m-0 block md:flex" }, [
+      _vm._v("\n            Balance total:\n            "),
+      _c("strong", { staticClass: "ml-2" }, [_vm._v("$710.180")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "m-3 md:m-0 block md:flex" }, [
+      _vm._v("\n            Total de transacciones:\n            "),
+      _c("strong", { staticClass: "ml-2" }, [_vm._v("46")])
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -81695,6 +82504,75 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/cards/transaction-card.vue":
+/*!************************************************************!*\
+  !*** ./resources/js/components/cards/transaction-card.vue ***!
+  \************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _transaction_card_vue_vue_type_template_id_6dd5c056___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./transaction-card.vue?vue&type=template&id=6dd5c056& */ "./resources/js/components/cards/transaction-card.vue?vue&type=template&id=6dd5c056&");
+/* harmony import */ var _transaction_card_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./transaction-card.vue?vue&type=script&lang=js& */ "./resources/js/components/cards/transaction-card.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _transaction_card_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _transaction_card_vue_vue_type_template_id_6dd5c056___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _transaction_card_vue_vue_type_template_id_6dd5c056___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/cards/transaction-card.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/cards/transaction-card.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************!*\
+  !*** ./resources/js/components/cards/transaction-card.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_transaction_card_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./transaction-card.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/cards/transaction-card.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_transaction_card_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/cards/transaction-card.vue?vue&type=template&id=6dd5c056&":
+/*!*******************************************************************************************!*\
+  !*** ./resources/js/components/cards/transaction-card.vue?vue&type=template&id=6dd5c056& ***!
+  \*******************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_transaction_card_vue_vue_type_template_id_6dd5c056___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./transaction-card.vue?vue&type=template&id=6dd5c056& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/cards/transaction-card.vue?vue&type=template&id=6dd5c056&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_transaction_card_vue_vue_type_template_id_6dd5c056___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_transaction_card_vue_vue_type_template_id_6dd5c056___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/components/common/loading.vue":
 /*!****************************************************!*\
   !*** ./resources/js/components/common/loading.vue ***!
@@ -83365,6 +84243,139 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/graphql/transactions/create.graphql":
+/*!**********************************************************!*\
+  !*** ./resources/js/graphql/transactions/create.graphql ***!
+  \**********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+
+    var doc = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"createTransaction"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"CreateTransactionInput"}}},"directives":[]}],"directives":[],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createTransaction"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"directives":[],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"},"arguments":[],"directives":[]}]}}]}}],"loc":{"start":0,"end":119}};
+    doc.loc.source = {"body":"mutation createTransaction($input: CreateTransactionInput!) {\n    createTransaction(input: $input){\n        id\n    }\n}\n","name":"GraphQL request","locationOffset":{"line":1,"column":1}};
+  
+
+    var names = {};
+    function unique(defs) {
+      return defs.filter(
+        function(def) {
+          if (def.kind !== 'FragmentDefinition') return true;
+          var name = def.name.value
+          if (names[name]) {
+            return false;
+          } else {
+            names[name] = true;
+            return true;
+          }
+        }
+      )
+    }
+  
+
+    // Collect any fragment/type references from a node, adding them to the refs Set
+    function collectFragmentReferences(node, refs) {
+      if (node.kind === "FragmentSpread") {
+        refs.add(node.name.value);
+      } else if (node.kind === "VariableDefinition") {
+        var type = node.type;
+        if (type.kind === "NamedType") {
+          refs.add(type.name.value);
+        }
+      }
+
+      if (node.selectionSet) {
+        node.selectionSet.selections.forEach(function(selection) {
+          collectFragmentReferences(selection, refs);
+        });
+      }
+
+      if (node.variableDefinitions) {
+        node.variableDefinitions.forEach(function(def) {
+          collectFragmentReferences(def, refs);
+        });
+      }
+
+      if (node.definitions) {
+        node.definitions.forEach(function(def) {
+          collectFragmentReferences(def, refs);
+        });
+      }
+    }
+
+    var definitionRefs = {};
+    (function extractReferences() {
+      doc.definitions.forEach(function(def) {
+        if (def.name) {
+          var refs = new Set();
+          collectFragmentReferences(def, refs);
+          definitionRefs[def.name.value] = refs;
+        }
+      });
+    })();
+
+    function findOperation(doc, name) {
+      for (var i = 0; i < doc.definitions.length; i++) {
+        var element = doc.definitions[i];
+        if (element.name && element.name.value == name) {
+          return element;
+        }
+      }
+    }
+
+    function oneQuery(doc, operationName) {
+      // Copy the DocumentNode, but clear out the definitions
+      var newDoc = {
+        kind: doc.kind,
+        definitions: [findOperation(doc, operationName)]
+      };
+      if (doc.hasOwnProperty("loc")) {
+        newDoc.loc = doc.loc;
+      }
+
+      // Now, for the operation we're running, find any fragments referenced by
+      // it or the fragments it references
+      var opRefs = definitionRefs[operationName] || new Set();
+      var allRefs = new Set();
+      var newRefs = new Set();
+
+      // IE 11 doesn't support "new Set(iterable)", so we add the members of opRefs to newRefs one by one
+      opRefs.forEach(function(refName) {
+        newRefs.add(refName);
+      });
+
+      while (newRefs.size > 0) {
+        var prevRefs = newRefs;
+        newRefs = new Set();
+
+        prevRefs.forEach(function(refName) {
+          if (!allRefs.has(refName)) {
+            allRefs.add(refName);
+            var childRefs = definitionRefs[refName] || new Set();
+            childRefs.forEach(function(childRef) {
+              newRefs.add(childRef);
+            });
+          }
+        });
+      }
+
+      allRefs.forEach(function(refName) {
+        var op = findOperation(doc, refName);
+        if (op) {
+          newDoc.definitions.push(op);
+        }
+      });
+
+      return newDoc;
+    }
+
+    module.exports = doc;
+    
+        module.exports["createTransaction"] = oneQuery(doc, "createTransaction");
+        
+
+
+/***/ }),
+
 /***/ "./resources/js/router.js":
 /*!********************************!*\
   !*** ./resources/js/router.js ***!
@@ -83396,6 +84407,9 @@ __webpack_require__.r(__webpack_exports__);
 
 var routes = [{
   path: '/',
+  component: _views_dashboard__WEBPACK_IMPORTED_MODULE_1__["default"]
+}, {
+  path: '/dashboard',
   component: _views_dashboard__WEBPACK_IMPORTED_MODULE_1__["default"]
 }, {
   path: '/transactions',

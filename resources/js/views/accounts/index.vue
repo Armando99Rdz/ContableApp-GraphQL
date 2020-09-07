@@ -1,12 +1,24 @@
 <template>
     <div class="w-full">
-        <div class="flex justify-between px-4 md:px-0">
-            <h2 class="font-semibold text-gray-700 mb-4">Mis cuentas</h2>
-            <button class="bg-indigo-700 hover:bg-indigo-800 text-white hover:text-white py-1 px-2 rounded"
-                @click="goToCrateAccount"
-            >
-                Nueva cuenta
-            </button>
+        <div class="">
+            <h2 class="text-4xl font-medium capitalize text-gray-600">mis cuentas</h2>
+            <div class="flex mt-1 mb-4 md:flex items-center justify-between text-gray-600">
+                <span class="m-3  md:m-0 block md:flex">
+                    Balance total: 
+                    <strong class="ml-2">$710.180</strong>
+                </span>
+                <span class="m-3 md:m-0 block md:flex">
+                    Total de cuentas: 
+                    <strong v-text="accounts.length" class="ml-2"></strong>
+                </span>
+                <button class="bg-indigo-700 hover:bg-indigo-800 text-white hover:text-white py-3 px-2 rounded"
+                    @click="goToCrateAccount">
+                    Nueva cuenta
+                </button>
+            </div>
+        </div>
+        <div class="invisible md:visible md:mt-2 md:mb-4 border border-gray-300 transition duration-500
+            ease-in-out">
         </div>
         <div v-if="loading" class="mt-20">
             <loading :loading="loading" color="gray"></loading>

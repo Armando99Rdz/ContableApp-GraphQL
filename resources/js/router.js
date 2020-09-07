@@ -20,6 +20,10 @@ const routes = [
         component: Dashboard,
     },
     {
+        path: '/dashboard',
+        component: Dashboard,
+    },
+    {
         path: '/transactions',
         component: Transactions,
     },
