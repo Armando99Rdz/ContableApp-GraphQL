@@ -12,18 +12,9 @@
             <div class="flex flex-col ml-6 mt-6 md:mt-0 text-center md:text-left">
                 <span class="text-xl text-gray-600 flex">
                     {{data.type === 'INCOME' ? 'Ingreso registrado en ' : 'Gasto registrado en '}}
-                    <span class="font-bold flex ml-2">
-                            {{data.account.name}}
-                        <div class="rounded-lg h-5 w-5 ml-2 my-auto text-white mr-2"
-                            v-bind:class="{
-                                'bg-green-500' : data.account.color == 1,
-                                'bg-blue-600' : data.account.color == 2,
-                                'bg-red-600' : data.account.color == 3,
-                                'bg-yellow-300' : data.account.color == 4,
-                                'bg-orange-500' : data.account.color == 5,
-                            }"
-                        ></div>
-                        <span class="text-gray-600 font-normal">#{{data.id}}</span>
+                    <span class="font-bold flex mx-2">
+                        {{data.account.name}}
+                        <span class="text-gray-600 font-normal ml-2">#{{data.id}}</span>
                     </span>
                 </span>
                 

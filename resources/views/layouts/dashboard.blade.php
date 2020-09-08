@@ -33,14 +33,14 @@
                                 <a href="{{ url('/') }}" class="w-1/2 md:w-auto text-center text-white text-2xl font-medium hover:text-gray-200">
                                     Expenses & Incomes
                                 </a>
-                                <div class="w-1/4 md:w-auto md:flex text-right">
+                                <div class="w-3/4 md:w-64 md:flex text-right">
                                     @guest
-                                        <a class="no-underline hover:text-gray-300 text-gray-100 text-md p-3" href="{{ route('login') }}">Iniciar Sesión</a>
+                                        <a class="w-full no-underline hover:text-gray-300 text-gray-100 text-md p-3" href="{{ route('login') }}">Iniciar Sesión</a>
                                         @if (Route::has('register'))
                                             <a class="no-underline hover:text-gray-300 text-gray-100 text-md p-3" href="{{ route('register') }}">Registrarme</a>
                                         @endif
                                     @else
-                                        <a onclick="showOrHideTopDropduwnMenu();" class="md:flex cursor-pointer">
+                                        <a onclick="showOrHideTopDropduwnMenu();" class="md:flex cursor-pointer w-full">
                                             <div class="md:flex-1">
                                                 <img class="inline-block h-8 w-8 rounded-full" src="https://avatars0.githubusercontent.com/u/4323180?s=460&v=4" alt="">
                                             </div>

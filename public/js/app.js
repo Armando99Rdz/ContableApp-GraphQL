@@ -14531,15 +14531,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "transaction-card",
@@ -15858,6 +15849,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var currency_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(currency_js__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _components_common_loading__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../components/common/loading */ "./resources/js/components/common/loading.vue");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -16059,12 +16051,27 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    Loading: _components_common_loading__WEBPACK_IMPORTED_MODULE_6__["default"]
+  },
   data: function data() {
     return {
       loading: true,
@@ -16160,7 +16167,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     color: item.color,
                     name: item.name,
                     balance: item.balance,
-                    user: item.user
+                    user: item.user,
+                    created_at: item.created_at
                   };
                 });
                 _this2.loading = _this2.$apollo.loading;
@@ -16293,9 +16301,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var incomes = this.transactions.forEach(function (item, index) {
         if (item.type == 'INCOME') _this7.lastMonthIncomes += item.amount;else _this7.lastMonthExpenses += item.amount;
       });
+    },
+    formateDate: function formateDate(date) {
+      return moment__WEBPACK_IMPORTED_MODULE_5___default()(date).locale('es').format('DD [de] MMM');
+    },
+    formateExactDate: function formateExactDate(date) {
+      return moment__WEBPACK_IMPORTED_MODULE_5___default()(date).locale('es').format('h:mm, DD [de] MMM');
     }
-  },
-  computed: {}
+  }
 });
 
 /***/ }),
@@ -16462,19 +16475,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     getInitialData: function getInitialData() {
       var _this = this;
 
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
         var response;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
           while (1) {
-            switch (_context.prev = _context.next) {
+            switch (_context2.prev = _context2.next) {
               case 0:
-                _context.next = 2;
+                _context2.next = 2;
                 return _this.$apollo.query({
                   query: _graphql_transactions_create_inital_data_graphql__WEBPACK_IMPORTED_MODULE_1___default.a
                 });
 
               case 2:
-                response = _context.sent;
+                response = _context2.sent;
                 _this.accounts = response.data.accounts.data.map(function (item) {
                   return {
                     id: item.id,
@@ -16486,6 +16499,41 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     showCarouselBottons: true
                   };
                 });
+
+                if (_this.accounts <= 0) {
+                  swal({
+                    title: "Registra una cuenta",
+                    text: "Crea una cuenta para poder continuar con una nueva transacci\xF3n.",
+                    icon: "warning",
+                    buttons: {
+                      confirm: {
+                        text: "Crear cuenta",
+                        visible: true,
+                        className: "btn-indigo"
+                      }
+                    }
+                  }).then( /*#__PURE__*/function () {
+                    var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(willDelete) {
+                      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+                        while (1) {
+                          switch (_context.prev = _context.next) {
+                            case 0:
+                              _this.goToCrateAccount();
+
+                            case 1:
+                            case "end":
+                              return _context.stop();
+                          }
+                        }
+                      }, _callee);
+                    }));
+
+                    return function (_x) {
+                      return _ref.apply(this, arguments);
+                    };
+                  }());
+                }
+
                 _this.form.account_id = _this.accounts[_this.currentAccountIndex].id || null;
                 _this.categories = response.data.categories.data.map(function (item) {
                   return {
@@ -16495,28 +16543,28 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 });
                 _this.loading = _this.$apollo.loading;
 
-              case 7:
+              case 8:
               case "end":
-                return _context.stop();
+                return _context2.stop();
             }
           }
-        }, _callee);
+        }, _callee2);
       }))();
     },
     submit: function submit() {
       var _this2 = this;
 
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
         var response;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
           while (1) {
-            switch (_context2.prev = _context2.next) {
+            switch (_context3.prev = _context3.next) {
               case 0:
                 _this2.loading = true;
                 _this2.errors = null;
-                _context2.prev = 2;
+                _context3.prev = 2;
                 parseFloat(_this2.form.amount);
-                _context2.next = 6;
+                _context3.next = 6;
                 return _this2.$apollo.mutate({
                   mutation: _graphql_transactions_create_graphql__WEBPACK_IMPORTED_MODULE_2___default.a,
                   variables: {
@@ -16525,33 +16573,36 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 });
 
               case 6:
-                response = _context2.sent;
+                response = _context3.sent;
                 _this2.loading = false;
 
                 if (!response.data) {
-                  _context2.next = 10;
+                  _context3.next = 10;
                   break;
                 }
 
-                return _context2.abrupt("return", _this2.$router.push('/transactions'));
+                return _context3.abrupt("return", _this2.$router.push('/transactions'));
 
               case 10:
-                _context2.next = 16;
+                _context3.next = 16;
                 break;
 
               case 12:
-                _context2.prev = 12;
-                _context2.t0 = _context2["catch"](2);
-                _this2.errors = _context2.t0;
+                _context3.prev = 12;
+                _context3.t0 = _context3["catch"](2);
+                _this2.errors = _context3.t0;
                 _this2.loading = false;
 
               case 16:
               case "end":
-                return _context2.stop();
+                return _context3.stop();
             }
           }
-        }, _callee2, null, [[2, 12]]);
+        }, _callee3, null, [[2, 12]]);
       }))();
+    },
+    goToCrateAccount: function goToCrateAccount() {
+      this.$router.push('/accounts/create');
     }
   }
 });
@@ -63987,25 +64038,13 @@ var render = function() {
                   ) +
                   "\n                "
               ),
-              _c("span", { staticClass: "font-bold flex ml-2" }, [
+              _c("span", { staticClass: "font-bold flex mx-2" }, [
                 _vm._v(
-                  "\n                        " +
+                  "\n                    " +
                     _vm._s(_vm.data.account.name) +
                     "\n                    "
                 ),
-                _c("div", {
-                  staticClass:
-                    "rounded-lg h-5 w-5 ml-2 my-auto text-white mr-2",
-                  class: {
-                    "bg-green-500": _vm.data.account.color == 1,
-                    "bg-blue-600": _vm.data.account.color == 2,
-                    "bg-red-600": _vm.data.account.color == 3,
-                    "bg-yellow-300": _vm.data.account.color == 4,
-                    "bg-orange-500": _vm.data.account.color == 5
-                  }
-                }),
-                _vm._v(" "),
-                _c("span", { staticClass: "text-gray-600 font-normal" }, [
+                _c("span", { staticClass: "text-gray-600 font-normal ml-2" }, [
                   _vm._v("#" + _vm._s(_vm.data.id))
                 ])
               ])
@@ -65517,425 +65556,620 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c(
-      "div",
-      {
-        staticClass:
-          "bg-white border-t border-b sm:border-l sm:border-r sm:rounded shadow mb-6"
-      },
-      [
-        _c("div", { staticClass: "border-b px-6" }, [
-          _c("div", { staticClass: "flex justify-between -mb-px" }, [
-            _c(
-              "div",
-              { staticClass: "lg:hidden text-blue-dark py-4 text-lg" },
-              [_vm._v("\n                    Resumen\n                ")]
-            ),
-            _vm._v(" "),
-            _c("div", { staticClass: "hidden lg:flex w-full" }, [
-              _c(
-                "div",
-                { staticClass: "appearance-none py-4 text-gray-600 w-full" },
-                [
-                  _vm._v(
-                    "\n                        Balance General · " +
-                      _vm._s(_vm.currencyFormatter(_vm.generalBalance)) +
-                      " MXN\n                    "
-                  )
-                ]
-              ),
-              _vm._v(" "),
-              _c("div", { staticClass: "mr-2 lg:flex w-full" }, [
-                _c(
-                  "div",
-                  {
-                    staticClass:
-                      "appearance-none py-4 text-gray-500 border-b border-transparent hover:border-grey-dark mr-8 ml-auto"
-                  },
-                  [
-                    _vm._v(
-                      "\n                            $1 USD · " +
-                        _vm._s(_vm.currencyFormatter(_vm.dollarValue)) +
-                        " MXN\n                        "
-                    )
-                  ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  {
-                    staticClass:
-                      "appearance-none py-4 text-gray-500 border-b border-transparent hover:border-grey-dark mr-8"
-                  },
-                  [
-                    _vm._v(
-                      "\n                            $1 EUR · " +
-                        _vm._s(_vm.currencyFormatter(_vm.euroValue)) +
-                        " MXN\n                        "
-                    )
-                  ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  {
-                    staticClass:
-                      "appearance-none py-4 text-gray-500 border-b border-transparent hover:border-grey-dark mr-8"
-                  },
-                  [
-                    _vm._v(
-                      "\n                            $1 CAD · " +
-                        _vm._s(_vm.currencyFormatter(_vm.canadianValue)) +
-                        " MXN\n                        "
-                    )
-                  ]
-                )
-              ])
-            ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "flex items-center px-6 lg:hidden" }, [
-          _c("div", { staticClass: "flex-grow flex-no-shrink py-6" }, [
-            _c("div", { staticClass: "mb-2" }, [
-              _c("span", { staticClass: "text-3xl align-top text-gray-500" }, [
-                _vm._v("MXN$")
+    _vm.loading
+      ? _c(
+          "div",
+          { staticClass: "mt-20" },
+          [_c("loading", { attrs: { loading: _vm.loading, color: "gray" } })],
+          1
+        )
+      : _c("div", [
+          _c(
+            "div",
+            {
+              staticClass:
+                "bg-white border-t border-b sm:border-l sm:border-r sm:rounded shadow mb-6"
+            },
+            [
+              _c("div", { staticClass: "border-b px-6" }, [
+                _c("div", { staticClass: "flex justify-between -mb-px" }, [
+                  _c(
+                    "div",
+                    { staticClass: "lg:hidden text-blue-dark py-4 text-lg" },
+                    [
+                      _vm._v(
+                        "\n                        Resumen\n                    "
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "hidden lg:flex w-full" }, [
+                    _c(
+                      "div",
+                      {
+                        staticClass: "appearance-none py-4 text-gray-600 w-full"
+                      },
+                      [
+                        _vm._v(
+                          "\n                            Balance General · " +
+                            _vm._s(_vm.currencyFormatter(_vm.generalBalance)) +
+                            " MXN\n                        "
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "mr-2 lg:flex w-full" }, [
+                      _c(
+                        "div",
+                        {
+                          staticClass:
+                            "appearance-none py-4 text-gray-500 border-b border-transparent hover:border-grey-dark mr-8 ml-auto"
+                        },
+                        [
+                          _vm._v(
+                            "\n                                $1 USD · " +
+                              _vm._s(_vm.currencyFormatter(_vm.dollarValue)) +
+                              " MXN\n                            "
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          staticClass:
+                            "appearance-none py-4 text-gray-500 border-b border-transparent hover:border-grey-dark mr-8"
+                        },
+                        [
+                          _vm._v(
+                            "\n                                $1 EUR · " +
+                              _vm._s(_vm.currencyFormatter(_vm.euroValue)) +
+                              " MXN\n                            "
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          staticClass:
+                            "appearance-none py-4 text-gray-500 border-b border-transparent hover:border-grey-dark mr-8"
+                        },
+                        [
+                          _vm._v(
+                            "\n                                $1 CAD · " +
+                              _vm._s(_vm.currencyFormatter(_vm.canadianValue)) +
+                              " MXN\n                            "
+                          )
+                        ]
+                      )
+                    ])
+                  ])
+                ])
               ]),
               _vm._v(" "),
-              _c("span", { staticClass: "text-5xl text-gray-500" }, [
-                _vm._v(_vm._s(_vm.currencyFormatter(_vm.generalBalance)))
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "text-sm text-green-500" }, [
-              _vm._v(
-                "\n                ↑ MXN$" +
-                  _vm._s(_vm.currencyFormatter(_vm.lastMonthIncomes)) +
-                  " (Ingresos)\n                "
-              )
-            ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "hidden lg:flex" }, [
-          _c("div", { staticClass: "w-1/3 text-center py-8" }, [
-            _c("div", { staticClass: "border-r" }, [
-              _c("div", { staticClass: "text-gray-600 mb-2" }, [
-                _c("span", { staticClass: "text-3xl align-top" }, [
-                  _vm._v("MXN$")
+              _c("div", { staticClass: "flex items-center px-6 lg:hidden" }, [
+                _c("div", { staticClass: "flex-grow flex-no-shrink py-6" }, [
+                  _c("div", { staticClass: "mb-2" }, [
+                    _c(
+                      "span",
+                      { staticClass: "text-3xl align-top text-gray-500" },
+                      [_vm._v("MXN$")]
+                    ),
+                    _vm._v(" "),
+                    _c("span", { staticClass: "text-5xl text-gray-500" }, [
+                      _vm._v(_vm._s(_vm.currencyFormatter(_vm.generalBalance)))
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "text-sm text-green-500" }, [
+                    _vm._v(
+                      "\n                    ↑ MXN$" +
+                        _vm._s(_vm.currencyFormatter(_vm.lastMonthIncomes)) +
+                        " (Ingresos)\n                    "
+                    )
+                  ])
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "hidden lg:flex" }, [
+                _c("div", { staticClass: "w-1/3 text-center py-8" }, [
+                  _c("div", { staticClass: "border-r" }, [
+                    _c("div", { staticClass: "text-gray-600 mb-2" }, [
+                      _c("span", { staticClass: "text-3xl align-top" }, [
+                        _vm._v("MXN$")
+                      ]),
+                      _vm._v(" "),
+                      _c("span", { staticClass: "text-5xl" }, [
+                        _vm._v(
+                          _vm._s(_vm.currencyFormatter(_vm.generalBalance))
+                        )
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "text-sm uppercase text-gray-500 tracking-wide"
+                      },
+                      [
+                        _vm._v(
+                          "\n                        Balance general\n                    "
+                        )
+                      ]
+                    )
+                  ])
                 ]),
                 _vm._v(" "),
-                _c("span", { staticClass: "text-5xl" }, [
-                  _vm._v(_vm._s(_vm.currencyFormatter(_vm.generalBalance)))
-                ])
-              ]),
-              _vm._v(" "),
-              _c(
-                "div",
-                {
-                  staticClass: "text-sm uppercase text-gray-500 tracking-wide"
-                },
-                [
-                  _vm._v(
-                    "\n                    Balance general\n                "
-                  )
-                ]
-              )
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "w-1/3 text-center py-8" }, [
-            _c("div", { staticClass: "border-r" }, [
-              _c("div", { staticClass: "text-gray-600 mb-2" }, [
-                _vm._m(0),
+                _c("div", { staticClass: "w-1/3 text-center py-8" }, [
+                  _c("div", { staticClass: "border-r" }, [
+                    _c("div", { staticClass: "text-gray-600 mb-2" }, [
+                      _vm._m(0),
+                      _vm._v(" "),
+                      _c("span", { staticClass: "text-5xl" }, [
+                        _vm._v(
+                          _vm._s(_vm.currencyFormatter(_vm.lastMonthIncomes))
+                        )
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "text-sm uppercase text-gray-500 tracking-wide"
+                      },
+                      [
+                        _vm._v(
+                          "\n                        Ingresos en último mes\n                    "
+                        )
+                      ]
+                    )
+                  ])
+                ]),
                 _vm._v(" "),
-                _c("span", { staticClass: "text-5xl" }, [
-                  _vm._v(_vm._s(_vm.currencyFormatter(_vm.lastMonthIncomes)))
+                _c("div", { staticClass: "w-1/3 text-center py-8" }, [
+                  _c("div", [
+                    _c("div", { staticClass: "text-gray-600 mb-2" }, [
+                      _vm._m(1),
+                      _vm._v(" "),
+                      _c("span", { staticClass: "text-5xl" }, [
+                        _vm._v(
+                          _vm._s(_vm.currencyFormatter(_vm.lastMonthExpenses))
+                        )
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "text-sm uppercase text-gray-500 tracking-wide"
+                      },
+                      [
+                        _vm._v(
+                          "\n                        Gastos en el último mes\n                    "
+                        )
+                      ]
+                    )
+                  ])
                 ])
-              ]),
-              _vm._v(" "),
-              _c(
-                "div",
-                {
-                  staticClass: "text-sm uppercase text-gray-500 tracking-wide"
-                },
-                [
-                  _vm._v(
-                    "\n                    Ingresos en último mes\n                "
-                  )
-                ]
-              )
-            ])
-          ]),
+              ])
+            ]
+          ),
           _vm._v(" "),
-          _c("div", { staticClass: "w-1/3 text-center py-8" }, [
-            _c("div", [
-              _c("div", { staticClass: "text-gray-600 mb-2" }, [
-                _vm._m(1),
-                _vm._v(" "),
-                _c("span", { staticClass: "text-5xl" }, [
-                  _vm._v(_vm._s(_vm.currencyFormatter(_vm.lastMonthExpenses)))
-                ])
-              ]),
-              _vm._v(" "),
+          _c("div", { staticClass: "flex flex-wrap -mx-4" }, [
+            _c(
+              "div",
+              {
+                staticClass: "w-full mb-6 lg:mb-0 lg:w-1/2 px-4 flex flex-col"
+              },
+              [
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "flex-grow flex flex-col bg-white border-t border-b sm:rounded sm:border shadow overflow-hidden"
+                  },
+                  [
+                    _c("div", { staticClass: "border-b" }, [
+                      _c(
+                        "div",
+                        { staticClass: "flex justify-between px-6 -mb-px" },
+                        [
+                          _c(
+                            "h3",
+                            {
+                              staticClass:
+                                "text-indigo-700 py-4 font-normal text-lg"
+                            },
+                            [_vm._v("Mis Cuentas")]
+                          ),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "flex" }, [
+                            _c(
+                              "div",
+                              {
+                                staticClass:
+                                  "appearance-none py-4 text-gray-600 border-b border-indigo-700 mr-3"
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                    " +
+                                    _vm._s(_vm.accounts.length) +
+                                    " cuentas\n                                "
+                                )
+                              ]
+                            )
+                          ])
+                        ]
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _vm.accounts.length <= 0
+                      ? _c("div", { staticClass: "text-center px-6 py-4" }, [
+                          _c("div", { staticClass: "py-8" }, [
+                            _c("div", { staticClass: "mb-4" }, [
+                              _c(
+                                "svg",
+                                {
+                                  staticClass:
+                                    "inline-block h-16 w-16 fill-current mr-2 text-gray-500",
+                                  attrs: {
+                                    xmlns: "http://www.w3.org/2000/svg",
+                                    viewBox: "0 0 24 24"
+                                  }
+                                },
+                                [
+                                  _c("path", {
+                                    attrs: {
+                                      d:
+                                        "M18 8H5.5v-.5l11-.88v.88H18V6c0-1.1-.891-1.872-1.979-1.717L5.98 5.717C4.891 5.873 4 6.9 4 8v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8a2 2 0 0 0-2-2zm-1.5 7.006a1.5 1.5 0 1 1 .001-3.001 1.5 1.5 0 0 1-.001 3.001z",
+                                      "fill-rule": "nonzero"
+                                    }
+                                  })
+                                ]
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "p",
+                              {
+                                staticClass:
+                                  "text-2xl text-gray-700 font-medium mb-4"
+                              },
+                              [_vm._v("Registra una cuenta")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "p",
+                              {
+                                staticClass:
+                                  "text-gray-500 max-w-xs mx-auto mb-6"
+                              },
+                              [
+                                _vm._v(
+                                  "Registra tu primer cuenta para comenzar a realizar transacciones."
+                                )
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _vm._m(2)
+                          ])
+                        ])
+                      : _vm._l(_vm.accounts.slice(0, 3).reverse(), function(
+                          account
+                        ) {
+                          return _c(
+                            "div",
+                            {
+                              key: account.id,
+                              staticClass:
+                                "flex px-6 py-6 text-grey-darker items-center border-b"
+                            },
+                            [
+                              _c(
+                                "div",
+                                {
+                                  staticClass:
+                                    "w-2/5 xl:w-2/4 px-4 flex items-center max-h-16"
+                                },
+                                [
+                                  _c("div", {
+                                    staticClass:
+                                      "rounded-lg h-8 w-8 flex items-center mr-3 my-auto",
+                                    class: {
+                                      "bg-green-400": account.color == 1,
+                                      "bg-blue-500": account.color == 2,
+                                      "bg-red-500": account.color == 3,
+                                      "bg-yellow-200": account.color == 4,
+                                      "bg-orange-400": account.color == 5
+                                    }
+                                  }),
+                                  _vm._v(" "),
+                                  _c(
+                                    "span",
+                                    { staticClass: "text-lg text-gray-700" },
+                                    [_vm._v(_vm._s(account.name))]
+                                  )
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "flex w-3/5 md:w/12" }, [
+                                _c(
+                                  "div",
+                                  { staticClass: "w-1/2 px-4 text-gray-500" },
+                                  [
+                                    _c("div", { staticClass: "text-right" }, [
+                                      _vm._v(
+                                        "\n                                    " +
+                                          _vm._s(
+                                            _vm.formateDate(account.created_at)
+                                          ) +
+                                          "\n                                "
+                                      )
+                                    ])
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "w-1/2 px-4" }, [
+                                  _c(
+                                    "div",
+                                    {
+                                      staticClass: "text-right text-gray-700",
+                                      class: {
+                                        "text-red-700": account.balance <= 0
+                                      }
+                                    },
+                                    [
+                                      _vm._v(
+                                        "\n                                    " +
+                                          _vm._s(
+                                            _vm.currencyFormatter(
+                                              account.balance
+                                            )
+                                          ) +
+                                          " MXN\n                                "
+                                      )
+                                    ]
+                                  )
+                                ])
+                              ])
+                            ]
+                          )
+                        }),
+                    _vm._v(" "),
+                    _vm.accounts.length > 0
+                      ? _c("div", { staticClass: "px-6 py-4 mt-auto" }, [
+                          _vm._m(3)
+                        ])
+                      : _vm._e()
+                  ],
+                  2
+                )
+              ]
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "w-full lg:w-1/2 px-4" }, [
               _c(
                 "div",
                 {
-                  staticClass: "text-sm uppercase text-gray-500 tracking-wide"
+                  staticClass:
+                    "bg-white border-t border-b sm:rounded sm:border shadow"
                 },
                 [
-                  _vm._v(
-                    "\n                    Gastos en el último mes\n                "
+                  _vm._m(4),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    [
+                      _vm.transactions.length <= 0
+                        ? _c("div", { staticClass: "text-center px-6 py-4" }, [
+                            _c("div", { staticClass: "py-8" }, [
+                              _c("div", { staticClass: "mb-4" }, [
+                                _c(
+                                  "svg",
+                                  {
+                                    staticClass:
+                                      "inline-block h-16 w-16 fill-current mr-2 text-gray-500",
+                                    attrs: {
+                                      xmlns: "http://www.w3.org/2000/svg",
+                                      viewBox: "0 0 24 24"
+                                    }
+                                  },
+                                  [
+                                    _c("path", {
+                                      attrs: {
+                                        d:
+                                          "M8 7h10V5l4 3.5-4 3.5v-2H8V7zm-6 8.5L6 12v2h10v3H6v2l-4-3.5z",
+                                        "fill-rule": "nonzero"
+                                      }
+                                    })
+                                  ]
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c(
+                                "p",
+                                {
+                                  staticClass:
+                                    "text-2xl text-gray-700 font-medium mb-4"
+                                },
+                                [_vm._v("Sin transacciones todavía")]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "p",
+                                {
+                                  staticClass:
+                                    "text-gray-500 max-w-xs mx-auto mb-6"
+                                },
+                                [
+                                  _vm._v(
+                                    "Esto parece estar muy vacío, registra unas cuantas transacciones."
+                                  )
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _vm._m(5)
+                            ])
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _vm._l(_vm.transactions.slice(0, 3).reverse(), function(
+                        transaction
+                      ) {
+                        return _c(
+                          "div",
+                          {
+                            key: transaction.id,
+                            staticClass:
+                              "flex-grow flex px-6 py-6 text-grey-darker items-center border-b"
+                          },
+                          [
+                            _c(
+                              "div",
+                              {
+                                staticClass:
+                                  "w-2/5 xl:w-2/5 px-4 flex items-center"
+                              },
+                              [
+                                _c(
+                                  "span",
+                                  { staticClass: "text-lg text-gray-700" },
+                                  [
+                                    _vm._v(
+                                      _vm._s(
+                                        _vm.formateExactDate(
+                                          transaction.created_at
+                                        )
+                                      )
+                                    )
+                                  ]
+                                )
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "flex w-3/5 md:w/12" }, [
+                              _c(
+                                "div",
+                                {
+                                  staticClass:
+                                    "w-1/2 pr-3 text-gray-700 flex items-center break-words"
+                                },
+                                [
+                                  _c("div", {
+                                    staticClass:
+                                      "rounded-full h-4 w-4 flex items-center mr-3 my-auto",
+                                    class: {
+                                      "bg-green-400":
+                                        transaction.account.color == 1,
+                                      "bg-blue-500":
+                                        transaction.account.color == 2,
+                                      "bg-red-500":
+                                        transaction.account.color == 3,
+                                      "bg-yellow-200":
+                                        transaction.account.color == 4,
+                                      "bg-orange-400":
+                                        transaction.account.color == 5
+                                    }
+                                  }),
+                                  _vm._v(
+                                    "\n                                    " +
+                                      _vm._s(transaction.account.name) +
+                                      "\n                                "
+                                  )
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "w-1/2 pl-1 pr-3" }, [
+                                _c(
+                                  "div",
+                                  { staticClass: "text-right text-gray-700" },
+                                  [
+                                    _c(
+                                      "span",
+                                      {
+                                        staticClass:
+                                          "flex text-lg my-2 font-semibold text-gray-600 items-center"
+                                      },
+                                      [
+                                        transaction.type === "INCOME"
+                                          ? _c(
+                                              "svg",
+                                              {
+                                                staticClass: "text-green-500",
+                                                attrs: {
+                                                  width: "22",
+                                                  height: "22",
+                                                  viewBox: "0 0 20 20",
+                                                  fill: "currentColor"
+                                                }
+                                              },
+                                              [
+                                                _c("path", {
+                                                  attrs: {
+                                                    "fill-rule": "evenodd",
+                                                    d:
+                                                      "M12 7a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0V8.414l-4.293 4.293a1 1 0 01-1.414 0L8 10.414l-4.293 4.293a1 1 0 01-1.414-1.414l5-5a1 1 0 011.414 0L11 10.586 14.586 7H12z",
+                                                    "clip-rule": "evenodd"
+                                                  }
+                                                })
+                                              ]
+                                            )
+                                          : _c(
+                                              "svg",
+                                              {
+                                                staticClass: "text-red-600",
+                                                attrs: {
+                                                  fill: "none",
+                                                  width: "22",
+                                                  height: "22",
+                                                  viewBox: "0 0 24 24",
+                                                  stroke: "currentColor"
+                                                }
+                                              },
+                                              [
+                                                _c("path", {
+                                                  attrs: {
+                                                    strokeLinecap: "round",
+                                                    strokeLinejoin: "round",
+                                                    strokeWidth: "3",
+                                                    d:
+                                                      "M13 17h8m0 0V9m0 8l-8-8-4 4-6-6"
+                                                  }
+                                                })
+                                              ]
+                                            ),
+                                        _vm._v(
+                                          "\n                                            $" +
+                                            _vm._s(transaction.amount) +
+                                            " MXN\n                                        "
+                                        )
+                                      ]
+                                    )
+                                  ]
+                                )
+                              ])
+                            ])
+                          ]
+                        )
+                      }),
+                      _vm._v(" "),
+                      _vm.transactions.length > 0
+                        ? _c("div", { staticClass: "px-6 py-4 mt-auto" }, [
+                            _vm._m(6)
+                          ])
+                        : _vm._e()
+                    ],
+                    2
                   )
                 ]
               )
             ])
           ])
         ])
-      ]
-    ),
-    _vm._v(" "),
-    _c("div", { staticClass: "flex flex-wrap -mx-4" }, [
-      _c(
-        "div",
-        { staticClass: "w-full mb-6 lg:mb-0 lg:w-1/2 px-4 flex flex-col" },
-        [
-          _c(
-            "div",
-            {
-              staticClass:
-                "flex-grow flex flex-col bg-white border-t border-b sm:rounded sm:border shadow overflow-hidden"
-            },
-            [
-              _vm._m(2),
-              _vm._v(" "),
-              _c(
-                "div",
-                {
-                  staticClass:
-                    "flex-grow flex px-6 py-6 text-grey-darker items-center border-b -mx-4"
-                },
-                [
-                  _c(
-                    "div",
-                    { staticClass: "w-2/5 xl:w-1/4 px-4 flex items-center" },
-                    [
-                      _c(
-                        "div",
-                        {
-                          staticClass: "rounded-full bg-orange inline-flex mr-3"
-                        },
-                        [
-                          _c(
-                            "svg",
-                            {
-                              staticClass:
-                                "fill-current text-gray-100 h-8 w-8 block",
-                              attrs: {
-                                xmlns: "http://www.w3.org/2000/svg",
-                                viewBox: "0 0 32 32"
-                              }
-                            },
-                            [
-                              _c("g", { attrs: { "fill-rule": "evenodd" } }, [
-                                _c("path", {
-                                  attrs: {
-                                    d:
-                                      "M21.78 15.37c.51-.61.83-1.4.83-2.26 0-2.74-1.6-4.38-4.24-4.38V5.45c0-.12-.1-.22-.22-.22h-1.27c-.11 0-.2.1-.2.21v3.3h-1.7V5.44c0-.12-.1-.22-.22-.22H13.5c-.12 0-.2.1-.21.21v3.3H9.67c-.12 0-.21.09-.21.21v1.31c0 .12.1.22.21.22h.21c.94 0 1.7.79 1.7 1.75v7c0 .92-.68 1.67-1.55 1.75a.21.21 0 0 0-.18.16l-.33 1.32c-.01.06 0 .13.04.19.04.05.1.08.17.08h3.55v3.3c0 .1.1.2.2.2h1.28c.12 0 .21-.1.21-.22v-3.28h1.7v3.3c0 .1.1.2.21.2h1.27c.12 0 .22-.1.22-.22v-3.28h.85c2.65 0 4.24-1.64 4.24-4.37 0-1.28-.68-2.39-1.68-3zm-6.8-4.01h2.54c.94 0 1.7.78 1.7 1.75 0 .96-.76 1.75-1.7 1.75h-2.55v-3.5zm3.39 8.75h-3.4v-3.5h3.4c.93 0 1.7.78 1.7 1.75 0 .96-.77 1.75-1.7 1.75z"
-                                  }
-                                })
-                              ])
-                            ]
-                          )
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c("span", { staticClass: "text-lg text-gray-600" }, [
-                        _vm._v("Bitcoin")
-                      ])
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _vm._m(3),
-                  _vm._v(" "),
-                  _vm._m(4)
-                ]
-              ),
-              _vm._v(" "),
-              _c(
-                "div",
-                {
-                  staticClass:
-                    "flex-grow flex px-6 py-6 text-grey-darker items-center border-b -mx-4"
-                },
-                [
-                  _c(
-                    "div",
-                    { staticClass: "w-2/5 xl:w-1/4 px-4 flex items-center" },
-                    [
-                      _c(
-                        "div",
-                        {
-                          staticClass:
-                            "rounded-full bg-blue-500 inline-flex mr-3"
-                        },
-                        [
-                          _c(
-                            "svg",
-                            {
-                              staticClass:
-                                "fill-current text-white h-8 w-8 block",
-                              attrs: {
-                                xmlns: "http://www.w3.org/2000/svg",
-                                viewBox: "0 0 38 38"
-                              }
-                            },
-                            [
-                              _c("g", { attrs: { "fill-rule": "evenodd" } }, [
-                                _c("path", {
-                                  attrs: {
-                                    d:
-                                      "M12.29 28.04l1.29-5.52-1.58.67.63-2.85 1.64-.68L16.52 10h5.23l-1.52 7.14 2.09-.74-.58 2.7-2.05.8-.9 4.34h8.1l-.99 3.8z"
-                                  }
-                                })
-                              ])
-                            ]
-                          )
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c("span", { staticClass: "text-lg" }, [
-                        _vm._v("Litecoin")
-                      ])
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _vm._m(5),
-                  _vm._v(" "),
-                  _vm._m(6)
-                ]
-              ),
-              _vm._v(" "),
-              _c(
-                "div",
-                {
-                  staticClass:
-                    "flex-grow flex px-6 py-6 items-center border-b -mx-4"
-                },
-                [
-                  _c(
-                    "div",
-                    { staticClass: "w-2/5 xl:w-1/4 px-4 flex items-center" },
-                    [
-                      _c(
-                        "div",
-                        {
-                          staticClass:
-                            "rounded-full text-red-500 inline-flex mr-3"
-                        },
-                        [
-                          _c(
-                            "svg",
-                            {
-                              staticClass:
-                                "fill-current text-white h-8 w-8 block",
-                              attrs: {
-                                xmlns: "http://www.w3.org/2000/svg",
-                                viewBox: "0 0 32 32"
-                              }
-                            },
-                            [
-                              _c("g", { attrs: { "fill-rule": "evenodd" } }, [
-                                _c("path", {
-                                  attrs: {
-                                    d:
-                                      "M10.13 17.76c-.1-.15-.06-.2.09-.12l5.49 3.09c.15.08.4.08.56 0l5.58-3.08c.16-.08.2-.03.1.11L16.2 25.9c-.1.15-.28.15-.38 0l-5.7-8.13zm.04-2.03a.3.3 0 0 1-.13-.42l5.74-9.2c.1-.15.25-.15.34 0l5.77 9.19c.1.14.05.33-.12.41l-5.5 2.78a.73.73 0 0 1-.6 0l-5.5-2.76z"
-                                  }
-                                })
-                              ])
-                            ]
-                          )
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c("span", { staticClass: "text-lg" }, [
-                        _vm._v("Ethereum")
-                      ])
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _vm._m(7),
-                  _vm._v(" "),
-                  _vm._m(8)
-                ]
-              ),
-              _vm._v(" "),
-              _vm._m(9)
-            ]
-          )
-        ]
-      ),
-      _vm._v(" "),
-      _c("div", { staticClass: "w-full lg:w-1/2 px-4" }, [
-        _c(
-          "div",
-          {
-            staticClass:
-              "bg-white border-t border-b sm:rounded sm:border shadow"
-          },
-          [
-            _vm._m(10),
-            _vm._v(" "),
-            _c("div", [
-              _c("div", { staticClass: "text-center px-6 py-4" }, [
-                _c("div", { staticClass: "py-8" }, [
-                  _c("div", { staticClass: "mb-4" }, [
-                    _c(
-                      "svg",
-                      {
-                        staticClass:
-                          "inline-block h-16 w-16 fill-current mr-2 text-gray-500",
-                        attrs: {
-                          xmlns: "http://www.w3.org/2000/svg",
-                          viewBox: "0 0 24 24"
-                        }
-                      },
-                      [
-                        _c("path", {
-                          attrs: {
-                            d:
-                              "M8 7h10V5l4 3.5-4 3.5v-2H8V7zm-6 8.5L6 12v2h10v3H6v2l-4-3.5z",
-                            "fill-rule": "nonzero"
-                          }
-                        })
-                      ]
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "p",
-                    { staticClass: "text-2xl text-gray-700 font-medium mb-4" },
-                    [_vm._v("Sin transacciones todavía")]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "p",
-                    { staticClass: "text-gray-500 max-w-xs mx-auto mb-6" },
-                    [
-                      _vm._v(
-                        "Agrega una nueva cuenta para poder registrar un gastos e ingresos."
-                      )
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _vm._m(11)
-                ])
-              ])
-            ])
-          ]
-        )
-      ])
-    ])
   ])
 }
 var staticRenderFns = [
@@ -65961,34 +66195,20 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "border-b" }, [
-      _c("div", { staticClass: "flex justify-between px-6 -mb-px" }, [
-        _c("h3", { staticClass: "text-indigo-700 py-4 font-normal text-lg" }, [
-          _vm._v("Your Portfolio")
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "flex" }, [
-          _c(
-            "button",
-            {
-              staticClass:
-                "appearance-none py-4 text-indigo-700 border-b border-indigo-700 mr-3",
-              attrs: { type: "button" }
-            },
-            [_vm._v("\n                        List\n                    ")]
-          ),
-          _vm._v(" "),
-          _c(
-            "button",
-            {
-              staticClass:
-                "appearance-none py-4 text-grey-dark border-b border-transparent hover:border-gray-700",
-              attrs: { type: "button" }
-            },
-            [_vm._v("\n                        Chart\n                    ")]
+    return _c("div", [
+      _c(
+        "a",
+        {
+          staticClass:
+            "bg-indigo-700 hover:bg-indigo-800 text-white border border-indigo-900 rounded px-6 py-3",
+          attrs: { href: "/accounts/create" }
+        },
+        [
+          _vm._v(
+            "\n                                    Registrar una cuenta\n                                "
           )
-        ])
-      ])
+        ]
+      )
     ])
   },
   function() {
@@ -65997,119 +66217,9 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c(
       "div",
-      {
-        staticClass:
-          "hidden md:flex lg:hidden xl:flex w-1/4 px-4 items-center text-gray-600"
-      },
-      [
-        _c("div", { staticClass: "bg-orange h-2 rounded-full flex-grow mr-2" }),
-        _vm._v("\n                        100%\n                    ")
-      ]
+      { staticClass: "text-center text-indigo-700 font-medium" },
+      [_c("a", { attrs: { href: "/accounts" } }, [_vm._v("Ir a mis cuentas")])]
     )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "flex w-3/5 md:w/12" }, [
-      _c("div", { staticClass: "w-1/2 px-4" }, [
-        _c("div", { staticClass: "text-right" }, [
-          _vm._v(
-            "\n                                0.0010 BTC\n                            "
-          )
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "w-1/2 px-4" }, [
-        _c("div", { staticClass: "text-right text-grey" }, [
-          _vm._v(
-            "\n                                CA$21.28\n                            "
-          )
-        ])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      {
-        staticClass: "hidden md:flex lg:hidden xl:flex w-1/4 px-4 items-center"
-      },
-      [
-        _c("div", { staticClass: "bg-blue-500 h-2 w-2 rounded-full mr-2" }),
-        _vm._v("\n                        0%\n                    ")
-      ]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "flex w-3/5 md:w/12" }, [
-      _c("div", { staticClass: "w-1/2 px-4" }, [
-        _c("div", { staticClass: "text-right" }, [
-          _vm._v(
-            "\n                                0.0000 LTC\n                            "
-          )
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "w-1/2 px-4" }, [
-        _c("div", { staticClass: "text-right text-grey" }, [
-          _vm._v(
-            "\n                                CA$0.00\n                            "
-          )
-        ])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      {
-        staticClass: "hidden md:flex lg:hidden xl:flex w-1/4 px-4 items-center"
-      },
-      [
-        _c("div", { staticClass: "text-red-500 h-2 w-2 rounded-full mr-2" }),
-        _vm._v("\n                    0%\n                ")
-      ]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "flex w-3/5 md:w/12" }, [
-      _c("div", { staticClass: "w-1/2 px-4" }, [
-        _c("div", { staticClass: "text-right" }, [
-          _vm._v("\n                        0.0000 ETH\n                    ")
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "w-1/2 px-4" }, [
-        _c("div", { staticClass: "text-right text-grey" }, [
-          _vm._v("\n                        CA$0.00\n                    ")
-        ])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "px-6 py-4" }, [
-      _c("div", { staticClass: "text-center text-grey" }, [
-        _vm._v(
-          "\n                    Total Balance ≈ CA$21.28\n                "
-        )
-      ])
-    ])
   },
   function() {
     var _vm = this
@@ -66129,15 +66239,33 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", [
       _c(
-        "button",
+        "a",
         {
           staticClass:
             "bg-indigo-700 hover:bg-indigo-800 text-white border border-indigo-900 rounded px-6 py-3",
-          attrs: { type: "button" }
+          attrs: { href: "/transactions/create" }
         },
-        [_vm._v("Registrar transacción")]
+        [
+          _vm._v(
+            "\n                                        Registrar transacción\n                                    "
+          )
+        ]
       )
     ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      { staticClass: "text-center text-indigo-700 font-medium" },
+      [
+        _c("a", { attrs: { href: "/transactions" } }, [
+          _vm._v("Ir a mis transacciones")
+        ])
+      ]
+    )
   }
 ]
 render._withStripped = true

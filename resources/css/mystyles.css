@@ -11,3 +11,11 @@ h2 {
 .bg-orange {
     background-color: #f6993f;
 }
+
+.btn-indigo {
+    @apply bg-indigo-800;
+}
+
+.btn-indigo:hover {
+    background-color: #4338bb;
+}

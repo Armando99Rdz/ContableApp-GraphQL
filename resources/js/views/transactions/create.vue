@@ -152,6 +152,22 @@
                         showCarouselBottons: true
                     }
                 });
+                if(this.accounts <= 0){
+                    swal({
+                        title: "Registra una cuenta",
+                        text: `Crea una cuenta para poder continuar con una nueva transacción.`,
+                        icon: "warning",
+                        buttons: {
+                            confirm: {
+                                text: "Crear cuenta",
+                                visible: true,
+                                className: "btn-indigo"
+                            }
+                        }
+                    }).then( async (willDelete) => {
+                        this.goToCrateAccount();
+                    });
+                }
                 this.form.account_id = this.accounts[this.currentAccountIndex].id || null;
                 this.categories = response.data.categories.data.map(item => {
                     return {
@@ -180,7 +196,10 @@
                     this.errors = error;
                     this.loading = false;
                 }
-            }
+            },
+            goToCrateAccount(){
+                this.$router.push('/accounts/create');
+            },
         }
     }
 </script>
