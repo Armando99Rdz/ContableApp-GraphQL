@@ -15856,11 +15856,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _graphql_exchange_rates_conversion_graphql__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_graphql_exchange_rates_conversion_graphql__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var currency_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! currency.js */ "./node_modules/currency.js/dist/currency.min.js");
 /* harmony import */ var currency_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(currency_js__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_5__);
 
-
-var _methods;
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
@@ -16061,8 +16059,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
+
 
 
 
@@ -16076,7 +16073,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       generalBalance: 0.00,
       dollarValue: 0.00,
       euroValue: 0.00,
-      canadianValue: 0.00
+      canadianValue: 0.00,
+      lastMonthIncomes: 0.00,
+      lastMonthExpenses: 0.00
     };
   },
   mounted: function mounted() {
@@ -16084,8 +16083,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     this.getAccounts();
     this.getDollarValue();
     this.getEuroValue();
+    this.getCanadianValue();
+    this.getLastMonthTransactionsStatistics();
   },
-  methods: (_methods = {
+  methods: {
     getTransactions: function getTransactions() {
       var _this = this;
 
@@ -16100,7 +16101,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   query: _graphql_transactions_transactions_graphql__WEBPACK_IMPORTED_MODULE_1___default.a,
                   variables: {
                     first: 20,
-                    page: 1
+                    page: 1,
+                    where: {
+                      column: "CREATED_AT",
+                      operator: "GTE",
+                      value: moment__WEBPACK_IMPORTED_MODULE_5___default()().add(-1, 'month').format() // fecha actual menos 1 mes
+
+                    }
                   }
                 });
 
@@ -16117,7 +16124,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 });
                 _this.loading = _this.$apollo.loading;
 
-              case 5:
+                _this.getLastMonthTransactionsStatistics();
+
+              case 6:
               case "end":
                 return _context.stop();
             }
@@ -16169,38 +16178,20 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     getGeneralBalance: function getGeneralBalance() {
       var _this3 = this;
 
+      var balance = this.accounts.forEach(function (item, index) {
+        _this3.generalBalance += item.balance;
+      });
+    },
+    getDollarValue: function getDollarValue() {
+      var _this4 = this;
+
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
-        var balance;
+        var response;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
                 _context3.next = 2;
-                return _this3.accounts.forEach(function (item, index) {
-                  _this3.generalBalance += item.balance;
-                });
-
-              case 2:
-                balance = _context3.sent;
-
-              case 3:
-              case "end":
-                return _context3.stop();
-            }
-          }
-        }, _callee3);
-      }))();
-    },
-    getDollarValue: function getDollarValue() {
-      var _this4 = this;
-
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
-        var response;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
-          while (1) {
-            switch (_context4.prev = _context4.next) {
-              case 0:
-                _context4.next = 2;
                 return _this4.$apollo.query({
                   query: _graphql_exchange_rates_conversion_graphql__WEBPACK_IMPORTED_MODULE_3___default.a,
                   variables: {
@@ -16213,28 +16204,28 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 });
 
               case 2:
-                response = _context4.sent;
+                response = _context3.sent;
                 _this4.dollarValue = response.data.exchangeConversion.result;
                 _this4.loading = _this4.$apollo.loading;
 
               case 5:
               case "end":
-                return _context4.stop();
+                return _context3.stop();
             }
           }
-        }, _callee4);
+        }, _callee3);
       }))();
     },
     getEuroValue: function getEuroValue() {
       var _this5 = this;
 
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5() {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
         var response;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
           while (1) {
-            switch (_context5.prev = _context5.next) {
+            switch (_context4.prev = _context4.next) {
               case 0:
-                _context5.next = 2;
+                _context4.next = 2;
                 return _this5.$apollo.query({
                   query: _graphql_exchange_rates_conversion_graphql__WEBPACK_IMPORTED_MODULE_3___default.a,
                   variables: {
@@ -16247,9 +16238,43 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 });
 
               case 2:
-                response = _context5.sent;
+                response = _context4.sent;
                 _this5.euroValue = response.data.exchangeConversion.result;
                 _this5.loading = _this5.$apollo.loading;
+
+              case 5:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4);
+      }))();
+    },
+    getCanadianValue: function getCanadianValue() {
+      var _this6 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5() {
+        var response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
+          while (1) {
+            switch (_context5.prev = _context5.next) {
+              case 0:
+                _context5.next = 2;
+                return _this6.$apollo.query({
+                  query: _graphql_exchange_rates_conversion_graphql__WEBPACK_IMPORTED_MODULE_3___default.a,
+                  variables: {
+                    input: {
+                      from: "CAD",
+                      to: "MXN",
+                      value: 1
+                    }
+                  }
+                });
+
+              case 2:
+                response = _context5.sent;
+                _this6.canadianValue = response.data.exchangeConversion.result;
+                _this6.loading = _this6.$apollo.loading;
 
               case 5:
               case "end":
@@ -16258,43 +16283,18 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           }
         }, _callee5);
       }))();
+    },
+    currencyFormatter: function currencyFormatter(value) {
+      return currency_js__WEBPACK_IMPORTED_MODULE_4___default()(value).format();
+    },
+    getLastMonthTransactionsStatistics: function getLastMonthTransactionsStatistics() {
+      var _this7 = this;
+
+      var incomes = this.transactions.forEach(function (item, index) {
+        if (item.type == 'INCOME') _this7.lastMonthIncomes += item.amount;else _this7.lastMonthExpenses += item.amount;
+      });
     }
-  }, _defineProperty(_methods, "getEuroValue", function getEuroValue() {
-    var _this6 = this;
-
-    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee6() {
-      var response;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee6$(_context6) {
-        while (1) {
-          switch (_context6.prev = _context6.next) {
-            case 0:
-              _context6.next = 2;
-              return _this6.$apollo.query({
-                query: _graphql_exchange_rates_conversion_graphql__WEBPACK_IMPORTED_MODULE_3___default.a,
-                variables: {
-                  input: {
-                    from: "CAD",
-                    to: "MXN",
-                    value: 1
-                  }
-                }
-              });
-
-            case 2:
-              response = _context6.sent;
-              _this6.canadianValue = response.data.exchangeConversion.result;
-              _this6.loading = _this6.$apollo.loading;
-
-            case 5:
-            case "end":
-              return _context6.stop();
-          }
-        }
-      }, _callee6);
-    }))();
-  }), _defineProperty(_methods, "currencyFormatter", function currencyFormatter(value) {
-    return currency_js__WEBPACK_IMPORTED_MODULE_4___default()(value).format();
-  }), _methods),
+  },
   computed: {}
 });
 
@@ -65540,7 +65540,7 @@ var render = function() {
                   _vm._v(
                     "\n                        Balance General · " +
                       _vm._s(_vm.currencyFormatter(_vm.generalBalance)) +
-                      " MX\n                    "
+                      " MXN\n                    "
                   )
                 ]
               ),
@@ -65556,7 +65556,7 @@ var render = function() {
                     _vm._v(
                       "\n                            $1 USD · " +
                         _vm._s(_vm.currencyFormatter(_vm.dollarValue)) +
-                        " MX\n                        "
+                        " MXN\n                        "
                     )
                   ]
                 ),
@@ -65571,7 +65571,7 @@ var render = function() {
                     _vm._v(
                       "\n                            $1 EUR · " +
                         _vm._s(_vm.currencyFormatter(_vm.euroValue)) +
-                        " MX\n                        "
+                        " MXN\n                        "
                     )
                   ]
                 ),
@@ -65586,7 +65586,7 @@ var render = function() {
                     _vm._v(
                       "\n                            $1 CAD · " +
                         _vm._s(_vm.currencyFormatter(_vm.canadianValue)) +
-                        " MX\n                        "
+                        " MXN\n                        "
                     )
                   ]
                 )
@@ -65595,14 +65595,34 @@ var render = function() {
           ])
         ]),
         _vm._v(" "),
-        _vm._m(0),
+        _c("div", { staticClass: "flex items-center px-6 lg:hidden" }, [
+          _c("div", { staticClass: "flex-grow flex-no-shrink py-6" }, [
+            _c("div", { staticClass: "mb-2" }, [
+              _c("span", { staticClass: "text-3xl align-top text-gray-500" }, [
+                _vm._v("MXN$")
+              ]),
+              _vm._v(" "),
+              _c("span", { staticClass: "text-5xl text-gray-500" }, [
+                _vm._v(_vm._s(_vm.currencyFormatter(_vm.generalBalance)))
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "text-sm text-green-500" }, [
+              _vm._v(
+                "\n                ↑ MXN$" +
+                  _vm._s(_vm.currencyFormatter(_vm.lastMonthIncomes)) +
+                  " (Ingresos)\n                "
+              )
+            ])
+          ])
+        ]),
         _vm._v(" "),
         _c("div", { staticClass: "hidden lg:flex" }, [
           _c("div", { staticClass: "w-1/3 text-center py-8" }, [
             _c("div", { staticClass: "border-r" }, [
               _c("div", { staticClass: "text-gray-600 mb-2" }, [
                 _c("span", { staticClass: "text-3xl align-top" }, [
-                  _vm._v("CA$")
+                  _vm._v("MXN$")
                 ]),
                 _vm._v(" "),
                 _c("span", { staticClass: "text-5xl" }, [
@@ -65624,9 +65644,53 @@ var render = function() {
             ])
           ]),
           _vm._v(" "),
-          _vm._m(1),
+          _c("div", { staticClass: "w-1/3 text-center py-8" }, [
+            _c("div", { staticClass: "border-r" }, [
+              _c("div", { staticClass: "text-gray-600 mb-2" }, [
+                _vm._m(0),
+                _vm._v(" "),
+                _c("span", { staticClass: "text-5xl" }, [
+                  _vm._v(_vm._s(_vm.currencyFormatter(_vm.lastMonthIncomes)))
+                ])
+              ]),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass: "text-sm uppercase text-gray-500 tracking-wide"
+                },
+                [
+                  _vm._v(
+                    "\n                    Ingresos en último mes\n                "
+                  )
+                ]
+              )
+            ])
+          ]),
           _vm._v(" "),
-          _vm._m(2)
+          _c("div", { staticClass: "w-1/3 text-center py-8" }, [
+            _c("div", [
+              _c("div", { staticClass: "text-gray-600 mb-2" }, [
+                _vm._m(1),
+                _vm._v(" "),
+                _c("span", { staticClass: "text-5xl" }, [
+                  _vm._v(_vm._s(_vm.currencyFormatter(_vm.lastMonthExpenses)))
+                ])
+              ]),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass: "text-sm uppercase text-gray-500 tracking-wide"
+                },
+                [
+                  _vm._v(
+                    "\n                    Gastos en el último mes\n                "
+                  )
+                ]
+              )
+            ])
+          ])
         ])
       ]
     ),
@@ -65643,7 +65707,7 @@ var render = function() {
                 "flex-grow flex flex-col bg-white border-t border-b sm:rounded sm:border shadow overflow-hidden"
             },
             [
-              _vm._m(3),
+              _vm._m(2),
               _vm._v(" "),
               _c(
                 "div",
@@ -65692,9 +65756,9 @@ var render = function() {
                     ]
                   ),
                   _vm._v(" "),
-                  _vm._m(4),
+                  _vm._m(3),
                   _vm._v(" "),
-                  _vm._m(5)
+                  _vm._m(4)
                 ]
               ),
               _vm._v(" "),
@@ -65746,9 +65810,9 @@ var render = function() {
                     ]
                   ),
                   _vm._v(" "),
-                  _vm._m(6),
+                  _vm._m(5),
                   _vm._v(" "),
-                  _vm._m(7)
+                  _vm._m(6)
                 ]
               ),
               _vm._v(" "),
@@ -65800,13 +65864,13 @@ var render = function() {
                     ]
                   ),
                   _vm._v(" "),
-                  _vm._m(8),
+                  _vm._m(7),
                   _vm._v(" "),
-                  _vm._m(9)
+                  _vm._m(8)
                 ]
               ),
               _vm._v(" "),
-              _vm._m(10)
+              _vm._m(9)
             ]
           )
         ]
@@ -65820,7 +65884,7 @@ var render = function() {
               "bg-white border-t border-b sm:rounded sm:border shadow"
           },
           [
-            _vm._m(11),
+            _vm._m(10),
             _vm._v(" "),
             _c("div", [
               _c("div", { staticClass: "text-center px-6 py-4" }, [
@@ -65864,7 +65928,7 @@ var render = function() {
                     ]
                   ),
                   _vm._v(" "),
-                  _vm._m(12)
+                  _vm._m(11)
                 ])
               ])
             ])
@@ -65879,79 +65943,18 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "flex items-center px-6 lg:hidden" }, [
-      _c("div", { staticClass: "flex-grow flex-no-shrink py-6" }, [
-        _c("div", { staticClass: "mb-2" }, [
-          _c("span", { staticClass: "text-3xl align-top text-gray-500" }, [
-            _vm._v("CA$")
-          ]),
-          _vm._v(" "),
-          _c("span", { staticClass: "text-5xl text-gray-500" }, [
-            _vm._v("21,404.74")
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "text-sm" }, [
-          _vm._v("\n                ↑ CA$12,955.35 (154.16%)\n                ")
-        ])
-      ])
+    return _c("span", { staticClass: "text-3xl align-top" }, [
+      _c("span", { staticClass: "text-green-500 align-top" }, [_vm._v("+")]),
+      _vm._v("MXN$")
     ])
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "w-1/3 text-center py-8" }, [
-      _c("div", { staticClass: "border-r" }, [
-        _c("div", { staticClass: "text-gray-600 mb-2" }, [
-          _c("span", { staticClass: "text-3xl align-top" }, [
-            _c("span", { staticClass: "text-green align-top" }, [_vm._v("+")]),
-            _vm._v("CA$")
-          ]),
-          _vm._v(" "),
-          _c("span", { staticClass: "text-5xl" }, [_vm._v("12,998")]),
-          _vm._v(" "),
-          _c("span", { staticClass: "text-3xl align-top" }, [_vm._v(".48")])
-        ]),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "text-sm uppercase text-gray-500 tracking-wide" },
-          [
-            _vm._v(
-              "\n                    Since last month (CAD)\n                "
-            )
-          ]
-        )
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "w-1/3 text-center py-8" }, [
-      _c("div", [
-        _c("div", { staticClass: "text-gray-600 mb-2" }, [
-          _c("span", { staticClass: "text-3xl align-top" }, [
-            _c("span", { staticClass: "text-green align-top" }, [_vm._v("+")])
-          ]),
-          _vm._v(" "),
-          _c("span", { staticClass: "text-5xl" }, [_vm._v("154.47")]),
-          _vm._v(" "),
-          _c("span", { staticClass: "text-3xl align-top" }, [_vm._v("%")])
-        ]),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "text-sm uppercase text-gray-500 tracking-wide" },
-          [
-            _vm._v(
-              "\n                    Since last month (%)\n                "
-            )
-          ]
-        )
-      ])
+    return _c("span", { staticClass: "text-3xl align-top" }, [
+      _c("span", { staticClass: "text-red-600 align-top" }, [_vm._v("-")]),
+      _vm._v("MXN$")
     ])
   },
   function() {
@@ -84878,8 +84881,8 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports) {
 
 
-    var doc = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"transactions"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"first"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},"directives":[]},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"page"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}},"directives":[]}],"directives":[],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"transactions"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"first"},"value":{"kind":"Variable","name":{"kind":"Name","value":"first"}}},{"kind":"Argument","name":{"kind":"Name","value":"page"},"value":{"kind":"Variable","name":{"kind":"Name","value":"page"}}}],"directives":[],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"data"},"arguments":[],"directives":[],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"},"arguments":[],"directives":[]},{"kind":"Field","name":{"kind":"Name","value":"amount"},"arguments":[],"directives":[]},{"kind":"Field","name":{"kind":"Name","value":"type"},"arguments":[],"directives":[]},{"kind":"Field","name":{"kind":"Name","value":"description"},"arguments":[],"directives":[]},{"kind":"Field","name":{"kind":"Name","value":"account"},"arguments":[],"directives":[],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"},"arguments":[],"directives":[]},{"kind":"Field","name":{"kind":"Name","value":"name"},"arguments":[],"directives":[]},{"kind":"Field","name":{"kind":"Name","value":"color"},"arguments":[],"directives":[]},{"kind":"Field","name":{"kind":"Name","value":"user"},"arguments":[],"directives":[],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"},"arguments":[],"directives":[]},{"kind":"Field","name":{"kind":"Name","value":"name"},"arguments":[],"directives":[]},{"kind":"Field","name":{"kind":"Name","value":"avatar"},"arguments":[],"directives":[]}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"category"},"arguments":[],"directives":[],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"},"arguments":[],"directives":[]},{"kind":"Field","name":{"kind":"Name","value":"name"},"arguments":[],"directives":[]}]}},{"kind":"Field","name":{"kind":"Name","value":"created_at"},"arguments":[],"directives":[]}]}}]}}]}}],"loc":{"start":0,"end":558}};
-    doc.loc.source = {"body":"# obtner las transactions\n\nquery transactions($first: Int!, $page: Int) {\n    transactions(first: $first, page: $page) {\n        data {\n            id\n            amount\n            type\n            description\n            account{\n                id\n                name\n                color\n                user{\n                    id\n                    name\n                    avatar\n                }\n                \n            }\n            category {\n                id\n                name\n            }\n            created_at\n        }\n    }\n}\n","name":"GraphQL request","locationOffset":{"line":1,"column":1}};
+    var doc = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"transactions"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"where"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"TransactionsWhereWhereConditions"}},"directives":[]},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"first"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},"directives":[]},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"page"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}},"directives":[]}],"directives":[],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"transactions"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"Variable","name":{"kind":"Name","value":"where"}}},{"kind":"Argument","name":{"kind":"Name","value":"first"},"value":{"kind":"Variable","name":{"kind":"Name","value":"first"}}},{"kind":"Argument","name":{"kind":"Name","value":"page"},"value":{"kind":"Variable","name":{"kind":"Name","value":"page"}}}],"directives":[],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"data"},"arguments":[],"directives":[],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"},"arguments":[],"directives":[]},{"kind":"Field","name":{"kind":"Name","value":"amount"},"arguments":[],"directives":[]},{"kind":"Field","name":{"kind":"Name","value":"type"},"arguments":[],"directives":[]},{"kind":"Field","name":{"kind":"Name","value":"description"},"arguments":[],"directives":[]},{"kind":"Field","name":{"kind":"Name","value":"account"},"arguments":[],"directives":[],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"},"arguments":[],"directives":[]},{"kind":"Field","name":{"kind":"Name","value":"name"},"arguments":[],"directives":[]},{"kind":"Field","name":{"kind":"Name","value":"color"},"arguments":[],"directives":[]},{"kind":"Field","name":{"kind":"Name","value":"user"},"arguments":[],"directives":[],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"},"arguments":[],"directives":[]},{"kind":"Field","name":{"kind":"Name","value":"name"},"arguments":[],"directives":[]},{"kind":"Field","name":{"kind":"Name","value":"avatar"},"arguments":[],"directives":[]}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"category"},"arguments":[],"directives":[],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"},"arguments":[],"directives":[]},{"kind":"Field","name":{"kind":"Name","value":"name"},"arguments":[],"directives":[]}]}},{"kind":"Field","name":{"kind":"Name","value":"created_at"},"arguments":[],"directives":[]}]}}]}}]}}],"loc":{"start":0,"end":615}};
+    doc.loc.source = {"body":"# obtner las transactions\n\nquery transactions($where: TransactionsWhereWhereConditions, $first: Int!, $page: Int) {\n    transactions(where: $where, first: $first, page: $page) {\n        data {\n            id\n            amount\n            type\n            description\n            account{\n                id\n                name\n                color\n                user{\n                    id\n                    name\n                    avatar\n                }\n                \n            }\n            category {\n                id\n                name\n            }\n            created_at\n        }\n    }\n}\n","name":"GraphQL request","locationOffset":{"line":1,"column":1}};
   
 
     var names = {};

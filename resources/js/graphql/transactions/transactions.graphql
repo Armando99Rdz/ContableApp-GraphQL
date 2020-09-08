@@ -1,7 +1,7 @@
 # obtner las transactions
 
-query transactions($first: Int!, $page: Int) {
-    transactions(first: $first, page: $page) {
+query transactions($where: TransactionsWhereWhereConditions, $first: Int!, $page: Int) {
+    transactions(where: $where, first: $first, page: $page) {
         data {
             id
             amount

@@ -8,17 +8,17 @@
                 </div>
                 <div class="hidden lg:flex w-full">
                     <div class="appearance-none py-4 text-gray-600 w-full">
-                        Balance General &middot; {{ currencyFormatter(generalBalance) }} MX
+                        Balance General &middot; {{ currencyFormatter(generalBalance) }} MXN
                     </div>
                     <div class="mr-2 lg:flex w-full">
                         <div class="appearance-none py-4 text-gray-500 border-b border-transparent hover:border-grey-dark mr-8 ml-auto">
-                            $1 USD &middot; {{ currencyFormatter(dollarValue) }} MX
+                            $1 USD &middot; {{ currencyFormatter(dollarValue) }} MXN
                         </div>
                         <div class="appearance-none py-4 text-gray-500 border-b border-transparent hover:border-grey-dark mr-8">
-                            $1 EUR &middot; {{currencyFormatter(euroValue)}} MX
+                            $1 EUR &middot; {{currencyFormatter(euroValue)}} MXN
                         </div>
                         <div class="appearance-none py-4 text-gray-500 border-b border-transparent hover:border-grey-dark mr-8">
-                            $1 CAD &middot; {{ currencyFormatter(canadianValue) }} MX
+                            $1 CAD &middot; {{ currencyFormatter(canadianValue) }} MXN
                         </div>
                     </div>
                 </div>
@@ -27,11 +27,11 @@
         <div class="flex items-center px-6 lg:hidden">
             <div class="flex-grow flex-no-shrink py-6">
                 <div class="mb-2">
-                    <span class="text-3xl align-top text-gray-500">CA$</span>
-                    <span class="text-5xl text-gray-500">21,404.74</span>
+                    <span class="text-3xl align-top text-gray-500">MXN$</span>
+                    <span class="text-5xl text-gray-500">{{ currencyFormatter(generalBalance) }}</span>
                 </div>
-                <div class="text-sm">
-                &uarr; CA$12,955.35 (154.16%)
+                <div class="text-sm text-green-500">
+                &uarr; MXN${{currencyFormatter(lastMonthIncomes)}} (Ingresos)
                 </div>
             </div>
         </div>
@@ -39,7 +39,7 @@
             <div class="w-1/3 text-center py-8">
                 <div class="border-r">
                 <div class="text-gray-600 mb-2">
-                    <span class="text-3xl align-top">CA$</span>
+                    <span class="text-3xl align-top">MXN$</span>
                     <span class="text-5xl">{{ currencyFormatter(generalBalance) }}</span>
                 </div>
                 <div class="text-sm uppercase text-gray-500 tracking-wide">
@@ -50,24 +50,22 @@
             <div class="w-1/3 text-center py-8">
                 <div class="border-r">
                 <div class="text-gray-600 mb-2">
-                    <span class="text-3xl align-top"><span class="text-green align-top">+</span>CA$</span>
-                    <span class="text-5xl">12,998</span>
-                    <span class="text-3xl align-top">.48</span>
+                    <span class="text-3xl align-top"><span class="text-green-500 align-top">+</span>MXN$</span>
+                    <span class="text-5xl">{{currencyFormatter(lastMonthIncomes)}}</span>
                 </div>
                 <div class="text-sm uppercase text-gray-500 tracking-wide">
-                    Since last month (CAD)
+                    Ingresos en último mes
                 </div>
                 </div>
             </div>
             <div class="w-1/3 text-center py-8">
                 <div>
                 <div class="text-gray-600 mb-2">
-                    <span class="text-3xl align-top"><span class="text-green align-top">+</span></span>
-                    <span class="text-5xl">154.47</span>
-                    <span class="text-3xl align-top">%</span>
+                    <span class="text-3xl align-top"><span class="text-red-600 align-top">-</span>MXN$</span>
+                    <span class="text-5xl">{{currencyFormatter(lastMonthExpenses)}}</span>
                 </div>
                 <div class="text-sm uppercase text-gray-500 tracking-wide">
-                    Since last month (%)
+                    Gastos en el último mes
                 </div>
                 </div>
             </div>
@@ -201,6 +199,7 @@ import TRANSACTIONS from '../graphql/transactions/transactions.graphql';
 import ACCOUNTS from '../graphql/accounts/accounts.graphql';
 import EXCHANGE_CONVERSION from '../graphql/exchange-rates/conversion.graphql';
 import currency from 'currency.js';
+import moment from 'moment';
 
 export default {
     data(){
@@ -211,7 +210,9 @@ export default {
             generalBalance: 0.00,
             dollarValue: 0.00,
             euroValue: 0.00,
-            canadianValue: 0.00
+            canadianValue: 0.00,
+            lastMonthIncomes: 0.00,
+            lastMonthExpenses: 0.00
         }
     },
     mounted(){
@@ -219,6 +220,8 @@ export default {
         this.getAccounts();
         this.getDollarValue();
         this.getEuroValue();
+        this.getCanadianValue();
+        this.getLastMonthTransactionsStatistics();
     },
     methods: {
         async getTransactions(){
@@ -226,7 +229,12 @@ export default {
                 query: TRANSACTIONS,
                 variables: {
                     first: 20,
-                    page: 1
+                    page: 1,
+                    where: {
+                        column: "CREATED_AT",
+                        operator: "GTE",
+                        value: moment().add(-1, 'month').format() // fecha actual menos 1 mes
+                    }
                 }
             });
             this.transactions = response.data.transactions.data.map(item => {
@@ -239,6 +247,7 @@ export default {
                 }
             });
             this.loading = this.$apollo.loading;
+            this.getLastMonthTransactionsStatistics();
         },
         async getAccounts(){
             const response = await this.$apollo.query({
@@ -260,8 +269,8 @@ export default {
             this.loading = this.$apollo.loading;
             this.getGeneralBalance();
         },
-        async getGeneralBalance(){
-            const balance = await this.accounts.forEach( (item, index) => {
+        getGeneralBalance(){
+            const balance = this.accounts.forEach( (item, index) => {
                 this.generalBalance += item.balance;
             });
         },
@@ -293,7 +302,7 @@ export default {
             this.euroValue = response.data.exchangeConversion.result;
             this.loading = this.$apollo.loading;
         },
-        async getEuroValue(){
+        async getCanadianValue(){
             const response = await this.$apollo.query({
                 query: EXCHANGE_CONVERSION,
                 variables: {
@@ -309,7 +318,15 @@ export default {
         },
         currencyFormatter(value){
             return currency(value).format();
-        }
+        },
+        getLastMonthTransactionsStatistics(){
+            const incomes = this.transactions.forEach( (item, index) => {
+                if(item.type == 'INCOME')
+                    this.lastMonthIncomes += item.amount;
+                else    
+                    this.lastMonthExpenses += item.amount;
+            });
+        },
     },
     computed: {
         
