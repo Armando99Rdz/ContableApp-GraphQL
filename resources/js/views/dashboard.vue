@@ -179,12 +179,8 @@
                                 <div class="w-1/2 pl-1 pr-3">
                                     <div class="text-right text-gray-700">
                                         <span class="flex text-lg my-2 font-semibold text-gray-600 items-center">
-                                            <svg v-if="transaction.type === 'INCOME'" width="22" height="22" viewBox="0 0 20 20" fill="currentColor" class="text-green-500">
-                                                <path fill-rule="evenodd" d="M12 7a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0V8.414l-4.293 4.293a1 1 0 01-1.414 0L8 10.414l-4.293 4.293a1 1 0 01-1.414-1.414l5-5a1 1 0 011.414 0L11 10.586 14.586 7H12z" clip-rule="evenodd"></path>
-                                            </svg>
-                                            <svg v-else fill="none" width="22" height="22" viewBox="0 0 24 24" stroke="currentColor" class="text-red-600">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6" />
-                                            </svg>
+                                            <span v-if="transaction.type === 'INCOME'" class="text-green-500 align-top">+</span>
+                                            <span v-else class="text-red-600 align-top text-xl">-</span>
                                             ${{transaction.amount}} MXN
                                         </span> 
                                     </div>

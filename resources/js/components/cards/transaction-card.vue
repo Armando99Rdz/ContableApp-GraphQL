@@ -83,6 +83,7 @@
             </div>
         </div>
 
+        <!--
         <div class="mx-auto md:flex md:flex-col md:-mt-10 md:mr-20 text-center">
             <div class="inline-flex justify-center md:mt-6 md:ml-auto">
                 <button class="bg-gray-200 hover:bg-indigo-700 hover:text-white 
@@ -96,6 +97,7 @@
             </div>
 
         </div>
+        -->
     </div>
 
 </template>

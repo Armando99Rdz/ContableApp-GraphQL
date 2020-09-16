@@ -14531,6 +14531,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "transaction-card",
@@ -15166,6 +15168,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _graphql_accounts_delete_graphql__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../graphql/accounts/delete.graphql */ "./resources/js/graphql/accounts/delete.graphql");
 /* harmony import */ var _graphql_accounts_delete_graphql__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_graphql_accounts_delete_graphql__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var _components_common_loading__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../components/common/loading */ "./resources/js/components/common/loading.vue");
+/* harmony import */ var currency_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! currency.js */ "./node_modules/currency.js/dist/currency.min.js");
+/* harmony import */ var currency_js__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(currency_js__WEBPACK_IMPORTED_MODULE_6__);
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -15211,12 +15215,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       headings: ['ID', 'Color', 'Nombre', 'Descripción'],
       accounts: [],
-      loading: true
+      loading: true,
+      generalBalance: 0.00
     };
   },
   components: {
@@ -15226,6 +15232,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   mounted: function mounted() {
     this.getAccounts();
+    this.getGeneralBalance();
   },
   methods: {
     getAccounts: function getAccounts() {
@@ -15329,6 +15336,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           return _ref.apply(this, arguments);
         };
       }());
+    },
+    getGeneralBalance: function getGeneralBalance() {
+      var _this3 = this;
+
+      var balance = this.accounts.forEach(function (item, index) {
+        _this3.generalBalance += item.balance;
+      });
+    },
+    currencyFormatter: function currencyFormatter(value) {
+      return currency_js__WEBPACK_IMPORTED_MODULE_6___default()(value).format();
     }
   }
 });
@@ -15856,10 +15873,6 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
-//
-//
-//
-//
 //
 //
 //
@@ -64211,51 +64224,11 @@ var render = function() {
             _c("div", { staticClass: "mt-4 flex" })
           ]
         )
-      ]),
-      _vm._v(" "),
-      _vm._m(0)
+      ])
     ]
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      {
-        staticClass:
-          "mx-auto md:flex md:flex-col md:-mt-10 md:mr-20 text-center"
-      },
-      [
-        _c(
-          "div",
-          { staticClass: "inline-flex justify-center md:mt-6 md:ml-auto" },
-          [
-            _c(
-              "button",
-              {
-                staticClass:
-                  "bg-gray-200 hover:bg-indigo-700 hover:text-white \n            text-gray-700 py-2 font-semibold px-4 rounded md:mr-2"
-              },
-              [_vm._v("\n                Editar\n            ")]
-            ),
-            _vm._v(" "),
-            _c(
-              "button",
-              {
-                staticClass:
-                  "bg-gray-200 hover:bg-red-700 hover:text-white \n            text-gray-700 py-2 px-4 font-semibold rounded"
-              },
-              [_vm._v("\n                Eliminar\n            ")]
-            )
-          ]
-        )
-      ]
-    )
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -65126,7 +65099,12 @@ var render = function() {
             "flex mt-1 mb-4 md:flex items-center justify-between text-gray-600"
         },
         [
-          _vm._m(0),
+          _c("span", { staticClass: "m-3  md:m-0 block md:flex" }, [
+            _vm._v("\n                Balance total: \n                "),
+            _c("strong", { staticClass: "ml-2" }, [
+              _vm._v(_vm._s(_vm.currencyFormatter(_vm.generalBalance)))
+            ])
+          ]),
           _vm._v(" "),
           _c("span", { staticClass: "m-3 md:m-0 block md:flex" }, [
             _vm._v("\n                Total de cuentas: \n                "),
@@ -65187,17 +65165,7 @@ var render = function() {
     )
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("span", { staticClass: "m-3  md:m-0 block md:flex" }, [
-      _vm._v("\n                Balance total: \n                "),
-      _c("strong", { staticClass: "ml-2" }, [_vm._v("$710.180")])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -66097,50 +66065,20 @@ var render = function() {
                                       [
                                         transaction.type === "INCOME"
                                           ? _c(
-                                              "svg",
+                                              "span",
                                               {
-                                                staticClass: "text-green-500",
-                                                attrs: {
-                                                  width: "22",
-                                                  height: "22",
-                                                  viewBox: "0 0 20 20",
-                                                  fill: "currentColor"
-                                                }
+                                                staticClass:
+                                                  "text-green-500 align-top"
                                               },
-                                              [
-                                                _c("path", {
-                                                  attrs: {
-                                                    "fill-rule": "evenodd",
-                                                    d:
-                                                      "M12 7a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0V8.414l-4.293 4.293a1 1 0 01-1.414 0L8 10.414l-4.293 4.293a1 1 0 01-1.414-1.414l5-5a1 1 0 011.414 0L11 10.586 14.586 7H12z",
-                                                    "clip-rule": "evenodd"
-                                                  }
-                                                })
-                                              ]
+                                              [_vm._v("+")]
                                             )
                                           : _c(
-                                              "svg",
+                                              "span",
                                               {
-                                                staticClass: "text-red-600",
-                                                attrs: {
-                                                  fill: "none",
-                                                  width: "22",
-                                                  height: "22",
-                                                  viewBox: "0 0 24 24",
-                                                  stroke: "currentColor"
-                                                }
+                                                staticClass:
+                                                  "text-red-600 align-top text-xl"
                                               },
-                                              [
-                                                _c("path", {
-                                                  attrs: {
-                                                    strokeLinecap: "round",
-                                                    strokeLinejoin: "round",
-                                                    strokeWidth: "3",
-                                                    d:
-                                                      "M13 17h8m0 0V9m0 8l-8-8-4 4-6-6"
-                                                  }
-                                                })
-                                              ]
+                                              [_vm._v("-")]
                                             ),
                                         _vm._v(
                                           "\n                                            $" +

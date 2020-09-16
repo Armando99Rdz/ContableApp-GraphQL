@@ -42,9 +42,9 @@
                                     @else
                                         <a onclick="showOrHideTopDropduwnMenu();" class="md:flex cursor-pointer w-full">
                                             <div class="md:flex-1">
-                                                <img class="inline-block h-8 w-8 rounded-full" src="https://avatars0.githubusercontent.com/u/4323180?s=460&v=4" alt="">
+                                                <img class="inline-block h-8 w-8 rounded-full" src="https://media-exp1.licdn.com/dms/image/C4E03AQFnDzNNu1cJvw/profile-displayphoto-shrink_200_200/0?e=1605744000&v=beta&t=M86L1CCD2Em2KHALLVVDZ5VVZBbw_tHJo14zF0yXzQQ" alt="">
                                             </div>
-                                            <div class="md:flex-1 hidden md:block md:flex md:items-center ml-2">
+                                            <div class="md:flex-1 hidden md:flex md:items-center ml-2">
                                                 <span class="text-white text-sm mr-1">{{ Auth::user()->name }}</span>
                                                 <div>
                                                     <svg class="fill-current text-white h-4 w-4 block opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M4.516 7.548c.436-.446 1.043-.481 1.576 0L10 11.295l3.908-3.747c.533-.481 1.141-.446 1.574 0 .436.445.408 1.197 0 1.615-.406.418-4.695 4.502-4.695 4.502a1.095 1.095 0 0 1-1.576 0S4.924 9.581 4.516 9.163c-.409-.418-.436-1.17 0-1.615z"/>
@@ -117,9 +117,10 @@
                 <div class="container mx-auto px-4">
                     <div class="md:flex justify-between items-center text-sm">
                         <div class="text-center md:text-left py-3 md:py-4 border-b md:border-b-0">
-                            <a href="#" class="no-underline text-grey-dark mr-4">Website</a>
-                            <a href="#" class="no-underline text-grey-dark mr-4">GitHub</a>
-                            <a href="#" class="no-underline text-grey-dark mr-4">Linkedin</a>
+                            <a href="https://www.armandord.work/" target="_blank" class="no-underline text-grey-dark mr-4">My website</a>
+                            <a href="https://github.com/Armando99Rdz" target="_blank" class="no-underline text-grey-dark mr-4">GitHub</a>
+                            <a href="https://www.linkedin.com/in/armandordz/" target="_blank" class="no-underline text-grey-dark mr-4">Linkedin</a>
+                            <a href="https://www.armandord.work/portfolio" target="_blank" class="no-underline text-grey-dark mr-4">Portfolio</a>
                         </div>
                         <div class="md:flex md:flex-row-reverse items-center py-4">
                             <div class="text-gray-600 text-center md:ml-2">&copy; 2020 Armando Rodríguez</div>

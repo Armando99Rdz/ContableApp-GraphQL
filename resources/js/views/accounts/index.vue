@@ -5,7 +5,7 @@
             <div class="flex mt-1 mb-4 md:flex items-center justify-between text-gray-600">
                 <span class="m-3  md:m-0 block md:flex">
                     Balance total: 
-                    <strong class="ml-2">$710.180</strong>
+                    <strong class="ml-2">{{ currencyFormatter(generalBalance) }}</strong>
                 </span>
                 <span class="m-3 md:m-0 block md:flex">
                     Total de cuentas: 
@@ -38,6 +38,7 @@
     import ACCOUNTS from '../../graphql/accounts/accounts.graphql';
     import DELETE_ACCOUNT from '../../graphql/accounts/delete.graphql';
     import Loading from '../../components/common/loading';
+    import currency from 'currency.js';
 
     export default {
         data(){
@@ -45,6 +46,7 @@
                 headings: ['ID', 'Color', 'Nombre', 'Descripción'],
                 accounts: [],
                 loading: true,
+                generalBalance: 0.00,
             }
         },
         components: {
@@ -54,6 +56,7 @@
         },
         mounted() {
             this.getAccounts();
+            this.getGeneralBalance();
         },
         methods: {
             async getAccounts(){
@@ -108,7 +111,15 @@
                         });
                     }
                 });
-            }
+            },
+            getGeneralBalance(){
+                const balance = this.accounts.forEach( (item, index) => {
+                    this.generalBalance += item.balance;
+                });
+            },
+            currencyFormatter(value){
+                return currency(value).format();
+            },
 
         }
 
